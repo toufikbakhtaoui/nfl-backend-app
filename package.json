@@ -1,0 +1,26 @@
+{
+  "name": "nfl-backend-app",
+  "version": "1.0.0",
+  "description": "The national football league backend application",
+  "main": "server.js",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=dev nodemon server.js",
+    "build": "cross-env NODE_ENV=prod node server.js",
+    "test": "jest",
+    "test:watch": "jest --watchAll --coverage",
+    "format": "npx prettier --config .prettierrc.json --write \"**/*.js\""
+  },
+  "keywords": [
+    "nfl"
+  ],
+  "author": "toufik bakhtaoui",
+  "license": "ISC",
+  "dependencies": {
+    "cross-env": "^7.0.0",
+    "express": "^4.17.1",
+    "jest": "^25.1.0",
+    "mongoose": "^5.9.2",
+    "supertest": "^4.0.2",
+    "winston": "^3.2.1"
+  }
+}
