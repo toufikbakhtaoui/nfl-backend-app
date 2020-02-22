@@ -1,6 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
-const config = require('../config')
+const config = require('../config/config')
 const routes = require('../routes')
 
 const app = express()
