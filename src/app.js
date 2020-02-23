@@ -5,10 +5,14 @@ const routes = require('./routes')
 
 const app = express()
 
-mongoose.connect(config.mongo.url, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-})
+if (process.env.NODE_ENV !== 'test') {
+    mongoose.connect(config.mongo.url, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useFindAndModify: false,
+        useCreateIndex: true,
+    })
+}
 
 app.use('/', routes)
 
