@@ -24,6 +24,12 @@
     "winston": "^3.2.1"
   },
   "devDependencies": {
-    "coveralls": "^3.0.9"
+    "coveralls": "^3.0.9",
+    "husky": "^4.2.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run format && npm run test"
+    }
   }
 }
