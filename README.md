@@ -3,4 +3,6 @@
 [![Coverage Status](https://coveralls.io/repos/github/toufikbakhtaoui/nfl-backend-app/badge.svg?branch=master)](https://coveralls.io/github/toufikbakhtaoui/nfl-backend-app?branch=master)
 ![Alt text](https://www.code-inspector.com/project/4370/score/svg)
 ![Alt text](https://www.code-inspector.com/project/4370/status/svg)
+[![Known Vulnerabilities](https://snyk.io/test/github/toufikbakhtaoui/nfl-backend-app/badge.svg?targetFile=package.json)](https://snyk.io/test/github/toufikbakhtaoui/nfl-backend-app?targetFile=package.json)
+
 # The nfl backend application
