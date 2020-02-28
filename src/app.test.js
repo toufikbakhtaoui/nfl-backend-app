@@ -1,5 +1,5 @@
 const request = require('supertest')
-const { start, stop, cleanup } = require('./commons/test-helper')
+const { start, stop, cleanup } = require('./helpers/test-helper')
 const app = require('./app')
 
 beforeAll(async () => {
@@ -14,10 +14,14 @@ afterEach(async () => {
     await cleanup()
 })
 
-describe('GET / ', () => {
-    test('It should respond with Welcome to the nfl message', async () => {
+describe('App testing', () => {
+    it('Should respond with Welcome to the nfl message', async () => {
         const response = await request(app).get('/')
         expect(response.body).toEqual({ message: 'Welcome to the nfl!' })
         expect(response.statusCode).toBe(200)
+    })
+
+    it('Should failed when env not test ', () => {
+        expect(process.env.NODE_ENV).toEqual('test')
     })
 })

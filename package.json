@@ -18,15 +18,15 @@
   "dependencies": {
     "cross-env": "^7.0.0",
     "express": "^4.17.1",
-    "jest": "^25.1.0",
-    "mongodb-memory-server": "^6.2.4",
     "mongoose": "^5.9.2",
-    "supertest": "^4.0.2",
     "winston": "^3.2.1"
   },
   "devDependencies": {
     "coveralls": "^3.0.9",
-    "husky": "^4.2.3"
+    "husky": "^4.2.3",
+    "supertest": "^4.0.2",
+    "jest": "^25.1.0",
+    "mongodb-memory-server": "^6.2.4"
   },
   "husky": {
     "hooks": {

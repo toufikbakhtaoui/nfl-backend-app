@@ -1,5 +1,6 @@
 const { MongoMemoryServer } = require('mongodb-memory-server')
 const mongoose = require('mongoose')
+const Season = require('../api/components/season/season.model')
 
 const server = new MongoMemoryServer()
 
@@ -22,8 +23,15 @@ const cleanup = async () => {
     await mongoose.connection.db.dropDatabase()
 }
 
+const seasonSetup = async () => {
+    const seasonOne = new Season({ identifier: 1, week: 1 })
+    const seasonTwo = new Season({ identifier: 2, week: 1 })
+    await Season.insertMany([seasonOne, seasonTwo])
+}
+
 module.exports = {
     start,
     stop,
     cleanup,
+    seasonSetup,
 }

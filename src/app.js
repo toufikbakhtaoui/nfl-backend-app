@@ -14,6 +14,10 @@ if (process.env.NODE_ENV !== 'test') {
     })
 }
 
-app.use('/', routes)
+app.route('/').get((req, res) => {
+    res.json({ message: 'Welcome to the nfl!' })
+})
+
+app.use('/api', routes)
 
 module.exports = app
