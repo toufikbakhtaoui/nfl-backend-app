@@ -1,6 +1,7 @@
 const { MongoMemoryServer } = require('mongodb-memory-server')
 const mongoose = require('mongoose')
 const Season = require('../api/components/season/season.model')
+const Team = require('../api/components/team/team.model')
 
 const server = new MongoMemoryServer()
 
@@ -29,9 +30,29 @@ const seasonSetup = async () => {
     await Season.insertMany([seasonOne, seasonTwo])
 }
 
+const teamSetup = async () => {
+    const teamOne = new Team({
+        identifier: 1,
+        name: 'Ravens',
+        city: 'Baltimore',
+        conference: 'afc',
+        division: 'north',
+    })
+
+    const teamTwo = new Team({
+        identifier: 2,
+        name: 'Dolphins',
+        city: 'Miami',
+        conference: 'afc',
+        division: 'east',
+    })
+    await Team.insertMany([teamOne, teamTwo])
+}
+
 module.exports = {
     start,
     stop,
     cleanup,
     seasonSetup,
+    teamSetup,
 }
