@@ -54,19 +54,27 @@ const gameSetup = async () => {
     const gameOne = new Game({
         season: 1,
         week: 1,
-        homeTeam: 12,
-        awayTeam: 19,
-        homeTeamPoints: 43,
-        awayTeamPoints: 11,
+        homeTeam: {
+            rank: 12,
+            points: 43,
+        },
+        awayTeam: {
+            rank: 19,
+            points: 11,
+        },
     })
 
     const gameTwo = new Game({
         season: 1,
         week: 2,
-        homeTeam: 13,
-        awayTeam: 9,
-        homeTeamPoints: 30,
-        awayTeamPoints: 15,
+        homeTeam: {
+            rank: 13,
+            points: 9,
+        },
+        awayTeam: {
+            rank: 30,
+            points: 15,
+        },
     })
 
     await Game.insertMany([gameOne, gameTwo])

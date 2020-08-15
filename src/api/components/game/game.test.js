@@ -26,10 +26,10 @@ beforeEach(async () => {
 describe('Game endpoint tests', () => {
     it('Should find game', async () => {
         const response = await request(app).get('/api/games/season/1/week/1')
-        expect(response.body.homeTeam).toBe(12)
-        expect(response.body.awayTeam).toBe(19)
-        expect(response.body.homeTeamPoints).toBe(43)
-        expect(response.body.awayTeamPoints).toBe(11)
+        expect(response.body.homeTeam.rank).toBe(12)
+        expect(response.body.awayTeam.rank).toBe(19)
+        expect(response.body.homeTeam.points).toBe(43)
+        expect(response.body.awayTeam.points).toBe(11)
         expect(response.status).toBe(200)
     })
 
