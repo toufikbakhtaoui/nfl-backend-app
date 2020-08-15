@@ -16,6 +16,7 @@
   "author": "toufik bakhtaoui",
   "license": "ISC",
   "dependencies": {
+    "chance": "^1.1.6",
     "cross-env": "^7.0.2",
     "express": "^4.17.1",
     "mongoose": "^5.9.2",
@@ -24,9 +25,9 @@
   "devDependencies": {
     "coveralls": "^3.0.9",
     "husky": "^4.2.3",
-    "supertest": "^4.0.2",
     "jest": "^25.1.0",
-    "mongodb-memory-server": "^6.2.4"
+    "mongodb-memory-server": "^6.2.4",
+    "supertest": "^4.0.2"
   },
   "husky": {
     "hooks": {
