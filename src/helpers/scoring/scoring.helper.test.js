@@ -1,5 +1,5 @@
-const Game = require('../api/components/game/game.model')
-const scoringHelper = require('../helpers/scoring.helper')
+const Game = require('../../api/components/game/game.model')
+const scoringHelper = require('../scoring/scoring.helper')
 
 const homeTeam = {
     rank: 1,
@@ -43,7 +43,7 @@ const game = {
     awayTeam: awayTeam,
 }
 
-describe('score calculation tests', () => {
+describe('Score calculation tests', () => {
     it('Should return score', () => {
         scoringHelper.getScore(game)
 

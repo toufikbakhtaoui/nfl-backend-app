@@ -5,7 +5,7 @@ const standingSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
-    ranking: {
+    rank: {
         type: Number,
         required: true,
     },
