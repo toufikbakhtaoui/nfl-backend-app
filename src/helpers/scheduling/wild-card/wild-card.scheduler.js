@@ -1,45 +1,11 @@
 const Game = require('../../../api/components/game/game.model')
 
-exports.generateWildCard = (standings, season) => {
-    const champions = []
-    const contenders = []
-    const divisionChampionPosition = 0
-    const contendersStartingPosition = 1
-
+exports.generateWildCard = (champions, contenders, season) => {
     const wildCardWeek = 17
     const thirdSeed = 2
     const sixthSeed = 1
     const fourthSeed = 3
     const fifthSeed = 0
-
-    standings.forEach((div) =>
-        champions.push(div.teams[divisionChampionPosition])
-    )
-
-    standings.forEach((div) =>
-        Array.prototype.push.apply(
-            contenders,
-            div.teams.slice(contendersStartingPosition)
-        )
-    )
-
-    champions.sort(function (firstTeam, secondTeam) {
-        return (
-            secondTeam.win - firstTeam.win ||
-            secondTeam.draw - firstTeam.draw ||
-            secondTeam.scored - firstTeam.scored ||
-            firstTeam.conceded - secondTeam.conceded
-        )
-    })
-
-    contenders.sort(function (firstTeam, secondTeam) {
-        return (
-            secondTeam.win - firstTeam.win ||
-            secondTeam.draw - firstTeam.draw ||
-            secondTeam.scored - firstTeam.scored ||
-            firstTeam.conceded - secondTeam.conceded
-        )
-    })
 
     const firstWildCardGame = Game({
         season: season,
