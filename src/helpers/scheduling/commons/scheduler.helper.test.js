@@ -21,7 +21,7 @@ describe('Scheduler helper', () => {
     })
 
     it('Should get winners', () => {
-        const games = schedulerData.getGames()
+        const games = schedulerData.getWildCardGames()
         const winners = schedulerHelper.getWinners(games)
         expect(winners[0].name).toBe('jaguars')
         expect(winners[1].name).toBe('steelers')

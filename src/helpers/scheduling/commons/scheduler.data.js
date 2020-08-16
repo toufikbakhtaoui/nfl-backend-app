@@ -229,7 +229,7 @@ exports.getStandings = () => {
     ]
 }
 
-exports.getGames = () => {
+exports.getWildCardGames = () => {
     return [
         new Game({
             season: 1,
@@ -261,6 +261,43 @@ exports.getGames = () => {
                 name: 'steelers',
                 identifier: 4,
                 points: 30,
+            },
+        }),
+    ]
+}
+
+exports.getDivisionalGames = () => {
+    return [
+        new Game({
+            season: 1,
+            week: 18,
+            homeTeam: {
+                rank: 1,
+                name: 'ravens',
+                identifier: 1,
+                points: 17,
+            },
+            awayTeam: {
+                rank: 2,
+                name: 'steelers',
+                identifier: 2,
+                points: 13,
+            },
+        }),
+        new Game({
+            season: 1,
+            week: 17,
+            homeTeam: {
+                rank: 3,
+                name: 'raiders',
+                identifier: 3,
+                points: 17,
+            },
+            awayTeam: {
+                rank: 4,
+                name: 'jaguars',
+                identifier: 4,
+                points: 23,
             },
         }),
     ]

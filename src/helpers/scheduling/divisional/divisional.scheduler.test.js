@@ -7,7 +7,7 @@ const standings = schedulerData.getStandings()
 describe('Divisional generation', () => {
     it('Should generate divisional', () => {
         const champions = schedulerHelper.getChampions(standings)
-        const wildCardGames = schedulerData.getGames()
+        const wildCardGames = schedulerData.getWildCardGames()
         const wildCardWinners = schedulerHelper.getWinners(wildCardGames)
         const divisionalGames = divisionalScheduler.generateDivisional(
             champions,
