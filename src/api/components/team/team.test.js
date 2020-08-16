@@ -5,7 +5,7 @@ const {
     stop,
     cleanup,
     teamSetup,
-} = require('../../../helpers/test-helper')
+} = require('../../../helpers/api-test.helper')
 
 beforeAll(async () => {
     await start()
