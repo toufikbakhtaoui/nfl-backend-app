@@ -286,7 +286,44 @@ exports.getDivisionalGames = () => {
         }),
         new Game({
             season: 1,
-            week: 17,
+            week: 18,
+            homeTeam: {
+                rank: 3,
+                name: 'raiders',
+                identifier: 3,
+                points: 17,
+            },
+            awayTeam: {
+                rank: 4,
+                name: 'jaguars',
+                identifier: 4,
+                points: 23,
+            },
+        }),
+    ]
+}
+
+exports.getChampionshipGames = () => {
+    return [
+        new Game({
+            season: 1,
+            week: 19,
+            homeTeam: {
+                rank: 1,
+                name: 'ravens',
+                identifier: 1,
+                points: 17,
+            },
+            awayTeam: {
+                rank: 2,
+                name: 'steelers',
+                identifier: 2,
+                points: 13,
+            },
+        }),
+        new Game({
+            season: 1,
+            week: 19,
             homeTeam: {
                 rank: 3,
                 name: 'raiders',
