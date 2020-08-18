@@ -34,6 +34,7 @@ const fourthDownPlay = (team) => {
             : fieldGoal(position) === 3
             ? (team.stats.fieldGoals += 1)
             : (team.stats.missedFieldGoals += 1)
+    return element
 }
 
 const play = () => {
