@@ -5,8 +5,13 @@ const schedulerHelper = require('../commons/scheduler.helper')
 describe('SuperBowl scheduler', () => {
     it('Should return superBowl game', () => {
         const championshipGames = schedulerData.getChampionshipGames()
-        const winners = schedulerHelper.getWinners(championshipGames)
-        const superBowlGame = superBowlScheduler.generateSuperBowl(winners, 1)
+        const standings = schedulerData.getStandings()
+        const winners = schedulerHelper.getWinners(championshipGames, standings)
+        const season = 1
+        const superBowlGame = superBowlScheduler.generateSuperBowl(
+            winners,
+            season
+        )
 
         expect(superBowlGame.homeTeam.name).toBe('ravens')
         expect(superBowlGame.awayTeam.name).toBe('jaguars')

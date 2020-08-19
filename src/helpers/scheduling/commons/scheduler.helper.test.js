@@ -1,7 +1,7 @@
 const schedulerHelper = require('./scheduler.helper')
 const schedulerData = require('../commons/scheduler.data')
 
-const standings = schedulerData.getStandings()
+const standings = schedulerData.getGroupedStandings()
 
 describe('Scheduler helper', () => {
     it('Should return champions', () => {
@@ -22,8 +22,9 @@ describe('Scheduler helper', () => {
 
     it('Should get winners', () => {
         const games = schedulerData.getWildCardGames()
-        const winners = schedulerHelper.getWinners(games)
-        expect(winners[0].name).toBe('jaguars')
-        expect(winners[1].name).toBe('steelers')
+        const standings = schedulerData.getStandings()
+        const winners = schedulerHelper.getWinners(games, standings)
+        expect(winners[0].name).toBe('steelers')
+        expect(winners[1].name).toBe('chiefs')
     })
 })

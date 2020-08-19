@@ -41,16 +41,19 @@ exports.getContenders = (standings) => {
     return contenders
 }
 
-exports.getWinners = (games) => {
+exports.getWinners = (games, standings) => {
     const winners = []
     games.forEach((game) => {
         const winner =
             game.homeTeam.points - game.awayTeam.points > 0
-                ? game.homeTeam
-                : game.awayTeam
-        winners.push(winner)
+                ? standings.filter(
+                      (team) => team.rank === game._doc.homeTeam._doc.rank
+                  )
+                : standings.filter(
+                      (team) => team.rank === game._doc.awayTeam._doc.rank
+                  )
+        winners.push(winner[0])
     })
-
     winners.sort(function (firstTeam, secondTeam) {
         return (
             secondTeam.win - firstTeam.win ||

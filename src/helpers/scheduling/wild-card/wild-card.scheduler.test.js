@@ -3,7 +3,7 @@ const wildCardScheduler = require('./wild-card.scheduler')
 const schedulerHelper = require('../commons/scheduler.helper')
 const schedulerData = require('../commons/scheduler.data')
 
-const standings = schedulerData.getStandings()
+const standings = schedulerData.getGroupedStandings()
 
 describe('Wild card generation', () => {
     it('Should generate wild card', () => {

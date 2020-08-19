@@ -2,13 +2,17 @@ const divisionalScheduler = require('./divisional.scheduler')
 const schedulerData = require('../commons/scheduler.data')
 const schedulerHelper = require('../commons/scheduler.helper')
 
-const standings = schedulerData.getStandings()
+const groupedStandings = schedulerData.getGroupedStandings()
 
 describe('Divisional generation', () => {
     it('Should generate divisional', () => {
-        const champions = schedulerHelper.getChampions(standings)
+        const champions = schedulerHelper.getChampions(groupedStandings)
         const wildCardGames = schedulerData.getWildCardGames()
-        const wildCardWinners = schedulerHelper.getWinners(wildCardGames)
+        const standings = schedulerData.getStandings()
+        const wildCardWinners = schedulerHelper.getWinners(
+            wildCardGames,
+            standings
+        )
         const divisionalGames = divisionalScheduler.generateDivisional(
             champions,
             wildCardWinners,
@@ -16,8 +20,8 @@ describe('Divisional generation', () => {
         )
 
         expect(divisionalGames[0].homeTeam.name).toBe('ravens')
-        expect(divisionalGames[0].awayTeam.name).toBe('steelers')
+        expect(divisionalGames[0].awayTeam.name).toBe('chiefs')
         expect(divisionalGames[1].homeTeam.name).toBe('raiders')
-        expect(divisionalGames[1].awayTeam.name).toBe('jaguars')
+        expect(divisionalGames[1].awayTeam.name).toBe('steelers')
     })
 })
