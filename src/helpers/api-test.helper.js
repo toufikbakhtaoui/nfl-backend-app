@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const Season = require('../api/components/season/season.model')
 const Team = require('../api/components/team/team.model')
 const Game = require('../api/components/game/game.model')
+const teamsHelper = require('./api-test.teams.helper')
 
 const server = new MongoMemoryServer()
 
@@ -32,22 +33,12 @@ const seasonSetup = async () => {
 }
 
 const teamSetup = async () => {
-    const teamOne = new Team({
-        identifier: 1,
-        name: 'Ravens',
-        city: 'Baltimore',
-        conference: 'afc',
-        division: 'north',
+    let insertedTeams = []
+    const teams = teamsHelper.getTestTeams()
+    teams.forEach((team) => {
+        insertedTeams.push(new Team(team))
     })
-
-    const teamTwo = new Team({
-        identifier: 2,
-        name: 'Dolphins',
-        city: 'Miami',
-        conference: 'afc',
-        division: 'east',
-    })
-    await Team.insertMany([teamOne, teamTwo])
+    await Team.insertMany(insertedTeams)
 }
 
 const gameSetup = async () => {

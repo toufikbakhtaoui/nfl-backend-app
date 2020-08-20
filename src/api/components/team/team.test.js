@@ -28,8 +28,8 @@ describe('Team endpoint tests', () => {
         const response = await request(app).get('/api/teams/1')
 
         expect(response.body.identifier).toBe(1)
-        expect(response.body.name).toBe('Ravens')
-        expect(response.body.city).toBe('Baltimore')
+        expect(response.body.name).toBe('patriots')
+        expect(response.body.city).toBe('new england')
         expect(response.status).toBe(200)
     })
 
@@ -43,7 +43,7 @@ describe('Team endpoint tests', () => {
     it('Should return all teams', async () => {
         const response = await request(app).get('/api/teams')
 
-        expect(response.body.length).toBe(2)
+        expect(response.body.length).toBe(32)
         expect(response.status).toBe(200)
     })
 
