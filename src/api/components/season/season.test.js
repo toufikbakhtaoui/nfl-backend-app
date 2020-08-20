@@ -5,7 +5,7 @@ const {
     stop,
     cleanup,
     seasonSetup,
-} = require('../../../helpers/api-test.helper')
+} = require('../../../helpers/test/api-test.helper')
 
 beforeAll(async () => {
     await start()

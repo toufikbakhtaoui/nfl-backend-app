@@ -1,5 +1,5 @@
 const request = require('supertest')
-const { start, stop, cleanup } = require('./helpers/api-test.helper')
+const { start, stop, cleanup } = require('./helpers/test/api-test.helper')
 const app = require('./app')
 
 beforeAll(async () => {

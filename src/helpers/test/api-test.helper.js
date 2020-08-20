@@ -1,9 +1,9 @@
 const { MongoMemoryServer } = require('mongodb-memory-server')
 const mongoose = require('mongoose')
-const Season = require('../api/components/season/season.model')
-const Team = require('../api/components/team/team.model')
-const Game = require('../api/components/game/game.model')
-const teamsHelper = require('./api-test.teams.helper')
+const Season = require('../../api/components/season/season.model')
+const Team = require('../../api/components/team/team.model')
+const Game = require('../../api/components/game/game.model')
+const teamsHelper = require('../test/api-test.teams.helper')
 
 const server = new MongoMemoryServer()
 
