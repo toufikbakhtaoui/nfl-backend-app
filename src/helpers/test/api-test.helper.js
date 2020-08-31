@@ -4,6 +4,7 @@ const Season = require('../../api/components/season/season.model')
 const Team = require('../../api/components/team/team.model')
 const Game = require('../../api/components/game/game.model')
 const teamsHelper = require('../test/api-test.teams.helper')
+const gameHelper = require('../test/api-test.games.helper')
 
 const server = new MongoMemoryServer()
 
@@ -42,33 +43,8 @@ const teamSetup = async () => {
 }
 
 const gameSetup = async () => {
-    const gameOne = new Game({
-        season: 1,
-        week: 1,
-        homeTeam: {
-            rank: 12,
-            points: 43,
-        },
-        awayTeam: {
-            rank: 19,
-            points: 11,
-        },
-    })
-
-    const gameTwo = new Game({
-        season: 1,
-        week: 2,
-        homeTeam: {
-            rank: 13,
-            points: 9,
-        },
-        awayTeam: {
-            rank: 30,
-            points: 15,
-        },
-    })
-
-    await Game.insertMany([gameOne, gameTwo])
+    const games = gameHelper.getTestGames()
+    await Game.insertMany(games)
 }
 
 module.exports = {

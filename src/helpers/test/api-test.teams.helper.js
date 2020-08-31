@@ -10,7 +10,7 @@ const teams = [
             {
                 season: 1,
                 rank: 1,
-                win: 10,
+                win: 9,
                 lost: 6,
                 draw: 0,
                 scored: 300,
@@ -29,7 +29,7 @@ const teams = [
             {
                 season: 1,
                 rank: 2,
-                win: 7,
+                win: 6,
                 lost: 9,
                 draw: 0,
                 scored: 110,
@@ -48,7 +48,7 @@ const teams = [
             {
                 season: 1,
                 rank: 3,
-                win: 9,
+                win: 8,
                 lost: 7,
                 draw: 0,
                 scored: 210,
@@ -67,7 +67,7 @@ const teams = [
             {
                 season: 1,
                 rank: 4,
-                win: 3,
+                win: 2,
                 lost: 13,
                 draw: 0,
                 scored: 100,
@@ -86,7 +86,7 @@ const teams = [
             {
                 season: 1,
                 rank: 5,
-                win: 14,
+                win: 13,
                 lost: 2,
                 draw: 0,
                 scored: 400,
@@ -105,7 +105,7 @@ const teams = [
             {
                 season: 1,
                 rank: 6,
-                win: 8,
+                win: 7,
                 lost: 8,
                 draw: 0,
                 scored: 300,
@@ -124,7 +124,7 @@ const teams = [
             {
                 season: 1,
                 rank: 7,
-                win: 1,
+                win: 0,
                 lost: 15,
                 draw: 0,
                 scored: 100,
@@ -143,7 +143,7 @@ const teams = [
             {
                 season: 1,
                 rank: 8,
-                win: 5,
+                win: 4,
                 lost: 11,
                 draw: 0,
                 scored: 230,
@@ -162,7 +162,7 @@ const teams = [
             {
                 season: 1,
                 rank: 9,
-                win: 7,
+                win: 6,
                 lost: 8,
                 draw: 1,
                 scored: 280,
@@ -181,7 +181,7 @@ const teams = [
             {
                 season: 1,
                 rank: 10,
-                win: 3,
+                win: 2,
                 lost: 13,
                 draw: 0,
                 scored: 100,
@@ -200,7 +200,7 @@ const teams = [
             {
                 season: 1,
                 rank: 11,
-                win: 8,
+                win: 7,
                 lost: 7,
                 draw: 1,
                 scored: 270,
@@ -219,7 +219,7 @@ const teams = [
             {
                 season: 1,
                 rank: 12,
-                win: 10,
+                win: 9,
                 lost: 6,
                 draw: 0,
                 scored: 210,
@@ -238,7 +238,7 @@ const teams = [
             {
                 season: 1,
                 rank: 13,
-                win: 11,
+                win: 10,
                 lost: 5,
                 draw: 0,
                 scored: 500,
@@ -257,7 +257,7 @@ const teams = [
             {
                 season: 1,
                 rank: 14,
-                win: 9,
+                win: 8,
                 lost: 7,
                 draw: 0,
                 scored: 410,
@@ -276,7 +276,7 @@ const teams = [
             {
                 season: 1,
                 rank: 15,
-                win: 3,
+                win: 2,
                 lost: 13,
                 draw: 0,
                 scored: 180,
@@ -295,7 +295,7 @@ const teams = [
             {
                 season: 1,
                 rank: 16,
-                win: 1,
+                win: 0,
                 lost: 15,
                 draw: 0,
                 scored: 80,
@@ -314,7 +314,7 @@ const teams = [
             {
                 season: 1,
                 rank: 17,
-                win: 1,
+                win: 0,
                 lost: 15,
                 draw: 0,
                 scored: 80,
@@ -333,7 +333,7 @@ const teams = [
             {
                 season: 1,
                 rank: 18,
-                win: 3,
+                win: 2,
                 lost: 13,
                 draw: 0,
                 scored: 180,
@@ -352,7 +352,7 @@ const teams = [
             {
                 season: 1,
                 rank: 19,
-                win: 9,
+                win: 8,
                 lost: 7,
                 draw: 0,
                 scored: 410,
@@ -371,7 +371,7 @@ const teams = [
             {
                 season: 1,
                 rank: 20,
-                win: 11,
+                win: 10,
                 lost: 5,
                 draw: 0,
                 scored: 500,
@@ -390,7 +390,7 @@ const teams = [
             {
                 season: 1,
                 rank: 21,
-                win: 10,
+                win: 9,
                 lost: 6,
                 draw: 0,
                 scored: 210,
@@ -409,7 +409,7 @@ const teams = [
             {
                 season: 1,
                 rank: 22,
-                win: 8,
+                win: 7,
                 lost: 7,
                 draw: 1,
                 scored: 270,
@@ -428,7 +428,7 @@ const teams = [
             {
                 season: 1,
                 rank: 23,
-                win: 3,
+                win: 2,
                 lost: 13,
                 draw: 0,
                 scored: 100,
@@ -447,7 +447,7 @@ const teams = [
             {
                 season: 1,
                 rank: 24,
-                win: 7,
+                win: 6,
                 lost: 8,
                 draw: 1,
                 scored: 280,
@@ -466,7 +466,7 @@ const teams = [
             {
                 season: 1,
                 rank: 25,
-                win: 5,
+                win: 4,
                 lost: 11,
                 draw: 0,
                 scored: 230,
@@ -485,7 +485,7 @@ const teams = [
             {
                 season: 1,
                 rank: 26,
-                win: 1,
+                win: 0,
                 lost: 15,
                 draw: 0,
                 scored: 100,
@@ -504,7 +504,7 @@ const teams = [
             {
                 season: 1,
                 rank: 27,
-                win: 8,
+                win: 7,
                 lost: 8,
                 draw: 0,
                 scored: 300,
@@ -523,7 +523,7 @@ const teams = [
             {
                 season: 1,
                 rank: 28,
-                win: 14,
+                win: 13,
                 lost: 2,
                 draw: 0,
                 scored: 400,
@@ -542,7 +542,7 @@ const teams = [
             {
                 season: 1,
                 rank: 29,
-                win: 3,
+                win: 2,
                 lost: 13,
                 draw: 0,
                 scored: 100,
@@ -561,7 +561,7 @@ const teams = [
             {
                 season: 1,
                 rank: 30,
-                win: 9,
+                win: 8,
                 lost: 7,
                 draw: 0,
                 scored: 210,
@@ -580,7 +580,7 @@ const teams = [
             {
                 season: 1,
                 rank: 31,
-                win: 7,
+                win: 6,
                 lost: 9,
                 draw: 0,
                 scored: 110,
@@ -599,7 +599,7 @@ const teams = [
             {
                 season: 1,
                 rank: 32,
-                win: 10,
+                win: 9,
                 lost: 6,
                 draw: 0,
                 scored: 300,
