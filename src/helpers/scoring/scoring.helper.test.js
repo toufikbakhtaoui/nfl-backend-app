@@ -1,50 +1,30 @@
 const Game = require('../../api/components/game/game.model')
 const scoringHelper = require('../scoring/scoring.helper')
 
-const homeTeam = {
-    rank: 1,
-    name: 'ravens',
-    identifier: 1,
-    points: 0,
-    stats: {
-        drives: 0,
-        punts: 0,
-        fieldGoals: 0,
-        missedFieldGoals: 0,
-        attempts: 0,
-        completions: 0,
-        yards: 0,
-        touchDowns: 0,
-        fumbleOrInterception: 0,
-    },
-}
+const { start, stop, cleanup, gameSetup } = require('../test/api-test.helper')
 
-const awayTeam = {
-    rank: 2,
-    name: 'patriots',
-    identifier: 2,
-    points: 0,
-    stats: {
-        drives: 0,
-        punts: 0,
-        fieldGoals: 0,
-        missedFieldGoals: 0,
-        attempts: 0,
-        completions: 0,
-        yards: 0,
-        touchDowns: 0,
-        fumbleOrInterception: 0,
-    },
-}
-const game = {
-    season: 1,
-    week: 1,
-    homeTeam: homeTeam,
-    awayTeam: awayTeam,
-}
+beforeAll(async () => {
+    await start()
+})
+
+afterAll(async () => {
+    await stop()
+})
+
+afterEach(async () => {
+    await cleanup()
+})
+
+beforeEach(async () => {
+    await gameSetup()
+})
 
 describe('Score calculation tests', () => {
-    it('Should return score', () => {
+    it('Should return score', async () => {
+        const season = 1
+        const week = 16
+        const games = await Game.find({ season: season, week: week })
+        const game = games[0]
         scoringHelper.getScore(game)
 
         expect(game.homeTeam.stats.drives).toBeLessThanOrEqual(13)

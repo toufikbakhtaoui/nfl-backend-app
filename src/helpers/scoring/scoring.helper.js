@@ -6,24 +6,26 @@ let endZone = 100
 let target = 0
 let fourthDown = false
 let touchDown = false
-let fumbleOrInterception = false
+let fumble = false
+let interception = false
 
 const initDrive = () => {
     position = 25
     target = position + 10
     fourthDown = false
     touchDown = false
-    fumbleOrInterception = false
+    fumble = false
+    interception = false
 }
 
 const fieldGoal = (position) => {
     return chance.weighted([0, 3], [100 - position, position])
 }
 
-const turnOver = (team) => {
+const turnOver = (team, losingBallTeam) => {
     position = 100 - position
     target = position + 10
-    executeDrive(team)
+    executeDrive(team, losingBallTeam)
 }
 
 const fourthDownPlay = (team) => {
@@ -48,8 +50,10 @@ const play = () => {
                 [1, 3, 6, 8, 10, 13, 15, 17, 20, 30],
                 [77, 75, 70, 65, 60, 55, 50, 40, 30, 15]
             )
-        case ('fumble', 'interception'):
+        case 'fumble':
             return -1
+        case 'interception':
+            return -2
         default:
             return 0
     }
@@ -57,12 +61,17 @@ const play = () => {
 
 const executeDrive = (teamToPlay, turnOverTeam) => {
     initDrive()
-    while (!fourthDown && !touchDown && !fumbleOrInterception) {
+    while (!fourthDown && !touchDown && !fumble && !interception) {
         for (let down = 1; down < 4; down++) {
             teamToPlay.stats.attempts += 1
             let gainedYards = play()
-            if (gainedYards < 0) {
-                fumbleOrInterception = true
+            if (gainedYards === -1) {
+                fumble = true
+                break
+            }
+
+            if (gainedYards === -2) {
+                interception = true
                 break
             }
 
@@ -86,9 +95,14 @@ const executeDrive = (teamToPlay, turnOverTeam) => {
             }
         }
     }
-    if (fumbleOrInterception === true) {
-        teamToPlay.stats.fumbleOrInterception += 1
-        turnOver(turnOverTeam)
+    if (fumble === true) {
+        teamToPlay.stats.fumble += 1
+        turnOver(turnOverTeam, teamToPlay)
+    }
+
+    if (interception === true) {
+        teamToPlay.stats.interception += 1
+        turnOver(turnOverTeam, teamToPlay)
     }
 }
 
