@@ -26,7 +26,8 @@ exports.generateDivisional = (champions, wildCardWinners, season) => {
                 completions: 0,
                 yards: 0,
                 touchDowns: 0,
-                fumbleOrInterception: 0,
+                fumble: 0,
+                interception: 0,
             },
         },
         awayTeam: {
@@ -43,7 +44,8 @@ exports.generateDivisional = (champions, wildCardWinners, season) => {
                 completions: 0,
                 yards: 0,
                 touchDowns: 0,
-                fumbleOrInterception: 0,
+                fumble: 0,
+                interception: 0,
             },
         },
     })
@@ -65,7 +67,8 @@ exports.generateDivisional = (champions, wildCardWinners, season) => {
                 completions: 0,
                 yards: 0,
                 touchDowns: 0,
-                fumbleOrInterception: 0,
+                fumble: 0,
+                interception: 0,
             },
         },
         awayTeam: {
@@ -82,7 +85,8 @@ exports.generateDivisional = (champions, wildCardWinners, season) => {
                 completions: 0,
                 yards: 0,
                 touchDowns: 0,
-                fumbleOrInterception: 0,
+                fumble: 0,
+                interception: 0,
             },
         },
     })

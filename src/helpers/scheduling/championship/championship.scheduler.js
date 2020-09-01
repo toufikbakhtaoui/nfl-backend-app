@@ -22,7 +22,8 @@ exports.generateChampionship = (divisionalWinners, season) => {
                 completions: 0,
                 yards: 0,
                 touchDowns: 0,
-                fumbleOrInterception: 0,
+                fumble: 0,
+                interception: 0,
             },
         },
         awayTeam: {
@@ -39,7 +40,8 @@ exports.generateChampionship = (divisionalWinners, season) => {
                 completions: 0,
                 yards: 0,
                 touchDowns: 0,
-                fumbleOrInterception: 0,
+                fumble: 0,
+                interception: 0,
             },
         },
     })

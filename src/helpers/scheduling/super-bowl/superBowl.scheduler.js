@@ -1,6 +1,6 @@
 const Game = require('../../../api/components/game/game.model')
 
-exports.generateSuperBowl = (championshipWinners, season) => {
+const generateSuperBowl = (championshipWinners, season) => {
     const superBowlWeek = 20
     const higherSeed = championshipWinners[0]
     const lowerSeed = championshipWinners[1]
@@ -22,7 +22,8 @@ exports.generateSuperBowl = (championshipWinners, season) => {
                 completions: 0,
                 yards: 0,
                 touchDowns: 0,
-                fumbleOrInterception: 0,
+                fumble: 0,
+                interception: 0,
             },
         },
         awayTeam: {
@@ -39,8 +40,13 @@ exports.generateSuperBowl = (championshipWinners, season) => {
                 completions: 0,
                 yards: 0,
                 touchDowns: 0,
-                fumbleOrInterception: 0,
+                fumble: 0,
+                interception: 0,
             },
         },
     })
+}
+
+module.exports = {
+    generateSuperBowl,
 }

@@ -24,7 +24,8 @@ exports.generateWildCard = (champions, contenders, season) => {
                 completions: 0,
                 yards: 0,
                 touchDowns: 0,
-                fumbleOrInterception: 0,
+                fumble: 0,
+                interception: 0,
             },
         },
         awayTeam: {
@@ -41,7 +42,8 @@ exports.generateWildCard = (champions, contenders, season) => {
                 completions: 0,
                 yards: 0,
                 touchDowns: 0,
-                fumbleOrInterception: 0,
+                fumble: 0,
+                interception: 0,
             },
         },
     })
@@ -63,7 +65,8 @@ exports.generateWildCard = (champions, contenders, season) => {
                 completions: 0,
                 yards: 0,
                 touchDowns: 0,
-                fumbleOrInterception: 0,
+                fumble: 0,
+                interception: 0,
             },
         },
         awayTeam: {
@@ -80,7 +83,8 @@ exports.generateWildCard = (champions, contenders, season) => {
                 completions: 0,
                 yards: 0,
                 touchDowns: 0,
-                fumbleOrInterception: 0,
+                fumble: 0,
+                interception: 0,
             },
         },
     })
