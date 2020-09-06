@@ -1,5 +1,18 @@
 const Game = require('../../../api/components/game/game.model')
 
+const stats = {
+    drives: 0,
+    punts: 0,
+    fieldGoals: 0,
+    missedFieldGoals: 0,
+    attempts: 0,
+    completions: 0,
+    yards: 0,
+    touchDowns: 0,
+    fumble: 0,
+    interception: 0,
+}
+
 exports.generateWildCard = (champions, contenders, season) => {
     const wildCardWeek = 17
     const thirdSeed = 2
@@ -15,36 +28,14 @@ exports.generateWildCard = (champions, contenders, season) => {
             name: champions[thirdSeed].name,
             identifier: champions[thirdSeed].identifier,
             points: 0,
-            stats: {
-                drives: 0,
-                punts: 0,
-                fieldGoals: 0,
-                missedFieldGoals: 0,
-                attempts: 0,
-                completions: 0,
-                yards: 0,
-                touchDowns: 0,
-                fumble: 0,
-                interception: 0,
-            },
+            stats: stats,
         },
         awayTeam: {
             rank: contenders[sixthSeed].rank,
             name: contenders[sixthSeed].name,
             identifier: contenders[sixthSeed].identifier,
             points: 0,
-            stats: {
-                drives: 0,
-                punts: 0,
-                fieldGoals: 0,
-                missedFieldGoals: 0,
-                attempts: 0,
-                completions: 0,
-                yards: 0,
-                touchDowns: 0,
-                fumble: 0,
-                interception: 0,
-            },
+            stats: stats,
         },
     })
 
@@ -56,36 +47,14 @@ exports.generateWildCard = (champions, contenders, season) => {
             name: champions[fourthSeed].name,
             identifier: champions[fourthSeed].identifier,
             points: 0,
-            stats: {
-                drives: 0,
-                punts: 0,
-                fieldGoals: 0,
-                missedFieldGoals: 0,
-                attempts: 0,
-                completions: 0,
-                yards: 0,
-                touchDowns: 0,
-                fumble: 0,
-                interception: 0,
-            },
+            stats: stats,
         },
         awayTeam: {
             rank: contenders[fifthSeed].rank,
             name: contenders[fifthSeed].name,
             identifier: contenders[fifthSeed].identifier,
             points: 0,
-            stats: {
-                drives: 0,
-                punts: 0,
-                fieldGoals: 0,
-                missedFieldGoals: 0,
-                attempts: 0,
-                completions: 0,
-                yards: 0,
-                touchDowns: 0,
-                fumble: 0,
-                interception: 0,
-            },
+            stats: stats,
         },
     })
     return [firstWildCardGame, secondWildCardGame]
