@@ -51,14 +51,14 @@ const playGames = async (req, res) => {
                 }
 
                 if (week <= regularSeasonWeeks) {
-                    teamService.updateStandings(games, season)
+                    await teamService.updateStandings(games, season)
                 }
 
                 currentSeason.week = currentSeason.week + 1
                 await currentSeason.save()
 
                 if (week >= regularSeasonWeeks) {
-                    schedulerHelper.generatePlayoffs(week, season)
+                    await schedulerHelper.generatePlayoffs(week, season)
                 }
             }
             res.status(httpSatus.success).json(games)
