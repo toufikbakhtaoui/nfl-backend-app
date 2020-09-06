@@ -31,7 +31,7 @@ exports.generateDivisional = (champions, wildCardWinners, season) => {
             },
         },
         awayTeam: {
-            rank: worstWildCardSeed.rank,
+            rank: worstWildCardSeed.standings.rank,
             name: worstWildCardSeed.name,
             identifier: worstWildCardSeed.identifier,
             points: 0,
@@ -72,7 +72,7 @@ exports.generateDivisional = (champions, wildCardWinners, season) => {
             },
         },
         awayTeam: {
-            rank: bestWildCardSeed.rank,
+            rank: bestWildCardSeed.standings.rank,
             name: bestWildCardSeed.name,
             identifier: bestWildCardSeed.identifier,
             points: 0,

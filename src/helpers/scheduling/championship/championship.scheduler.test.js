@@ -29,14 +29,14 @@ beforeEach(async () => {
 
 describe('Championship scheduler', () => {
     it('Should return championship games', async () => {
-        const season = 1
+        const season = 2
         const week = 18
         const divisionalGames = await Game.find({ season: season, week: week })
         const standings = await teamService.getStandings(season)
         const winners = schedulerHelper.getWinners(divisionalGames, standings)
         const championshipGame = championshipScheduler.generateChampionship(
             winners,
-            1
+            season
         )
 
         expect(championshipGame.homeTeam.name).toBe('ravens')

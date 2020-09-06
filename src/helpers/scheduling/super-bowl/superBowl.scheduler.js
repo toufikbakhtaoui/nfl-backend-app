@@ -9,7 +9,7 @@ const generateSuperBowl = (championshipWinners, season) => {
         season: season,
         week: superBowlWeek,
         homeTeam: {
-            rank: higherSeed.rank,
+            rank: higherSeed.standings.rank,
             name: higherSeed.name,
             identifier: higherSeed.identifier,
             points: 0,
@@ -27,7 +27,7 @@ const generateSuperBowl = (championshipWinners, season) => {
             },
         },
         awayTeam: {
-            rank: lowerSeed.rank,
+            rank: lowerSeed.standings.rank,
             name: lowerSeed.name,
             identifier: lowerSeed.identifier,
             points: 0,

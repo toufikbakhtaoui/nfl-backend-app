@@ -4,7 +4,7 @@ const logger = require('../../../../config/winston.config')
 
 const findOneSeason = async (req, res) => {
     try {
-        const identifier = req.params.identifier
+        const identifier = Number(req.params.identifier)
         logger.debug('findOneSeason - identifier: ' + identifier)
         const season = await Season.findOne({ identifier: identifier })
         if (season) {

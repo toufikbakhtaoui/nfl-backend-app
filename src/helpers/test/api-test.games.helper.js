@@ -7,6 +7,7 @@ const game1 = new Game({
         rank: 1,
         name: 'patriots',
         identifier: 1,
+        points: 0,
         stats: {
             drives: 0,
             punts: 0,
@@ -24,6 +25,7 @@ const game1 = new Game({
         rank: 2,
         name: 'dolphins',
         identifier: 2,
+        points: 0,
         stats: {
             drives: 0,
             punts: 0,
@@ -45,6 +47,7 @@ const game2 = new Game({
         rank: 3,
         name: 'bills',
         identifier: 3,
+        points: 0,
         stats: {
             drives: 0,
             punts: 0,
@@ -62,6 +65,7 @@ const game2 = new Game({
         rank: 4,
         name: 'jets',
         identifier: 4,
+        points: 0,
         stats: {
             drives: 0,
             punts: 0,
@@ -83,6 +87,7 @@ const game3 = new Game({
         rank: 5,
         name: 'ravens',
         identifier: 5,
+        points: 0,
         stats: {
             drives: 0,
             punts: 0,
@@ -100,6 +105,7 @@ const game3 = new Game({
         rank: 6,
         name: 'steelers',
         identifier: 6,
+        points: 0,
         stats: {
             drives: 0,
             punts: 0,
@@ -121,6 +127,7 @@ const game4 = new Game({
         rank: 7,
         name: 'bengals',
         identifier: 7,
+        points: 0,
         stats: {
             drives: 0,
             punts: 0,
@@ -138,6 +145,7 @@ const game4 = new Game({
         rank: 8,
         name: 'browns',
         identifier: 8,
+        points: 0,
         stats: {
             drives: 0,
             punts: 0,
@@ -159,6 +167,7 @@ const game5 = new Game({
         rank: 9,
         name: 'texans',
         identifier: 9,
+        points: 0,
         stats: {
             drives: 0,
             punts: 0,
@@ -176,6 +185,7 @@ const game5 = new Game({
         rank: 10,
         name: 'titans',
         identifier: 10,
+        points: 0,
         stats: {
             drives: 0,
             punts: 0,
@@ -197,6 +207,7 @@ const game6 = new Game({
         rank: 11,
         name: 'colts',
         identifier: 11,
+        points: 0,
         stats: {
             drives: 0,
             punts: 0,
@@ -214,6 +225,7 @@ const game6 = new Game({
         rank: 12,
         name: 'jaguars',
         identifier: 12,
+        points: 0,
         stats: {
             drives: 0,
             punts: 0,
@@ -235,6 +247,7 @@ const game7 = new Game({
         rank: 13,
         name: 'chiefs',
         identifier: 13,
+        points: 0,
         stats: {
             drives: 0,
             punts: 0,
@@ -252,6 +265,7 @@ const game7 = new Game({
         rank: 14,
         name: 'raiders',
         identifier: 14,
+        points: 0,
         stats: {
             drives: 0,
             punts: 0,
@@ -273,6 +287,7 @@ const game8 = new Game({
         rank: 15,
         name: 'broncos',
         identifier: 15,
+        points: 0,
         stats: {
             drives: 0,
             punts: 0,
@@ -290,6 +305,7 @@ const game8 = new Game({
         rank: 16,
         name: 'chargers',
         identifier: 16,
+        points: 0,
         stats: {
             drives: 0,
             punts: 0,
@@ -311,6 +327,7 @@ const game9 = new Game({
         rank: 17,
         name: 'cowboys',
         identifier: 17,
+        points: 0,
         stats: {
             drives: 0,
             punts: 0,
@@ -328,6 +345,7 @@ const game9 = new Game({
         rank: 18,
         name: 'giants',
         identifier: 18,
+        points: 0,
         stats: {
             drives: 0,
             punts: 0,
@@ -349,6 +367,7 @@ const game10 = new Game({
         rank: 19,
         name: 'redskins',
         identifier: 19,
+        points: 0,
         stats: {
             drives: 0,
             punts: 0,
@@ -366,6 +385,7 @@ const game10 = new Game({
         rank: 20,
         name: 'eagles',
         identifier: 20,
+        points: 0,
         stats: {
             drives: 0,
             punts: 0,
@@ -387,6 +407,7 @@ const game11 = new Game({
         rank: 21,
         name: 'packers',
         identifier: 21,
+        points: 0,
         stats: {
             drives: 0,
             punts: 0,
@@ -404,6 +425,7 @@ const game11 = new Game({
         rank: 22,
         name: 'lions',
         identifier: 22,
+        points: 0,
         stats: {
             drives: 0,
             punts: 0,
@@ -425,6 +447,7 @@ const game12 = new Game({
         rank: 23,
         name: 'vikings',
         identifier: 23,
+        points: 0,
         stats: {
             drives: 0,
             punts: 0,
@@ -442,6 +465,7 @@ const game12 = new Game({
         rank: 24,
         name: 'bears',
         identifier: 24,
+        points: 0,
         stats: {
             drives: 0,
             punts: 0,
@@ -463,6 +487,7 @@ const game13 = new Game({
         rank: 25,
         name: 'falcons',
         identifier: 25,
+        points: 0,
         stats: {
             drives: 0,
             punts: 0,
@@ -480,6 +505,7 @@ const game13 = new Game({
         rank: 26,
         name: 'buccaneers',
         identifier: 26,
+        points: 0,
         stats: {
             drives: 0,
             punts: 0,
@@ -501,6 +527,7 @@ const game14 = new Game({
         rank: 27,
         name: 'panthers',
         identifier: 27,
+        points: 0,
         stats: {
             drives: 0,
             punts: 0,
@@ -518,6 +545,7 @@ const game14 = new Game({
         rank: 28,
         name: 'saints',
         identifier: 28,
+        points: 0,
         stats: {
             drives: 0,
             punts: 0,
@@ -539,6 +567,7 @@ const game15 = new Game({
         rank: 29,
         name: 'cardinals',
         identifier: 29,
+        points: 0,
         stats: {
             drives: 0,
             punts: 0,
@@ -556,6 +585,7 @@ const game15 = new Game({
         rank: 30,
         name: '49ers',
         identifier: 30,
+        points: 0,
         stats: {
             drives: 0,
             punts: 0,
@@ -577,6 +607,7 @@ const game16 = new Game({
         rank: 31,
         name: 'seahawks',
         identifier: 31,
+        points: 0,
         stats: {
             drives: 0,
             punts: 0,
@@ -594,6 +625,7 @@ const game16 = new Game({
         rank: 32,
         name: 'rams',
         identifier: 32,
+        points: 0,
         stats: {
             drives: 0,
             punts: 0,
@@ -610,7 +642,7 @@ const game16 = new Game({
 })
 
 const game17 = new Game({
-    season: 1,
+    season: 2,
     week: 17,
     homeTeam: {
         rank: 1,
@@ -651,7 +683,7 @@ const game17 = new Game({
 })
 
 const game18 = new Game({
-    season: 1,
+    season: 2,
     week: 17,
     homeTeam: {
         rank: 12,
@@ -692,7 +724,7 @@ const game18 = new Game({
 })
 
 const game19 = new Game({
-    season: 1,
+    season: 2,
     week: 18,
     homeTeam: {
         rank: 5,
@@ -733,7 +765,7 @@ const game19 = new Game({
 })
 
 const game20 = new Game({
-    season: 1,
+    season: 2,
     week: 18,
     homeTeam: {
         rank: 14,
@@ -774,7 +806,7 @@ const game20 = new Game({
 })
 
 const game21 = new Game({
-    season: 1,
+    season: 2,
     week: 19,
     homeTeam: {
         rank: 14,
@@ -815,7 +847,7 @@ const game21 = new Game({
 })
 
 const game22 = new Game({
-    season: 1,
+    season: 2,
     week: 19,
     homeTeam: {
         rank: 5,

@@ -33,7 +33,11 @@ const stats = new mongoose.Schema({
         type: Number,
         required: true,
     },
-    fumbleOrInterception: {
+    fumble: {
+        type: Number,
+        required: true,
+    },
+    interception: {
         type: Number,
         required: true,
     },

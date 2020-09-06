@@ -28,7 +28,7 @@ describe('Season endpoint tests', () => {
         const response = await request(app).get('/api/seasons/1')
 
         expect(response.body.identifier).toBe(1)
-        expect(response.body.week).toBe(1)
+        expect(response.body.week).toBe(16)
         expect(response.status).toBe(200)
     })
 

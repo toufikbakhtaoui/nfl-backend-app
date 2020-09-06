@@ -74,7 +74,7 @@ exports.getStandingsByDivision = async (season) => {
                         city: '$city',
                         name: '$name',
                         stadium: '$stadium',
-                        ranking: '$standings.rank',
+                        rank: '$standings.rank',
                         win: '$standings.win',
                         lost: '$standings.lost',
                         draw: '$standings.draw',

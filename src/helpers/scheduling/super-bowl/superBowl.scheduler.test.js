@@ -29,7 +29,7 @@ beforeEach(async () => {
 
 describe('SuperBowl scheduler', () => {
     it('Should return superBowl game', async () => {
-        const season = 1
+        const season = 2
         const week = 19
         const championshipGames = await Game.find({
             season: season,

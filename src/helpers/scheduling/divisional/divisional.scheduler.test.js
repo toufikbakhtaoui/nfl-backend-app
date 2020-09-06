@@ -29,7 +29,7 @@ beforeEach(async () => {
 
 describe('Divisional generation', () => {
     it('Should generate divisional', async () => {
-        const season = 1
+        const season = 2
         const week = 17
         const standingsByDivision = await teamService.getStandingsByDivision(
             season
@@ -47,7 +47,7 @@ describe('Divisional generation', () => {
         const divisionalGames = divisionalScheduler.generateDivisional(
             champions,
             wildCardWinners,
-            1
+            season
         )
         expect(divisionalGames[0].homeTeam.name).toBe('ravens')
         expect(divisionalGames[0].awayTeam.name).toBe('bills')

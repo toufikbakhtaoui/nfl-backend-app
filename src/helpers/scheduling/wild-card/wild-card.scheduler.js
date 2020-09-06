@@ -7,7 +7,7 @@ exports.generateWildCard = (champions, contenders, season) => {
     const fourthSeed = 3
     const fifthSeed = 0
 
-    const firstWildCardGame = Game({
+    const firstWildCardGame = new Game({
         season: season,
         week: wildCardWeek,
         homeTeam: {
@@ -48,7 +48,7 @@ exports.generateWildCard = (champions, contenders, season) => {
         },
     })
 
-    const secondWildCardGame = Game({
+    const secondWildCardGame = new Game({
         season: season,
         week: wildCardWeek,
         homeTeam: {

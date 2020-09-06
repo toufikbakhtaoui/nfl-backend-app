@@ -9,7 +9,7 @@ exports.generateChampionship = (divisionalWinners, season) => {
         season: season,
         week: championshipWeek,
         homeTeam: {
-            rank: higherSeed.rank,
+            rank: higherSeed.standings.rank,
             name: higherSeed.name,
             identifier: higherSeed.identifier,
             points: 0,
@@ -27,7 +27,7 @@ exports.generateChampionship = (divisionalWinners, season) => {
             },
         },
         awayTeam: {
-            rank: lowerSeed.rank,
+            rank: lowerSeed.standings.rank,
             name: lowerSeed.name,
             identifier: lowerSeed.identifier,
             points: 0,
