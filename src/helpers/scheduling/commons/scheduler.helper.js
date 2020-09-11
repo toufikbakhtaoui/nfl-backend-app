@@ -3,7 +3,23 @@ const wildCardScheduler = require('../wild-card/wild-card.scheduler')
 const divisionalScheduler = require('../divisional/divisional.scheduler')
 const championshipScheduler = require('../championship/championship.scheduler')
 const superBowlScheduler = require('../super-bowl/superBowl.scheduler')
+const regularSeasonScheduler = require('../regular-season/regular-season.scheduler')
 const Game = require('../../../api/components/game/game.model')
+const Season = require('../../../api/components/season/season.model')
+const Team = require('../../../api/components/team/team.model')
+
+const stats = {
+    drives: 0,
+    punts: 0,
+    fieldGoals: 0,
+    missedFieldGoals: 0,
+    attempts: 0,
+    completions: 0,
+    yards: 0,
+    touchDowns: 0,
+    fumble: 0,
+    interception: 0,
+}
 
 const getChampions = (standings) => {
     const divisionChampionPosition = 0
@@ -74,6 +90,66 @@ const getWinners = (games, standings) => {
     return winners
 }
 
+const insertNewSeason = async (newSeasonIdentifier) => {
+    const newSeason = new Season({ identifier: newSeasonIdentifier, week: 1 })
+    await newSeason.save()
+}
+
+const generateNewSeason = async (
+    nextSeasonIdentifier,
+    afcStandings,
+    nfcStandings
+) => {
+    await insertNewSeason(nextSeasonIdentifier)
+    await teamService.insertStandings(afcStandings, nextSeasonIdentifier)
+    await teamService.insertStandings(nfcStandings, nextSeasonIdentifier)
+
+    const newSeasonMatchups = regularSeasonScheduler.generateRegularSeason(
+        nextSeasonIdentifier
+    )
+    //need to call two times to get the right result
+    await Team.find()
+    await Team.find()
+    const teams = await teamService.getStandings(nextSeasonIdentifier)
+
+    let newSeasonGames = []
+    newSeasonMatchups.forEach((game) => {
+        const homeTeamName = teams.find(
+            (team) => team.standings.rank === game.homeTeamRank
+        ).name
+        const homeTeamIdentifier = teams.find(
+            (team) => team.standings.rank === game.homeTeamRank
+        ).identifier
+        const awayTeamName = teams.find(
+            (team) => team.standings.rank === game.awayTeamRank
+        ).name
+        const awayTeamIdentifier = teams.find(
+            (team) => team.standings.rank === game.awayTeamRank
+        ).identifier
+
+        let newSeasonGame = new Game({
+            season: nextSeasonIdentifier,
+            week: game.week,
+            homeTeam: {
+                rank: game.homeTeamRank,
+                name: homeTeamName,
+                identifier: homeTeamIdentifier,
+                points: 0,
+                stats: stats,
+            },
+            awayTeam: {
+                rank: game.awayTeamRank,
+                name: awayTeamName,
+                identifier: awayTeamIdentifier,
+                points: 0,
+                stats: stats,
+            },
+        })
+        newSeasonGames.push(newSeasonGame)
+    })
+    await Game.insertMany(newSeasonGames)
+}
+
 const generatePlayoffs = async (week, season) => {
     const standingsByDivision = await teamService.getStandingsByDivision(season)
 
@@ -113,8 +189,8 @@ const generatePlayoffs = async (week, season) => {
                 season
             )
 
-            let wildCardGames = afcWildCardGames.concat(nfcWildCardGames)
-            const wildCard = await Game.insertMany(wildCardGames)
+            const wildCardGames = afcWildCardGames.concat(nfcWildCardGames)
+            await Game.insertMany(wildCardGames)
             break
         case 17:
             const afcDivisionalGames = divisionalScheduler.generateDivisional(
@@ -128,7 +204,7 @@ const generatePlayoffs = async (week, season) => {
                 season
             )
             let divisionalGames = afcDivisionalGames.concat(nfcDivisionalGames)
-            const divisional = await Game.insertMany(divisionalGames)
+            await Game.insertMany(divisionalGames)
             break
         case 18:
             const afcChampionshipGame = championshipScheduler.generateChampionship(
@@ -139,18 +215,22 @@ const generatePlayoffs = async (week, season) => {
                 nfcWinners,
                 season
             )
-            const championhsip = await Game.insertMany([
-                afcChampionshipGame,
-                nfcChampionshipGame,
-            ])
+            await Game.insertMany([afcChampionshipGame, nfcChampionshipGame])
             break
         case 19:
             const superBowlGame = superBowlScheduler.generateSuperBowl(
                 [afcWinners[0], nfcWinners[0]],
                 season
             )
-            const superBowl = await Game.insertMany([superBowlGame])
+            await Game.insertMany([superBowlGame])
             break
+        case 20:
+            const nextSeasonIdentifier = season + 1
+            await generateNewSeason(
+                nextSeasonIdentifier,
+                afcStandings,
+                nfcStandings
+            )
         default:
             break
     }

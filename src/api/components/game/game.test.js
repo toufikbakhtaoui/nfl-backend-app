@@ -1,5 +1,6 @@
 const request = require('supertest')
 const app = require('../../../app')
+const Game = require('./game.model')
 const {
     start,
     stop,
@@ -142,5 +143,33 @@ describe('Game endpoint tests', () => {
         )
         const superBowl = await request(app).get('/api/games/season/1/week/20')
         expect(superBowl.body.length).toEqual(1)
+    })
+
+    it('Should add new season games after playing superBowl', async () => {
+        await request(app).get('/api/games/scores/season/1/week/16')
+        await request(app).get('/api/games/scores/season/1/week/17')
+        await request(app).get('/api/games/scores/season/1/week/18')
+        await request(app).get('/api/games/scores/season/1/week/19')
+
+        await request(app).get('/api/games/scores/season/1/week/20')
+
+        const newRegularSeason = await request(app).get('/api/seasons/2')
+        expect(newRegularSeason.body.week).toEqual(1)
+
+        const teams = await request(app).get('/api/teams')
+        expect(teams.body.length).toEqual(32)
+
+        const teamStandings = teams.body[0].standings
+        const seasonTwoStandings = teamStandings.find(
+            (standing) => standing.season === 2
+        )
+        expect(seasonTwoStandings.win).toBe(0)
+        expect(seasonTwoStandings.lost).toBe(0)
+        expect(seasonTwoStandings.draw).toBe(0)
+        expect(seasonTwoStandings.scored).toBe(0)
+        expect(seasonTwoStandings.conceded).toBe(0)
+
+        const games = await Game.find({ season: 2 })
+        expect(games.length).toBe(256)
     })
 })

@@ -224,7 +224,6 @@ const generateSameConferenceDifferentDivisionGames = (season) => {
 
 const generateSameDivisionGames = () => {
     const games = []
-    let i = 0
     for (let division = 1; division < 9; division++) {
         const complementToPosition = (division - 1) * teamsPerDivision
         const schedule = getScheduleFromFile(sameDivisionScheduleFile)
@@ -232,7 +231,7 @@ const generateSameDivisionGames = () => {
         for (const [key, value] of schedule.entries()) {
             for (const matchup of value) {
                 let game = {
-                    week: key,
+                    week: Number(key),
                     homeTeamRank: parseInt(matchup[0]) + complementToPosition,
                     awayTeamRank: parseInt(matchup[1]) + complementToPosition,
                 }

@@ -70,7 +70,7 @@ exports.getStandingsByDivision = async (season) => {
                 },
                 teams: {
                     $push: {
-                        team: '$team',
+                        identifier: '$identifier',
                         city: '$city',
                         name: '$name',
                         stadium: '$stadium',
@@ -104,4 +104,35 @@ exports.getStandings = async (season) => {
             },
         },
     ])
+}
+
+exports.insertStandings = async (standings, newSeasonIdentifier) => {
+    const teamsPerDivision = 4
+    standings.forEach(async (div) => {
+        div.teams.forEach(async (team, i) => {
+            const currentTeam = await Team.findOne({
+                identifier: team.identifier,
+            })
+            const currentSeasonStandings = currentTeam.standings.find(
+                (standing) => standing.season === newSeasonIdentifier - 1
+            )
+            const modulus = currentSeasonStandings.rank % teamsPerDivision
+            const dividing = Math.floor(
+                currentSeasonStandings.rank / teamsPerDivision
+            )
+            const division = modulus === 0 ? dividing : dividing + 1
+            const newRank = (division - 1) * teamsPerDivision + i + 1
+            let newStanding = {
+                season: newSeasonIdentifier,
+                rank: newRank,
+                win: 0,
+                lost: 0,
+                draw: 0,
+                scored: 0,
+                conceded: 0,
+            }
+            currentTeam.standings.push(newStanding)
+            await currentTeam.save()
+        })
+    })
 }
