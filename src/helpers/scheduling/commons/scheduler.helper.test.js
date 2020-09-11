@@ -52,7 +52,7 @@ describe('Scheduler helper', () => {
     })
 
     it('Should get winners', async () => {
-        const season = 2
+        const season = 3
         const week = 17
         const standings = await teamService.getStandings(season)
         const games = await Game.find({ season: season, week: week })

@@ -29,7 +29,7 @@ beforeEach(async () => {
 
 describe('Championship scheduler', () => {
     it('Should return championship games', async () => {
-        const season = 2
+        const season = 3
         const week = 18
         const divisionalGames = await Game.find({ season: season, week: week })
         const standings = await teamService.getStandings(season)

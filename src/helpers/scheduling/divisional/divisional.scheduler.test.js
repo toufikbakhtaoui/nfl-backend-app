@@ -29,7 +29,7 @@ beforeEach(async () => {
 
 describe('Divisional generation', () => {
     it('Should generate divisional', async () => {
-        const season = 2
+        const season = 3
         const week = 17
         const standingsByDivision = await teamService.getStandingsByDivision(
             season

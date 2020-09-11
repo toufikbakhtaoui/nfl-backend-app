@@ -17,7 +17,7 @@ const teams = [
                 conceded: 150,
             },
             {
-                season: 2,
+                season: 3,
                 rank: 1,
                 win: 9,
                 lost: 6,
@@ -45,7 +45,7 @@ const teams = [
                 conceded: 350,
             },
             {
-                season: 2,
+                season: 3,
                 rank: 1,
                 win: 9,
                 lost: 6,
@@ -73,7 +73,7 @@ const teams = [
                 conceded: 190,
             },
             {
-                season: 2,
+                season: 3,
                 rank: 3,
                 win: 8,
                 lost: 7,
@@ -101,7 +101,7 @@ const teams = [
                 conceded: 400,
             },
             {
-                season: 2,
+                season: 3,
                 rank: 4,
                 win: 2,
                 lost: 13,
@@ -129,7 +129,7 @@ const teams = [
                 conceded: 150,
             },
             {
-                season: 2,
+                season: 3,
                 rank: 5,
                 win: 13,
                 lost: 2,
@@ -157,7 +157,7 @@ const teams = [
                 conceded: 320,
             },
             {
-                season: 2,
+                season: 3,
                 rank: 6,
                 win: 7,
                 lost: 8,
@@ -185,7 +185,7 @@ const teams = [
                 conceded: 500,
             },
             {
-                season: 2,
+                season: 3,
                 rank: 7,
                 win: 0,
                 lost: 15,
@@ -213,7 +213,7 @@ const teams = [
                 conceded: 450,
             },
             {
-                season: 2,
+                season: 3,
                 rank: 8,
                 win: 4,
                 lost: 11,
@@ -241,7 +241,7 @@ const teams = [
                 conceded: 270,
             },
             {
-                season: 2,
+                season: 3,
                 rank: 9,
                 win: 6,
                 lost: 8,
@@ -269,7 +269,7 @@ const teams = [
                 conceded: 390,
             },
             {
-                season: 2,
+                season: 3,
                 rank: 10,
                 win: 2,
                 lost: 13,
@@ -297,7 +297,7 @@ const teams = [
                 conceded: 250,
             },
             {
-                season: 2,
+                season: 3,
                 rank: 11,
                 win: 7,
                 lost: 7,
@@ -325,7 +325,7 @@ const teams = [
                 conceded: 90,
             },
             {
-                season: 2,
+                season: 3,
                 rank: 12,
                 win: 9,
                 lost: 6,
@@ -353,7 +353,7 @@ const teams = [
                 conceded: 210,
             },
             {
-                season: 2,
+                season: 3,
                 rank: 13,
                 win: 10,
                 lost: 5,
@@ -381,7 +381,7 @@ const teams = [
                 conceded: 329,
             },
             {
-                season: 2,
+                season: 3,
                 rank: 14,
                 win: 8,
                 lost: 7,
@@ -409,7 +409,7 @@ const teams = [
                 conceded: 319,
             },
             {
-                season: 2,
+                season: 3,
                 rank: 15,
                 win: 2,
                 lost: 13,
@@ -437,7 +437,7 @@ const teams = [
                 conceded: 420,
             },
             {
-                season: 2,
+                season: 3,
                 rank: 16,
                 win: 0,
                 lost: 15,
@@ -465,7 +465,7 @@ const teams = [
                 conceded: 420,
             },
             {
-                season: 2,
+                season: 3,
                 rank: 17,
                 win: 0,
                 lost: 15,
@@ -493,7 +493,7 @@ const teams = [
                 conceded: 319,
             },
             {
-                season: 2,
+                season: 3,
                 rank: 18,
                 win: 2,
                 lost: 13,
@@ -521,7 +521,7 @@ const teams = [
                 conceded: 329,
             },
             {
-                season: 2,
+                season: 3,
                 rank: 19,
                 win: 8,
                 lost: 7,
@@ -549,7 +549,7 @@ const teams = [
                 conceded: 210,
             },
             {
-                season: 2,
+                season: 3,
                 rank: 20,
                 win: 10,
                 lost: 5,
@@ -577,7 +577,7 @@ const teams = [
                 conceded: 90,
             },
             {
-                season: 2,
+                season: 3,
                 rank: 21,
                 win: 9,
                 lost: 6,
@@ -605,7 +605,7 @@ const teams = [
                 conceded: 250,
             },
             {
-                season: 2,
+                season: 3,
                 rank: 22,
                 win: 7,
                 lost: 7,
@@ -633,7 +633,7 @@ const teams = [
                 conceded: 390,
             },
             {
-                season: 2,
+                season: 3,
                 rank: 23,
                 win: 2,
                 lost: 13,
@@ -661,7 +661,7 @@ const teams = [
                 conceded: 270,
             },
             {
-                season: 2,
+                season: 3,
                 rank: 24,
                 win: 6,
                 lost: 8,
@@ -689,7 +689,7 @@ const teams = [
                 conceded: 450,
             },
             {
-                season: 2,
+                season: 3,
                 rank: 25,
                 win: 4,
                 lost: 11,
@@ -717,7 +717,7 @@ const teams = [
                 conceded: 500,
             },
             {
-                season: 2,
+                season: 3,
                 rank: 26,
                 win: 0,
                 lost: 15,
@@ -745,7 +745,7 @@ const teams = [
                 conceded: 320,
             },
             {
-                season: 2,
+                season: 3,
                 rank: 27,
                 win: 7,
                 lost: 8,
@@ -773,7 +773,7 @@ const teams = [
                 conceded: 150,
             },
             {
-                season: 2,
+                season: 3,
                 rank: 28,
                 win: 13,
                 lost: 2,
@@ -801,7 +801,7 @@ const teams = [
                 conceded: 400,
             },
             {
-                season: 2,
+                season: 3,
                 rank: 29,
                 win: 2,
                 lost: 13,
@@ -829,7 +829,7 @@ const teams = [
                 conceded: 190,
             },
             {
-                season: 2,
+                season: 3,
                 rank: 30,
                 win: 8,
                 lost: 7,
@@ -857,7 +857,7 @@ const teams = [
                 conceded: 350,
             },
             {
-                season: 2,
+                season: 3,
                 rank: 31,
                 win: 6,
                 lost: 9,
@@ -885,7 +885,7 @@ const teams = [
                 conceded: 150,
             },
             {
-                season: 2,
+                season: 3,
                 rank: 32,
                 win: 9,
                 lost: 6,

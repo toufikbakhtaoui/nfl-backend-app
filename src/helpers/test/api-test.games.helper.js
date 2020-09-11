@@ -302,7 +302,7 @@ const game16 = new Game({
 })
 
 const game17 = new Game({
-    season: 2,
+    season: 3,
     week: 17,
     homeTeam: {
         rank: 1,
@@ -321,7 +321,7 @@ const game17 = new Game({
 })
 
 const game18 = new Game({
-    season: 2,
+    season: 3,
     week: 17,
     homeTeam: {
         rank: 12,
@@ -340,7 +340,7 @@ const game18 = new Game({
 })
 
 const game19 = new Game({
-    season: 2,
+    season: 3,
     week: 18,
     homeTeam: {
         rank: 5,
@@ -359,7 +359,7 @@ const game19 = new Game({
 })
 
 const game20 = new Game({
-    season: 2,
+    season: 3,
     week: 18,
     homeTeam: {
         rank: 14,
@@ -378,7 +378,7 @@ const game20 = new Game({
 })
 
 const game21 = new Game({
-    season: 2,
+    season: 3,
     week: 19,
     homeTeam: {
         rank: 14,
@@ -397,7 +397,7 @@ const game21 = new Game({
 })
 
 const game22 = new Game({
-    season: 2,
+    season: 3,
     week: 19,
     homeTeam: {
         rank: 5,

@@ -29,7 +29,7 @@ const cleanup = async () => {
 
 const seasonSetup = async () => {
     const seasonOne = new Season({ identifier: 1, week: 16 })
-    const seasonTwo = new Season({ identifier: 2, week: 1 })
+    const seasonTwo = new Season({ identifier: 3, week: 1 })
     await Season.insertMany([seasonOne, seasonTwo])
 }
 
