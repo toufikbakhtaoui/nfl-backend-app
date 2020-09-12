@@ -1,3 +1,4 @@
+const teamsFile = require('../../../data/teams/teams.json')
 const teamService = require('../../../api/components/team/team.service')
 const wildCardScheduler = require('../wild-card/wild-card.scheduler')
 const divisionalScheduler = require('../divisional/divisional.scheduler')
@@ -7,7 +8,7 @@ const regularSeasonScheduler = require('../regular-season/regular-season.schedul
 const Game = require('../../../api/components/game/game.model')
 const Season = require('../../../api/components/season/season.model')
 const Team = require('../../../api/components/team/team.model')
-
+const logger = require('../../../../config/winston.config')
 const stats = {
     drives: 0,
     punts: 0,
@@ -95,15 +96,8 @@ const insertNewSeason = async (newSeasonIdentifier) => {
     await newSeason.save()
 }
 
-const generateNewSeason = async (
-    nextSeasonIdentifier,
-    afcStandings,
-    nfcStandings
-) => {
+const generateNewSeason = async (nextSeasonIdentifier) => {
     await insertNewSeason(nextSeasonIdentifier)
-    await teamService.insertStandings(afcStandings, nextSeasonIdentifier)
-    await teamService.insertStandings(nfcStandings, nextSeasonIdentifier)
-
     const newSeasonMatchups = regularSeasonScheduler.generateRegularSeason(
         nextSeasonIdentifier
     )
@@ -226,13 +220,54 @@ const generatePlayoffs = async (week, season) => {
             break
         case 20:
             const nextSeasonIdentifier = season + 1
-            await generateNewSeason(
-                nextSeasonIdentifier,
+            await teamService.insertStandings(
                 afcStandings,
-                nfcStandings
+                nextSeasonIdentifier
             )
+            await teamService.insertStandings(
+                nfcStandings,
+                nextSeasonIdentifier
+            )
+            await generateNewSeason(nextSeasonIdentifier)
         default:
             break
+    }
+}
+
+const createTeamList = async () => {
+    const teams = []
+    teamsFile.forEach((item) => {
+        let team = new Team({
+            identifier: item.identifier,
+            name: item.name,
+            city: item.city,
+            stadium: item.stadium,
+            conference: item.conference,
+            division: item.division,
+            standings: [
+                {
+                    season: 1,
+                    rank: item.identifier,
+                    win: 0,
+                    lost: 0,
+                    draw: 0,
+                    scored: 0,
+                    conceded: 0,
+                },
+            ],
+        })
+        teams.push(team)
+    })
+    await Team.insertMany(teams)
+}
+const initCareer = async () => {
+    logger.info(`Initlisation of a new career`)
+    const seasons = await Season.find()
+    if (seasons.length > 0) {
+        logger.debug(`Playing season ${seasons[seasons.length - 1]}`)
+    } else {
+        await createTeamList()
+        await generateNewSeason(1)
     }
 }
 
@@ -241,4 +276,5 @@ module.exports = {
     getContenders,
     getWinners,
     generatePlayoffs,
+    initCareer,
 }
