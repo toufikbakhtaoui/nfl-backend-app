@@ -1,0 +1,335 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "The national football league",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "host": "localhost:8080",
+    "basePath": "/api",
+    "paths": {
+        "/seasons": {
+            "get": {
+                "tags": [
+                    "Seasons"
+                ],
+                "summary":"Get all seasons",
+                "responses":{
+                    "200":{
+                       "description":"OK",
+                       "schema":{
+                          "$ref":"#/definitions/Seasons"
+                       }
+                    }
+                 }
+            }    
+        },
+        "/seasons/{identifier}": {
+            "get": {
+                "tags": [
+                    "Seasons"
+                ],
+                "summary": "Get one season",
+                "parameters": [
+                    {
+                        "name": "season",
+                        "in": "path",
+                        "schema": {
+                            "$ref": "#/definitions/Season"
+                        }
+                    }
+
+                ],
+                "responses":{
+                    "200":{
+                       "description":"OK",
+                       "schema":{
+                          "$ref":"#/definitions/Season"
+                       }
+                    }
+                 }
+            }
+        },
+        "/teams": {
+            "get": {
+                "tags": [
+                    "Teams"
+                ],
+                "summary":"Get all teams",
+                "responses":{
+                    "200":{
+                       "description":"OK",
+                       "schema":{
+                          "$ref":"#/definitions/Teams"
+                       }
+                    }
+                 }
+            }    
+        },
+        "/teams/{identifier}": {
+            "get": {
+                "tags": [
+                    "Teams"
+                ],
+                "summary": "Get one team",
+                "parameters": [
+                    {
+                        "name": "team",
+                        "in": "path",
+                        "schema": {
+                            "$ref": "#/definitions/Team"
+                        }
+                    }
+
+                ],
+                "responses":{
+                    "200":{
+                       "description":"OK",
+                       "schema":{
+                          "$ref":"#/definitions/Team"
+                       }
+                    }
+                 }
+            }
+        },
+        "/games/season/{season}/week/{week}": {
+            "get": {
+                "tags": [
+                    "Games"
+                ],
+                "summary": "Get all week's games",
+                "parameters": [
+                    {
+                        "name": "season",
+                        "in": "path",
+                        "schema": {
+                            "$ref": "#/definitions/Games"
+                        }
+                    },
+                    {
+                        "name": "week",
+                        "in": "path",
+                        "schema": {
+                            "$ref": "#/definitions/Games"
+                        }
+                    }
+
+                ],
+                "responses":{
+                    "200":{
+                       "description":"OK",
+                       "schema":{
+                          "$ref":"#/definitions/Games"
+                       }
+                    }
+                 }
+            }
+        },
+        "/games/scores/season/{season}/week/{week}": {
+            "get": {
+                "tags": [
+                    "Games"
+                ],
+                "summary": "Play games",
+                "parameters": [
+                    {
+                        "name": "season",
+                        "in": "path",
+                        "schema": {
+                            "$ref": "#/definitions/Games"
+                        }
+                    },
+                    {
+                        "name": "week",
+                        "in": "path",
+                        "schema": {
+                            "$ref": "#/definitions/Games"
+                        }
+                    }
+
+                ],
+                "responses":{
+                    "200":{
+                       "description":"OK",
+                       "schema":{
+                          "$ref":"#/definitions/Games"
+                       }
+                    }
+                 }
+            }
+        }
+    },
+    "definitions": {
+        "Season": {
+            "properties": {
+                "identifier": {
+                    "type": "number"
+                },
+                "week": {
+                    "type": "number"
+                }
+            }
+        },
+        "Seasons":{
+            "type":"array",
+            "$ref":"#/definitions/Season"
+        },
+        "Team": {
+            "properties": {
+                "identifier": {
+                    "type": "number"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "city": {
+                    "type": "string"
+                },
+                "conference": {
+                    "type": "string"
+                },
+                "division": {
+                    "type": "string"
+                },
+                "stadium": {
+                    "type": "string"
+                },
+                "standings": {
+                    "type": "array",
+                    "items": {
+                        "season": "number",
+                        "rank": "number",
+                        "win": "number",
+                        "lost": "number",
+                        "draw": "number",
+                        "scored": "number",
+                        "conceded": "number"
+                    }
+                }
+            }
+        },
+        "Teams":{
+            "type":"array",
+            "$ref":"#/definitions/Team"
+        },
+        "Game": {
+            "properties": {
+                "season": {
+                    "type": "number"
+                },
+                "week": {
+                    "type": "number"
+                },
+                "homeTeam": {
+                    "properties": {
+                        "rank": {
+                            "type": "number"
+                        },
+                        "identifier": {
+                            "type": "number"
+                        },
+                        "name": {
+                            "type": "number"
+                        },
+                        "points": {
+                            "type": "number"
+                        },
+                        "stats": {
+                            "properties": {
+                                "drives": {
+                                    "type": "number"
+                                },
+                                "punts": {
+                                    "type": "number"
+                                },
+                                "fieldGoals": {
+                                    "type": "number"
+                                },
+                                "missedFieldGoals": {
+                                    "type": "number"
+                                },
+                                "attempts": {
+                                    "type": "number"
+                                },
+                                "completions": {
+                                    "type": "number"
+                                },
+                                "yards": {
+                                    "type": "number"
+                                },
+                                "touchDowns": {
+                                    "type": "number"
+                                },
+                                "fumble": {
+                                    "type": "number"
+                                },
+                                "interception": {
+                                    "type": "number"
+                                }
+                            }
+                        }
+                    }
+                },
+                "awayTeam": {
+                    "properties": {
+                        "rank": {
+                            "type": "number"
+                        },
+                        "identifier": {
+                            "type": "number"
+                        },
+                        "name": {
+                            "type": "number"
+                        },
+                        "points": {
+                            "type": "number"
+                        },
+                        "stats": {
+                            "properties": {
+                                "drives": {
+                                    "type": "number"
+                                },
+                                "punts": {
+                                    "type": "number"
+                                },
+                                "fieldGoals": {
+                                    "type": "number"
+                                },
+                                "missedFieldGoals": {
+                                    "type": "number"
+                                },
+                                "attempts": {
+                                    "type": "number"
+                                },
+                                "completions": {
+                                    "type": "number"
+                                },
+                                "yards": {
+                                    "type": "number"
+                                },
+                                "touchDowns": {
+                                    "type": "number"
+                                },
+                                "fumble": {
+                                    "type": "number"
+                                },
+                                "interception": {
+                                    "type": "number"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "Games":{
+            "type":"array",
+            "$ref":"#/definitions/Game"
+        }
+    },
+    "consumes": ["application/json"],
+    "produces": ["application/json"]
+}
