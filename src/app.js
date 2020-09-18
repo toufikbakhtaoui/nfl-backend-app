@@ -1,4 +1,5 @@
 const express = require('express')
+var cors = require('cors')
 const mongoose = require('mongoose')
 const swaggerUi = require('swagger-ui-express')
 const swaggerDocument = require('../swagger.json')
@@ -15,6 +16,8 @@ if (process.env.NODE_ENV !== 'test') {
         useCreateIndex: true,
     })
 }
+
+app.use(cors())
 
 app.route('/').get((req, res) => {
     res.json({ message: 'Welcome to the nfl!' })

@@ -261,13 +261,17 @@ const createTeamList = async () => {
     await Team.insertMany(teams)
 }
 const initCareer = async () => {
-    logger.info(`Initlisation of a new career`)
-    const seasons = await Season.find()
-    if (seasons.length > 0) {
-        logger.debug(`Playing season ${seasons[seasons.length - 1]}`)
-    } else {
-        await createTeamList()
-        await generateNewSeason(1)
+    try {
+        const seasons = await Season.find()
+        if (seasons.length > 0) {
+            logger.debug(`Playing season ${seasons[seasons.length - 1]}`)
+        } else {
+            await createTeamList()
+            await generateNewSeason(1)
+            logger.debug(`Playing first season`)
+        }
+    } catch (error) {
+        logger.error(`------------ error: --------- ${error}`)
     }
 }
 
