@@ -4,11 +4,14 @@
     "description": "The national football league backend application",
     "main": "server.js",
     "scripts": {
-        "dev": "cross-env NODE_ENV=dev nodemon server.js",
+        "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\" ",
+        "server": "cross-env NODE_ENV=dev nodemon server.js",
+        "client": "cd client && yarn start",
         "start": "cross-env NODE_ENV=prod node server.js",
         "test": "cross-env NODE_ENV=test jest",
         "test:watch": "cross-env NODE_ENV=test jest --watchAll --coverage",
-        "format": "npx prettier --config .prettierrc.json --write \"**/*.js\""
+        "format": "npx prettier --config .prettierrc.json --write \"**/*.js\"",
+        "heroku-postbuild": "cd client && yarn && yarn build"
     },
     "keywords": [
         "nfl"
@@ -21,10 +24,11 @@
         "cross-env": "^7.0.2",
         "express": "^4.17.1",
         "mongoose": "^5.9.2",
-        "winston": "^3.3.2",
-        "swagger-ui-express": "^4.1.4"
+        "swagger-ui-express": "^4.1.4",
+        "winston": "^3.3.2"
     },
     "devDependencies": {
+        "concurrently": "^5.3.0",
         "coveralls": "^3.0.9",
         "husky": "^4.2.3",
         "jest": "^25.1.0",
