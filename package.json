@@ -21,7 +21,7 @@
     "dependencies": {
         "chance": "^1.1.6",
         "cors": "^2.8.5",
-        "cross-env": "^7.0.2",
+        "cross-env": "^7.0.3",
         "express": "^4.17.1",
         "mongoose": "^5.9.2",
         "swagger-ui-express": "^4.1.4",
