@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify'
+import router from './config/router.config'
 import 'vuetify/dist/vuetify.min.css'
 import '@mdi/font/css/materialdesignicons.css'
 import app from './App'
@@ -9,6 +10,7 @@ Vue.use(Vuetify)
 
 new Vue({
     el: '#app',
+    router,
     vuetify: new Vuetify(),
     render: (h) => h(app),
 })

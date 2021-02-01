@@ -5,12 +5,13 @@
   "license": "MIT",
   "scripts": {
     "start": "node_modules/.bin/parcel index.html",
-    "watch": "node_modules/.bin/parcel watch index.html",
+    "serve": "node_modules/.bin/parcel serve index.html",
     "build": "parcel build index.html"
   },
   "dependencies": {
-    "parcel-bundler": "^1.12.4",
     "@mdi/font": "^5.6.55",
+    "axios": "^0.20.0",
+    "parcel-bundler": "^1.12.4",
     "vue": "^2.6.12",
     "vue-router": "^3.4.3",
     "vuetify": "^2.3.10"
@@ -20,5 +21,12 @@
     "sass": "^1.26.11",
     "vue-hot-reload-api": "^2.3.4",
     "vue-template-compiler": "^2.6.12"
-  }
+  },
+  "browserslist": [
+    "last 3 and_chr versions",
+    "last 3 chrome versions",
+    "last 3 opera versions",
+    "last 3 ios_saf versions",
+    "last 3 safari versions"
+  ]
 }
