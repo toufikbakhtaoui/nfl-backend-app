@@ -7,7 +7,18 @@ const scoringHelper = require('../../../helpers/scoring/scoring.helper')
 const schedulerHelper = require('../../../helpers/scheduling/commons/scheduler.helper')
 
 const regularSeasonWeeks = 16
-
+const stats = {
+    drives: 0,
+    punts: 0,
+    fieldGoals: 0,
+    missedFieldGoals: 0,
+    attempts: 0,
+    completions: 0,
+    yards: 0,
+    touchDowns: 0,
+    fumble: 0,
+    interception: 0,
+} 
 const findGames = async (req, res) => {
     try {
         const season = Number(req.params.season)
@@ -47,6 +58,13 @@ const playGames = async (req, res) => {
             if (week === currentSeason.week) {
                 for (let game of games) {
                     scoringHelper.getScore(game)
+                    while (game.homeTeam.points === game.awayTeam.points && game.week > 16) {
+                        game.homeTeam.points = 0
+                        game.awayTeam.points = 0
+                        game.homeTeam.stast = stats
+                        game.awayTeam.stats = stats
+                        scoringHelper.getScore(game)
+                    }
                     await game.save()
                 }
 
