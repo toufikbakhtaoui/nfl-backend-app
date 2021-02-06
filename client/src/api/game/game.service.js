@@ -7,7 +7,7 @@ const findGames = async (seasonIdentifier, week) => {
     return games.data
 }
 
-const playGames = async (seasonIdentifier) => {
+const playGames = async (seasonIdentifier, week) => {
     const games = await axios.get(
         '/games/scores/season/' + seasonIdentifier + '/week/' + week
     )
