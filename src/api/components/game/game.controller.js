@@ -55,9 +55,7 @@ const findGamesByWeek = async (req, res) => {
             logger.debug('findGamesByWeek - success - games: ' + games)
             res.status(httpSatus.success).json(games)
         } else {
-            logger.debug(
-                'findGamesByWeek - not found - week: ' + week
-            )
+            logger.debug('findGamesByWeek - not found - week: ' + week)
             res.status(httpSatus.notfound).json('No game was found')
         }
     } catch (error) {
