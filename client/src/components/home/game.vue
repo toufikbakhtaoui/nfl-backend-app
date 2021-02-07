@@ -5,6 +5,9 @@
         <v-list dense>
             <template v-for="(game, index) in games">
                 <v-list-item :key="game._id" class="game-item">
+                    <div class="team-reord">
+                        {{ getRecord(game.awayTeam.identifier, game.season) }}
+                    </div>
                     <div class="team-name">
                         {{ game.awayTeam.name }}
                     </div>
@@ -36,6 +39,9 @@
 
                     <div class="team-name home-team-name">
                         {{ game.homeTeam.name }}
+                    </div>
+                    <div class="team-reord">
+                        {{ getRecord(game.homeTeam.identifier, game.season) }}
                     </div>
                 </v-list-item>
                 <v-divider v-if="index < 16" :key="index"></v-divider>
@@ -107,6 +113,7 @@ require('../../../assets/logos/bears/bears.svg')
 
 import gameService from '../../api/game/game.service'
 import seasonService from '../../api/season/season.service'
+import teamService from '../../api/team/team.service'
 
 export default {
     name: 'game',
@@ -114,11 +121,13 @@ export default {
         return {
             games: [],
             seasons: [],
+            teams: [],
             currentSeason: {},
             displayedWeek: 0,
         }
     },
     async created() {
+        await this.getTeams()
         await this.getCurrentSeason()
     },
     methods: {
@@ -158,6 +167,7 @@ export default {
                     this.currentSeason.identifier,
                     this.displayedWeek
                 )
+                this.getTeams()
                 const isSeasonStillOnPlay = this.currentSeason.week <= 20
                 if (isSeasonStillOnPlay) {
                     this.currentSeason.week++
@@ -174,6 +184,19 @@ export default {
             )
             this.displayedWeek = this.currentSeason.week
         },
+
+        async getTeams() {
+            this.teams = await teamService.findAllTeams()
+        },
+
+        getRecord(teamIdentifier, currentSeason) {
+            const standings = this.teams.find(team => team.identifier === teamIdentifier).standings
+            const win = standings.find(standing => standing.season === currentSeason).win
+            const lost = standings.find(standing => standing.season === currentSeason).lost
+            const draw = standings.find(standing => standing.season === currentSeason).draw
+            const name = this.teams.find(team => team.identifier === teamIdentifier).name
+            return '('+win + '-' + lost + '-' + draw + ')'    
+        }
     },
 }
 </script>
@@ -184,7 +207,7 @@ export default {
 }
 
 .games {
-    width: 350px;
+    width: 450px;
 }
 
 .game-item {

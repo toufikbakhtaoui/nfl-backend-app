@@ -18,7 +18,7 @@ const stats = {
     touchDowns: 0,
     fumble: 0,
     interception: 0,
-} 
+}
 const findGames = async (req, res) => {
     try {
         const season = Number(req.params.season)
@@ -58,7 +58,10 @@ const playGames = async (req, res) => {
             if (week === currentSeason.week) {
                 for (let game of games) {
                     scoringHelper.getScore(game)
-                    while (game.homeTeam.points === game.awayTeam.points && game.week > 16) {
+                    while (
+                        game.homeTeam.points === game.awayTeam.points &&
+                        game.week > 16
+                    ) {
                         game.homeTeam.points = 0
                         game.awayTeam.points = 0
                         game.homeTeam.stast = stats
@@ -69,6 +72,7 @@ const playGames = async (req, res) => {
                 }
 
                 if (week <= regularSeasonWeeks) {
+                    logger.debug('update standings - success - season: ' + season)
                     await teamService.updateStandings(games, season)
                 }
 

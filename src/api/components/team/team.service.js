@@ -1,4 +1,5 @@
 const Team = require('./team.model')
+const logger = require('../../../../config/winston.config')
 
 const isDraw = (firstScore, secondScore) => {
     return firstScore === secondScore ? 1 : 0
@@ -8,9 +9,9 @@ const isWin = (firstScore, secondScore) => {
     return firstScore > secondScore ? 1 : 0
 }
 
-const updateOneStanding = async (season, team, w, l, d, s, c) => {
+const updateOneStanding = async (season, rank, identifier, w, l, d, s, c) => {
     await Team.findOneAndUpdate(
-        { 'standings.rank': team, 'standings.season': season },
+        { 'identifier': identifier, 'standings.season': season, 'standings.rank': rank },
         {
             $inc: {
                 'standings.$.win': w,
@@ -25,9 +26,11 @@ const updateOneStanding = async (season, team, w, l, d, s, c) => {
 
 exports.updateStandings = async (games, season) => {
     for (let game of games) {
+        logger.debug('update standings teams homeTeam ' + game.homeTeam.name + ' awayTeam ' + game.awayTeam.name)
         await updateOneStanding(
             season,
             game.homeTeam.rank,
+            game.homeTeam.identifier,
             isWin(game.homeTeam.points, game.awayTeam.points),
             isWin(game.awayTeam.points, game.homeTeam.points),
             isDraw(game.homeTeam.points, game.awayTeam.points),
@@ -37,6 +40,7 @@ exports.updateStandings = async (games, season) => {
         await updateOneStanding(
             season,
             game.awayTeam.rank,
+            game.awayTeam.identifier,
             isWin(game.awayTeam.points, game.homeTeam.points),
             isWin(game.homeTeam.points, game.awayTeam.points),
             isDraw(game.homeTeam.points, game.awayTeam.points),
