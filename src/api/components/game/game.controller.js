@@ -72,7 +72,9 @@ const playGames = async (req, res) => {
                 }
 
                 if (week <= regularSeasonWeeks) {
-                    logger.debug('update standings - success - season: ' + season)
+                    logger.debug(
+                        'update standings - success - season: ' + season
+                    )
                     await teamService.updateStandings(games, season)
                 }
 

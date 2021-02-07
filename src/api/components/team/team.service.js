@@ -11,7 +11,11 @@ const isWin = (firstScore, secondScore) => {
 
 const updateOneStanding = async (season, rank, identifier, w, l, d, s, c) => {
     await Team.findOneAndUpdate(
-        { 'identifier': identifier, 'standings.season': season, 'standings.rank': rank },
+        {
+            identifier: identifier,
+            'standings.season': season,
+            'standings.rank': rank,
+        },
         {
             $inc: {
                 'standings.$.win': w,
@@ -26,7 +30,12 @@ const updateOneStanding = async (season, rank, identifier, w, l, d, s, c) => {
 
 exports.updateStandings = async (games, season) => {
     for (let game of games) {
-        logger.debug('update standings teams homeTeam ' + game.homeTeam.name + ' awayTeam ' + game.awayTeam.name)
+        logger.debug(
+            'update standings teams homeTeam ' +
+                game.homeTeam.name +
+                ' awayTeam ' +
+                game.awayTeam.name
+        )
         await updateOneStanding(
             season,
             game.homeTeam.rank,
