@@ -128,6 +128,32 @@
                  }
             }
         },
+        "/games/week/{week}": {
+            "get": {
+                "tags": [
+                    "Games"
+                ],
+                "summary": "Get all games for specific week",
+                "parameters": [
+                    {
+                        "name": "week",
+                        "in": "path",
+                        "schema": {
+                            "$ref": "#/definitions/Games"
+                        }
+                    }
+
+                ],
+                "responses":{
+                    "200":{
+                       "description":"OK",
+                       "schema":{
+                          "$ref":"#/definitions/Games"
+                       }
+                    }
+                 }
+            }
+        },
         "/games/scores/season/{season}/week/{week}": {
             "get": {
                 "tags": [
