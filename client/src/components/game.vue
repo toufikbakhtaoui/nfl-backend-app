@@ -6,7 +6,7 @@
             <template v-for="(game, index) in games">
                 <v-list-item :key="game._id" class="game-item">
                     <div class="team-reord">
-                        {{ getRecord(game.awayTeam.identifier, game.season) }}
+                        {{ getRecord(game.awayTeam.identifier) }}
                     </div>
                     <div class="team-name">
                         {{ game.awayTeam.name }}
@@ -16,7 +16,7 @@
                         <img
                             class="logo"
                             :src="
-                                require(`../../../assets/logos/${game.awayTeam.name}/${game.awayTeam.name}.svg`)
+                                require(`../../assets/logos/${game.awayTeam.name}/${game.awayTeam.name}.svg`)
                             "
                         />
                     </div>
@@ -32,7 +32,7 @@
                         <img
                             class="logo"
                             :src="
-                                require(`../../../assets/logos/${game.homeTeam.name}/${game.homeTeam.name}.svg`)
+                                require(`../../assets/logos/${game.homeTeam.name}/${game.homeTeam.name}.svg`)
                             "
                         />
                     </div>
@@ -41,7 +41,7 @@
                         {{ game.homeTeam.name }}
                     </div>
                     <div class="team-reord">
-                        {{ getRecord(game.homeTeam.identifier, game.season) }}
+                        {{ getRecord(game.homeTeam.identifier) }}
                     </div>
                 </v-list-item>
                 <v-divider v-if="index < 16" :key="index"></v-divider>
@@ -78,64 +78,59 @@
 </template>
 
 <script>
-require('../../../assets/logos/patriots/patriots.svg')
-require('../../../assets/logos/dolphins/dolphins.svg')
-require('../../../assets/logos/bills/bills.svg')
-require('../../../assets/logos/jets/jets.svg')
-require('../../../assets/logos/texans/texans.svg')
-require('../../../assets/logos/titans/titans.svg')
-require('../../../assets/logos/colts/colts.svg')
-require('../../../assets/logos/jaguars/jaguars.svg')
-require('../../../assets/logos/cardinals/cardinals.svg')
-require('../../../assets/logos/49ers/49ers.svg')
-require('../../../assets/logos/seahawks/seahawks.svg')
-require('../../../assets/logos/rams/rams.svg')
-require('../../../assets/logos/falcons/falcons.svg')
-require('../../../assets/logos/buccaneers/buccaneers.svg')
-require('../../../assets/logos/panthers/panthers.svg')
-require('../../../assets/logos/saints/saints.svg')
-require('../../../assets/logos/chiefs/chiefs.svg')
-require('../../../assets/logos/raiders/raiders.svg')
-require('../../../assets/logos/broncos/broncos.svg')
-require('../../../assets/logos/chargers/chargers.svg')
-require('../../../assets/logos/ravens/ravens.svg')
-require('../../../assets/logos/steelers/steelers.svg')
-require('../../../assets/logos/bengals/bengals.svg')
-require('../../../assets/logos/browns/browns.svg')
-require('../../../assets/logos/cowboys/cowboys.svg')
-require('../../../assets/logos/giants/giants.svg')
-require('../../../assets/logos/redskins/redskins.svg')
-require('../../../assets/logos/eagles/eagles.svg')
-require('../../../assets/logos/packers/packers.svg')
-require('../../../assets/logos/lions/lions.svg')
-require('../../../assets/logos/vikings/vikings.svg')
-require('../../../assets/logos/bears/bears.svg')
+require('../../assets/logos/patriots/patriots.svg')
+require('../../assets/logos/dolphins/dolphins.svg')
+require('../../assets/logos/bills/bills.svg')
+require('../../assets/logos/jets/jets.svg')
+require('../../assets/logos/texans/texans.svg')
+require('../../assets/logos/titans/titans.svg')
+require('../../assets/logos/colts/colts.svg')
+require('../../assets/logos/jaguars/jaguars.svg')
+require('../../assets/logos/cardinals/cardinals.svg')
+require('../../assets/logos/49ers/49ers.svg')
+require('../../assets/logos/seahawks/seahawks.svg')
+require('../../assets/logos/rams/rams.svg')
+require('../../assets/logos/falcons/falcons.svg')
+require('../../assets/logos/buccaneers/buccaneers.svg')
+require('../../assets/logos/panthers/panthers.svg')
+require('../../assets/logos/saints/saints.svg')
+require('../../assets/logos/chiefs/chiefs.svg')
+require('../../assets/logos/raiders/raiders.svg')
+require('../../assets/logos/broncos/broncos.svg')
+require('../../assets/logos/chargers/chargers.svg')
+require('../../assets/logos/ravens/ravens.svg')
+require('../../assets/logos/steelers/steelers.svg')
+require('../../assets/logos/bengals/bengals.svg')
+require('../../assets/logos/browns/browns.svg')
+require('../../assets/logos/cowboys/cowboys.svg')
+require('../../assets/logos/giants/giants.svg')
+require('../../assets/logos/redskins/redskins.svg')
+require('../../assets/logos/eagles/eagles.svg')
+require('../../assets/logos/packers/packers.svg')
+require('../../assets/logos/lions/lions.svg')
+require('../../assets/logos/vikings/vikings.svg')
+require('../../assets/logos/bears/bears.svg')
 
-import gameService from '../../api/game/game.service'
-import seasonService from '../../api/season/season.service'
-import teamService from '../../api/team/team.service'
-
+import gameService from '../services/game/game.service'
+import store from '../store'
 export default {
     name: 'game',
     data() {
         return {
             games: [],
-            seasons: [],
-            teams: [],
-            currentSeason: {},
             displayedWeek: 0,
         }
     },
     async created() {
-        await this.getTeams()
+        await store.loadTeams()
         await this.getCurrentSeason()
     },
     methods: {
         async getNextWeek() {
-            const isSeasonFinished = this.currentSeason.week === 21
+            const isSeasonFinished = store.currentSeason.value.week === 21
             const isDisplayedWeekInRegularSeason = this.displayedWeek < 16
             const isDisplayedWeekAlreadyPlayed =
-                this.currentSeason.week > this.displayedWeek
+                store.currentSeason.value.week > this.displayedWeek
             if (isSeasonFinished) {
                 this.getCurrentSeason()
             } else if (
@@ -144,7 +139,7 @@ export default {
             ) {
                 this.displayedWeek++
                 this.games = await gameService.findGames(
-                    this.currentSeason.identifier,
+                    store.currentSeason.value.identifier,
                     this.displayedWeek
                 )
             }
@@ -153,7 +148,7 @@ export default {
             if (this.displayedWeek > 1) {
                 this.displayedWeek--
                 this.games = await gameService.findGames(
-                    this.currentSeason.identifier,
+                    store.currentSeason.value.identifier,
                     this.displayedWeek
                 )
             }
@@ -161,41 +156,36 @@ export default {
 
         async playGames() {
             const isDisplayedGameTheGameToPlay =
-                this.displayedWeek === this.currentSeason.week
+                this.displayedWeek === store.currentSeason.value.week
             if (isDisplayedGameTheGameToPlay) {
                 this.games = await gameService.playGames(
-                    this.currentSeason.identifier,
+                    store.currentSeason.value.identifier,
                     this.displayedWeek
                 )
-                this.getTeams()
-                const isSeasonStillOnPlay = this.currentSeason.week <= 20
+                await store.loadTeams()
+                const isSeasonStillOnPlay = store.currentSeason.value.week <= 20
                 if (isSeasonStillOnPlay) {
-                    this.currentSeason.week++
+                    store.currentSeason.value.week++
                 }
             }
         },
 
         async getCurrentSeason() {
-            this.seasons = await seasonService.findAllSeasons()
-            this.currentSeason = this.seasons[this.seasons.length - 1]
+            await store.loadSeasons()
             this.games = await gameService.findGames(
-                this.currentSeason.identifier,
-                this.currentSeason.week
+                store.currentSeason.value.identifier,
+                store.currentSeason.value.week
             )
-            this.displayedWeek = this.currentSeason.week
+            this.displayedWeek = store.currentSeason.value.week
         },
 
-        async getTeams() {
-            this.teams = await teamService.findAllTeams()
-        },
-
-        getRecord(teamIdentifier, currentSeason) {
-            const standings = this.teams.find(team => team.identifier === teamIdentifier).standings
-            const win = standings.find(standing => standing.season === currentSeason).win
-            const lost = standings.find(standing => standing.season === currentSeason).lost
-            const draw = standings.find(standing => standing.season === currentSeason).draw
-            const name = this.teams.find(team => team.identifier === teamIdentifier).name
-            return '('+win + '-' + lost + '-' + draw + ')'    
+        getRecord(teamIdentifier) {
+            const standings = store.teams.value.find(team => team.identifier === teamIdentifier).standings
+            const win = standings.find(standing => standing.season === store.currentSeason.value.identifier).win
+            const lost = standings.find(standing => standing.season === store.currentSeason.value.identifier).lost
+            const draw = standings.find(standing => standing.season === store.currentSeason.value.identifier).draw
+            const name = store.teams.value.find(team => team.identifier === teamIdentifier).name
+            return '('+win + '-' + lost + '-' + draw + ')'
         }
     },
 }
@@ -234,5 +224,12 @@ export default {
 .display-week {
     display: block;
     text-align: center;
+}
+
+.team-score {
+    height: 24px;
+    width: 18px;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 </style>

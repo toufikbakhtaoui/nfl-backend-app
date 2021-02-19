@@ -16,9 +16,12 @@
 </template>
 
 <script>
-
+import store from './store'
 export default {
     name: 'app',
+    provide: {
+        store
+    },
     data() {
         return {
             items: ['Home', 'Schedule', 'Standings', 'Teams']
