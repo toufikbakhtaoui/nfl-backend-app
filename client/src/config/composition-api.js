@@ -1,6 +1,6 @@
-import Vue from "vue";
-import VueCompositionApi from "@vue/composition-api";
+import Vue from 'vue'
+import VueCompositionApi from '@vue/composition-api'
 
-Vue.use(VueCompositionApi);
+Vue.use(VueCompositionApi)
 
-export * from "@vue/composition-api"
+export * from '@vue/composition-api'
