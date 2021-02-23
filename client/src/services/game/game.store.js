@@ -16,5 +16,6 @@ const setGames = (games) => {
 }
 
 module.exports = {
-    loadGames, games
+    loadGames,
+    games,
 }
