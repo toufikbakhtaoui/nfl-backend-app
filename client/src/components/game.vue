@@ -123,7 +123,8 @@ export default {
     },
     async created() {
         await store.loadTeams()
-        await this.getCurrentSeason()
+        await store.loadSeasons()
+        await this.loadGames()
     },
     methods: {
         async getNextWeek() {
@@ -132,7 +133,8 @@ export default {
             const isDisplayedWeekAlreadyPlayed =
                 store.currentSeason.value.week > this.displayedWeek
             if (isSeasonFinished) {
-                this.getCurrentSeason()
+                await store.loadSeasons()
+                this.loadGames()
             } else if (
                 isDisplayedWeekInRegularSeason ||
                 isDisplayedWeekAlreadyPlayed
@@ -153,11 +155,11 @@ export default {
                 )
             }
         },
-
         async playGames() {
             const isDisplayedGameTheGameToPlay =
                 this.displayedWeek === store.currentSeason.value.week
             if (isDisplayedGameTheGameToPlay) {
+                 //************************ change games ************************* */
                 this.games = await gameService.playGames(
                     store.currentSeason.value.identifier,
                     this.displayedWeek
@@ -165,20 +167,19 @@ export default {
                 await store.loadTeams()
                 const isSeasonStillOnPlay = store.currentSeason.value.week <= 20
                 if (isSeasonStillOnPlay) {
+                    //************************ increment week ************************* */
                     store.currentSeason.value.week++
                 }
             }
         },
-
-        async getCurrentSeason() {
-            await store.loadSeasons()
+        async loadGames() {
+            //await store.loadSeasons()
             this.games = await gameService.findGames(
                 store.currentSeason.value.identifier,
                 store.currentSeason.value.week
             )
             this.displayedWeek = store.currentSeason.value.week
         },
-
         getRecord(teamIdentifier) {
             const standings = store.teams.value.find(team => team.identifier === teamIdentifier).standings
             const win = standings.find(standing => standing.season === store.currentSeason.value.identifier).win

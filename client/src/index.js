@@ -7,7 +7,6 @@ import '@mdi/font/css/materialdesignicons.css'
 import app from './App'
 
 Vue.config.productionTip = false
-//Vue.use(VueCompositionAPI)
 Vue.use(Vuetify)
 
 new Vue({
