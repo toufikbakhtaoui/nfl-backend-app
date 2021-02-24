@@ -20,6 +20,5 @@ const currentSeason = computed(() => state.seasons[state.seasons.length - 1])
 
 module.exports = {
     loadSeasons,
-    state,
-    //currentSeason
+    currentSeason,
 }

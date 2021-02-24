@@ -3,7 +3,7 @@
         <span class="display-week">{{ displayedWeek }}</span>
         <v-divider></v-divider>
         <v-list dense>
-            <template v-for="(game, index) in games">
+            <template v-for="(game, index) in gameStore.games.value">
                 <v-list-item :key="game._id" class="game-item">
                     <div class="team-reord">
                         {{ getRecord(game.awayTeam.identifier) }}
@@ -112,80 +112,70 @@ require('../../assets/logos/vikings/vikings.svg')
 require('../../assets/logos/bears/bears.svg')
 
 import gameService from '../services/game/game.service'
-import store from '../store'
+import gameStore from '../services/game/game.store'
+import teamStore from '../services/team/team.store'
+import seasonStore from '../services/season/season.store'
+
 export default {
     name: 'game',
     data() {
         return {
-            games: [],
+            gameStore,
             displayedWeek: 0,
         }
     },
     async created() {
-        await store.loadTeams()
-        await store.loadSeasons()
-        await this.loadGames()
+        await teamStore.loadTeams()
+        await seasonStore.loadSeasons()
+        await gameStore.loadGames(seasonStore.currentSeason.value.identifier, seasonStore.currentSeason.value.week)
+        this.displayedWeek = seasonStore.currentSeason.value.week
     },
     methods: {
         async getNextWeek() {
-            const isSeasonFinished = store.currentSeason.value.week === 21
+            const isSeasonFinished = seasonStore.currentSeason.value.week === 21
             const isDisplayedWeekInRegularSeason = this.displayedWeek < 16
             const isDisplayedWeekAlreadyPlayed =
-                store.currentSeason.value.week > this.displayedWeek
+                seasonStore.currentSeason.value.week > this.displayedWeek
             if (isSeasonFinished) {
-                await store.loadSeasons()
-                this.loadGames()
+                await seasonStore.loadSeasons()
+                await gameStore.loadGames(seasonStore.currentSeason.value.identifier, seasonStore.currentSeason.value.week)
+                this.displayedWeek = seasonStore.currentSeason.value.week
+                
             } else if (
                 isDisplayedWeekInRegularSeason ||
                 isDisplayedWeekAlreadyPlayed
             ) {
                 this.displayedWeek++
-                this.games = await gameService.findGames(
-                    store.currentSeason.value.identifier,
-                    this.displayedWeek
-                )
+                await gameStore.loadGames(seasonStore.currentSeason.value.identifier, this.displayedWeek)
             }
         },
         async getPreviousWeek() {
             if (this.displayedWeek > 1) {
                 this.displayedWeek--
-                this.games = await gameService.findGames(
-                    store.currentSeason.value.identifier,
-                    this.displayedWeek
-                )
+                await gameStore.loadGames(seasonStore.currentSeason.value.identifier, this.displayedWeek)
             }
         },
         async playGames() {
             const isDisplayedGameTheGameToPlay =
-                this.displayedWeek === store.currentSeason.value.week
+                this.displayedWeek === seasonStore.currentSeason.value.week
             if (isDisplayedGameTheGameToPlay) {
-                 //************************ change games ************************* */
-                this.games = await gameService.playGames(
-                    store.currentSeason.value.identifier,
+                await gameStore.playGames(
+                    seasonStore.currentSeason.value.identifier,
                     this.displayedWeek
                 )
-                await store.loadTeams()
-                const isSeasonStillOnPlay = store.currentSeason.value.week <= 20
+                await teamStore.loadTeams()
+                const isSeasonStillOnPlay = seasonStore.currentSeason.value.week <= 20
                 if (isSeasonStillOnPlay) {
-                    //************************ increment week ************************* */
-                    store.currentSeason.value.week++
+                    seasonStore.currentSeason.value.week++
                 }
             }
         },
-        async loadGames() {
-            //await store.loadSeasons()
-            this.games = await gameService.findGames(
-                store.currentSeason.value.identifier,
-                store.currentSeason.value.week
-            )
-            this.displayedWeek = store.currentSeason.value.week
-        },
         getRecord(teamIdentifier) {
-            const standings = store.teams.value.find(team => team.identifier === teamIdentifier).standings
-            const win = standings.find(standing => standing.season === store.currentSeason.value.identifier).win
-            const lost = standings.find(standing => standing.season === store.currentSeason.value.identifier).lost
-            const draw = standings.find(standing => standing.season === store.currentSeason.value.identifier).draw
-            const name = store.teams.value.find(team => team.identifier === teamIdentifier).name
+            const standings = teamStore.teams.value.find(team => team.identifier === teamIdentifier).standings
+            const win = standings.find(standing => standing.season === seasonStore.currentSeason.value.identifier).win
+            const lost = standings.find(standing => standing.season === seasonStore.currentSeason.value.identifier).lost
+            const draw = standings.find(standing => standing.season === seasonStore.currentSeason.value.identifier).draw
+            const name = teamStore.teams.value.find(team => team.identifier === teamIdentifier).name
             return '('+win + '-' + lost + '-' + draw + ')'
         }
     },

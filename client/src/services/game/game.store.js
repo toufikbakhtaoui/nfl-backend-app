@@ -6,7 +6,13 @@ const state = reactive({
 })
 
 const loadGames = async (identifier, week) => {
-    return await gameService.findGames(identifier, week)
+    const games = await gameService.findGames(identifier, week)
+    setGames(games)
+}
+
+const playGames = async (identifier, week) => {
+    const games = await gameService.playGames(identifier, week)
+    setGames(games)
 }
 
 const games = computed(() => state.games)
@@ -17,5 +23,6 @@ const setGames = (games) => {
 
 module.exports = {
     loadGames,
+    playGames,
     games,
 }
