@@ -68,5 +68,5 @@ module.exports = {
     nfcNorth,
     nfcSouth,
     nfcEast,
-    nfcWest
+    nfcWest,
 }
