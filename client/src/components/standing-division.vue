@@ -36,11 +36,11 @@
         >
         <td>logo</td>
           <td>{{ team.name }}</td>
-          <td>{{ team.standings.find(standing => standing.season === 12).win }}</td>
-          <td>{{ team.standings.find(standing => standing.season === 12).lost }}</td>
-          <td>{{ team.standings.find(standing => standing.season === 12).draw }}</td>
-          <td>{{ team.standings.find(standing => standing.season === 12).scored }}</td>
-          <td>{{ team.standings.find(standing => standing.season === 12).conceded }}</td>
+          <td>{{ team.standings.find(standing => standing.season === seasonStore.currentSeason.value.identifier).win }}</td>
+          <td>{{ team.standings.find(standing => standing.season === seasonStore.currentSeason.value.identifier).lost }}</td>
+          <td>{{ team.standings.find(standing => standing.season === seasonStore.currentSeason.value.identifier).draw }}</td>
+          <td>{{ team.standings.find(standing => standing.season === seasonStore.currentSeason.value.identifier).scored }}</td>
+          <td>{{ team.standings.find(standing => standing.season === seasonStore.currentSeason.value.identifier).conceded }}</td>
         </tr>
       </tbody>
     </template>
@@ -51,14 +51,18 @@
 </template>
 
 <script>
+import seasonStore from '../services/season/season.store'
 export default {
     name: 'standing-division',
     props: ['teams'],
     data() {
-        return {     
-        }
-    }
-
+        return {
+            seasonStore    
+            }
+    },
+    async created() {
+        await seasonStore.loadSeasons()
+    },
 }
 </script>
 

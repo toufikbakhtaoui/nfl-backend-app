@@ -7,10 +7,10 @@
       <v-sheet
         :color="color"
       >
-           <division :teams=store.afcNorth.value></division>
-           <division :teams=store.afcWest.value></division>
-           <division :teams=store.afcSouth.value></division>
-           <division :teams=store.afcEast.value></division>
+           <division :teams=teamStore.afcNorth.value></division>
+           <division :teams=teamStore.afcWest.value></division>
+           <division :teams=teamStore.afcSouth.value></division>
+           <division :teams=teamStore.afcEast.value></division>
       </v-sheet>
     </v-carousel-item>
   </v-carousel>
@@ -18,7 +18,7 @@
 
 <script>
 import teamService from '../services/team/team.service'
-import store from '../store'
+import teamStore from '../services/team/team.store'
 import division from './standing-division'
 
 export default {
@@ -28,8 +28,7 @@ export default {
         },
     data() {
         return {
-            teams:[],
-            store,
+            teamStore,
       colors: [
         'primary',
         'secondary'

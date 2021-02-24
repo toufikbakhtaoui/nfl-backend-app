@@ -61,12 +61,12 @@ const nfcWest = computed(() =>
 module.exports = {
     loadTeams,
     teams,
-    // afcNorth,
-    // afcSouth,
-    // afcEast,
-    // afcWest,
-    // nfcNorth,
-    // nfcSouth,
-    // nfcEast,
-    // nfcWest
+    afcNorth,
+    afcSouth,
+    afcEast,
+    afcWest,
+    nfcNorth,
+    nfcSouth,
+    nfcEast,
+    nfcWest
 }
