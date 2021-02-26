@@ -1,6 +1,6 @@
 <template>
 <div class="home">
-    <game></game>
+    <game class="game"></game>
     <standing class="standing"></standing>
 </div>
 </template>
@@ -22,9 +22,11 @@ export default {
     display: flex;
 }
 
+.game {
+    width: 450px;
+}
+
 .standing {
-    height: auto;
-    width: 50%;
     margin-left: 10px;
 }
 </style>

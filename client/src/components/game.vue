@@ -1,14 +1,14 @@
 <template>
-    <v-card class="games">
+    <v-card>
         <span class="display-week">{{ displayedWeek }}</span>
         <v-divider></v-divider>
         <v-list dense>
             <template v-for="(game, index) in gameStore.games.value">
                 <v-list-item :key="game._id" class="game-item">
-                    <div class="team-reord">
+                    <div class="away-team-reord">
                         {{ getRecord(game.awayTeam.identifier) }}
                     </div>
-                    <div class="team-name">
+                    <div class="team-name away-team-name">
                         {{ game.awayTeam.name }}
                     </div>
 
@@ -40,7 +40,7 @@
                     <div class="team-name home-team-name">
                         {{ game.homeTeam.name }}
                     </div>
-                    <div class="team-reord">
+                    <div class="home-team-reord">
                         {{ getRecord(game.homeTeam.identifier) }}
                     </div>
                 </v-list-item>
@@ -139,6 +139,7 @@ export default {
             if (isSeasonFinished) {
                 await seasonStore.loadSeasons()
                 await gameStore.loadGames(seasonStore.currentSeason.value.identifier, seasonStore.currentSeason.value.week)
+                await teamStore.loadTeamsByDivision(seasonStore.currentSeason.value.identifier)
                 this.displayedWeek = seasonStore.currentSeason.value.week
                 
             } else if (
@@ -188,8 +189,9 @@ export default {
     background-color: #03dac6;
 }
 
-.games {
-    width: 450px;
+.display-week {
+    display: block;
+    text-align: center;
 }
 
 .game-item {
@@ -202,7 +204,13 @@ export default {
 }
 
 .home-team-name {
-    text-align: end;
+    text-align: initial;
+    margin-left: 10px;
+}
+
+.away-team-name {
+    text-align: initial;
+    margin-left: 10px;
 }
 
 .logo-container {
@@ -213,15 +221,22 @@ export default {
     width: 30px;
 }
 
-.display-week {
-    display: block;
-    text-align: center;
-}
-
 .team-score {
     height: 24px;
     width: 18px;
     margin-left: 5px;
     margin-right: 5px;
+}
+
+.home-team-reord {
+    text-align: end;
+    height: 24px;
+    width: 56px;
+}
+
+.away-team-reord {
+    text-align: left;
+    height: 24px;
+    width: 56px;
 }
 </style>

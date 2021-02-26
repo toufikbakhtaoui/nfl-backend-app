@@ -1,17 +1,20 @@
 <template>
-  <v-carousel hide-delimiters>
-    <v-carousel-item
-      v-for="(conference, i) in conferences"
-      :key="conference"
-    >
-      <v-sheet>
-           <division :teams="teamStore.teamsByDivision.value.find(division => division._id.conference === conference && division._id.division === 'north').teams"></division>
-           <division :teams="teamStore.teamsByDivision.value.find(division => division._id.conference === conference && division._id.division === 'south').teams"></division>
-           <division :teams="teamStore.teamsByDivision.value.find(division => division._id.conference === conference && division._id.division === 'east').teams"></division>
-           <division :teams="teamStore.teamsByDivision.value.find(division => division._id.conference === conference && division._id.division === 'west').teams"></division>
-      </v-sheet>
-    </v-carousel-item>
-  </v-carousel>
+<v-card style="display:flex">
+ <v-card>
+           <division :teams="teamStore.teamsByDivision.value.find(division => division._id.conference === 'afc' && division._id.division === 'north').teams"></division>
+           <division :teams="teamStore.teamsByDivision.value.find(division => division._id.conference === 'afc' && division._id.division === 'south').teams"></division>
+           <division :teams="teamStore.teamsByDivision.value.find(division => division._id.conference === 'afc' && division._id.division === 'east').teams"></division>
+           <division :teams="teamStore.teamsByDivision.value.find(division => division._id.conference === 'afc' && division._id.division === 'west').teams"></division>
+  </v-card>
+   <v-card>
+    
+           <division :teams="teamStore.teamsByDivision.value.find(division => division._id.conference === 'nfc' && division._id.division === 'north').teams"></division>
+           <division :teams="teamStore.teamsByDivision.value.find(division => division._id.conference === 'nfc' && division._id.division === 'south').teams"></division>
+           <division :teams="teamStore.teamsByDivision.value.find(division => division._id.conference === 'nfc' && division._id.division === 'east').teams"></division>
+           <division :teams="teamStore.teamsByDivision.value.find(division => division._id.conference === 'nfc' && division._id.division === 'west').teams"></division>
+   <v-card>
+</v-card>
+  
 </template>
 
 <script>
