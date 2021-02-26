@@ -3,7 +3,7 @@ import teamService from './team.service'
 
 const state = reactive({
     teams: [],
-    teamsByDivision: []
+    teamsByDivision: [],
 })
 
 const loadTeams = async () => {
@@ -32,5 +32,5 @@ module.exports = {
     loadTeams,
     loadTeamsByDivision,
     teams,
-    teamsByDivision
+    teamsByDivision,
 }

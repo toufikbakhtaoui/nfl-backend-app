@@ -11,12 +11,14 @@ const findAllTeams = async () => {
 }
 
 const findTeamsByDivision = async (seasonIdentifier) => {
-    const teams = await axios.get('/teams/seasons/' + seasonIdentifier + '/divisions')
+    const teams = await axios.get(
+        '/teams/seasons/' + seasonIdentifier + '/divisions'
+    )
     return teams.data
 }
 
 module.exports = {
     findOneTeam,
     findAllTeams,
-    findTeamsByDivision
+    findTeamsByDivision,
 }

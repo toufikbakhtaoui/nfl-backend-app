@@ -57,5 +57,5 @@ const findTeamsByDivision = async (req, res) => {
 module.exports = {
     findOneTeam,
     findAllTeams,
-    findTeamsByDivision
+    findTeamsByDivision,
 }
