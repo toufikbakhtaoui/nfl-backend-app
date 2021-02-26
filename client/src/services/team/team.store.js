@@ -3,6 +3,7 @@ import teamService from './team.service'
 
 const state = reactive({
     teams: [],
+    teamsByDivision: []
 })
 
 const loadTeams = async () => {
@@ -16,57 +17,20 @@ const setTeams = (teams) => {
 
 const teams = computed(() => state.teams)
 
-const afcNorth = computed(() =>
-    state.teams.filter(
-        (team) => team.conference === 'afc' && team.division === 'north'
-    )
-)
-const afcSouth = computed(() =>
-    state.teams.filter(
-        (team) => team.conference === 'afc' && team.division === 'south'
-    )
-)
-const afcEast = computed(() =>
-    state.teams.filter(
-        (team) => team.conference === 'afc' && team.division === 'east'
-    )
-)
-const afcWest = computed(() =>
-    state.teams.filter(
-        (team) => team.conference === 'afc' && team.division === 'west'
-    )
-)
+const loadTeamsByDivision = async (seasonIdentifier) => {
+    const teams = await teamService.findTeamsByDivision(seasonIdentifier)
+    setTeamsByDivision(teams)
+}
 
-const nfcNorth = computed(() =>
-    state.teams.filter(
-        (team) => team.conference === 'nfc' && team.division === 'north'
-    )
-)
-const nfcSouth = computed(() =>
-    state.teams.filter(
-        (team) => team.conference === 'nfc' && team.division === 'south'
-    )
-)
-const nfcEast = computed(() =>
-    state.teams.filter(
-        (team) => team.conference === 'nfc' && team.division === 'east'
-    )
-)
-const nfcWest = computed(() =>
-    state.teams.filter(
-        (team) => team.conference === 'nfc' && team.division === 'west'
-    )
-)
+const setTeamsByDivision = (teams) => {
+    state.teamsByDivision = teams
+}
+
+const teamsByDivision = computed(() => state.teamsByDivision)
 
 module.exports = {
     loadTeams,
+    loadTeamsByDivision,
     teams,
-    afcNorth,
-    afcSouth,
-    afcEast,
-    afcWest,
-    nfcNorth,
-    nfcSouth,
-    nfcEast,
-    nfcWest,
+    teamsByDivision
 }

@@ -164,6 +164,7 @@ export default {
                     this.displayedWeek
                 )
                 await teamStore.loadTeams()
+                await teamStore.loadTeamsByDivision(seasonStore.currentSeason.value.identifier)
                 const isSeasonStillOnPlay = seasonStore.currentSeason.value.week <= 20
                 if (isSeasonStillOnPlay) {
                     seasonStore.currentSeason.value.week++

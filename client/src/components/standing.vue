@@ -1,16 +1,14 @@
 <template>
   <v-carousel hide-delimiters>
     <v-carousel-item
-      v-for="(color, i) in colors"
-      :key="color"
+      v-for="(conference, i) in conferences"
+      :key="conference"
     >
-      <v-sheet
-        :color="color"
-      >
-           <division :teams=teamStore.afcNorth.value></division>
-           <division :teams=teamStore.afcWest.value></division>
-           <division :teams=teamStore.afcSouth.value></division>
-           <division :teams=teamStore.afcEast.value></division>
+      <v-sheet>
+           <division :teams="teamStore.teamsByDivision.value.find(division => division._id.conference === conference && division._id.division === 'north').teams"></division>
+           <division :teams="teamStore.teamsByDivision.value.find(division => division._id.conference === conference && division._id.division === 'south').teams"></division>
+           <division :teams="teamStore.teamsByDivision.value.find(division => division._id.conference === conference && division._id.division === 'east').teams"></division>
+           <division :teams="teamStore.teamsByDivision.value.find(division => division._id.conference === conference && division._id.division === 'west').teams"></division>
       </v-sheet>
     </v-carousel-item>
   </v-carousel>
@@ -19,6 +17,7 @@
 <script>
 import teamService from '../services/team/team.service'
 import teamStore from '../services/team/team.store'
+import seasonStore from '../services/season/season.store'
 import division from './standing-division'
 
 export default {
@@ -29,12 +28,16 @@ export default {
     data() {
         return {
             teamStore,
-      colors: [
-        'primary',
-        'secondary'
+      conferences: [
+        'afc',
+        'nfc'
       ],    
         }
-    }
+    },
+    async created() {
+        await seasonStore.loadSeasons()
+        await teamStore.loadTeamsByDivision(seasonStore.currentSeason.value.identifier)
+    },
 }
 </script>
 

@@ -95,6 +95,32 @@
                  }
             }
         },
+        "/teams/seasons/{identifier}/divisions": {
+            "get": {
+                "tags": [
+                    "Teams"
+                ],
+                "summary": "Get teams by division",
+                "parameters": [
+                    {
+                        "name": "season",
+                        "in": "path",
+                        "schema": {
+                            "$ref": "#/definitions/Team"
+                        }
+                    }
+
+                ],
+                "responses":{
+                    "200":{
+                       "description":"OK",
+                       "schema":{
+                          "$ref":"#/definitions/Team"
+                       }
+                    }
+                 }
+            }
+        },
         "/games/season/{season}/week/{week}": {
             "get": {
                 "tags": [

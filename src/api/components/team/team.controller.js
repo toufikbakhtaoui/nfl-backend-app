@@ -1,4 +1,5 @@
 const Team = require('./team.model')
+const teamService = require('./team.service')
 const httpSatus = require('../../../helpers/http-status.helper')
 const logger = require('../../../../config/winston.config')
 
@@ -37,7 +38,24 @@ const findAllTeams = async (req, res) => {
     }
 }
 
+const findTeamsByDivision = async (req, res) => {
+    try {
+        const identifier = Number(req.params.identifier)
+        logger.debug('findTeamsByDivision - identifier: ' + identifier)
+        const teams = await teamService.getStandingsByDivision(identifier)
+        if (teams) {
+            logger.debug('findTeamsByDivision - success - teams: ' + teams)
+        } else {
+            logger.debug('findTeamsByDivision - not found')
+        }
+        res.status(httpSatus.success).json(teams)
+    } catch (error) {
+        logger.error('findTeamsByDivision - technical problem: ' + error)
+    }
+}
+
 module.exports = {
     findOneTeam,
     findAllTeams,
+    findTeamsByDivision
 }
