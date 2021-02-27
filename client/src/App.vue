@@ -1,6 +1,6 @@
 <template>
     <v-app>
-        <v-app-bar app style="background-color: brown">
+        <v-app-bar app style="background-color: black">
             <v-tabs grow>
                 <v-tab v-for="item in items" :key="item">
                     <router-link :to="{ name: `${item}` }">{{ item }}</router-link>    
@@ -24,7 +24,7 @@ export default {
     },
     data() {
         return {
-            items: ['Home', 'Schedule', 'Standings', 'Teams']
+            items: ['Home', 'Schedule', 'Fame', 'Teams']
         }
     }
 }
