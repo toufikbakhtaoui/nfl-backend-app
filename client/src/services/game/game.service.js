@@ -8,9 +8,7 @@ const findGames = async (seasonIdentifier, week) => {
 }
 
 const findGamesByWeek = async (week) => {
-    const games = await axios.get(
-        '/games/week/' + week
-    )
+    const games = await axios.get('/games/week/' + week)
     return games.data
 }
 
@@ -24,5 +22,5 @@ const playGames = async (seasonIdentifier, week) => {
 module.exports = {
     findGames,
     playGames,
-    findGamesByWeek
+    findGamesByWeek,
 }

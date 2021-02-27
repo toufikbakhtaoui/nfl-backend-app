@@ -11,7 +11,6 @@ const getSuperbowlStats = (superbowls) => {
         appearancesArray.push(game.homeTeam.name)
     })
 
-
     const winners = winnerArray.reduce(
         (acc, e) => acc.set(e, (acc.get(e) || 0) + 1),
         new Map()
@@ -23,9 +22,7 @@ const getSuperbowlStats = (superbowls) => {
         })
     })
 
-    superbowlWinners.sort(
-        (team1, team2) => team2.superbowls - team1.superbowls
-    )
+    superbowlWinners.sort((team1, team2) => team2.superbowls - team1.superbowls)
 
     const appearances = appearancesArray.reduce(
         (acc, e) => acc.set(e, (acc.get(e) || 0) + 1),
@@ -43,10 +40,10 @@ const getSuperbowlStats = (superbowls) => {
     )
     return {
         superbowlWinners: superbowlWinners,
-        championshipWinners: championshipWinners
+        championshipWinners: championshipWinners,
     }
 }
 
 module.exports = {
-    getSuperbowlStats
+    getSuperbowlStats,
 }

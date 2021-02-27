@@ -3,7 +3,7 @@ import gameService from '../game/game.service'
 
 const state = reactive({
     games: [],
-    superbowls: []
+    superbowls: [],
 })
 
 const loadGames = async (identifier, week) => {
@@ -11,7 +11,7 @@ const loadGames = async (identifier, week) => {
     setGames(games)
 }
 
-const loadSuperbowls = async() => {
+const loadSuperbowls = async () => {
     const superbowls = await gameService.findGamesByWeek(20)
     setSuperbowls(superbowls)
 }
@@ -38,5 +38,5 @@ module.exports = {
     playGames,
     loadSuperbowls,
     games,
-    superbowls
+    superbowls,
 }
