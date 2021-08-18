@@ -285,13 +285,11 @@ const generateDifferentConferenceDifferentDivisionGames = (season) => {
 }
 
 const generateRegularSeason = (season) => {
-    const sameConferenceDifferentDivisionGames = generateSameConferenceDifferentDivisionGames(
-        season
-    )
+    const sameConferenceDifferentDivisionGames =
+        generateSameConferenceDifferentDivisionGames(season)
     const samePositionGames = generateSamePositionGames(season)
-    const differentConferenceDifferentDivisionGames = generateDifferentConferenceDifferentDivisionGames(
-        season
-    )
+    const differentConferenceDifferentDivisionGames =
+        generateDifferentConferenceDifferentDivisionGames(season)
     const sameDivisionGames = generateSameDivisionGames()
 
     let games = []

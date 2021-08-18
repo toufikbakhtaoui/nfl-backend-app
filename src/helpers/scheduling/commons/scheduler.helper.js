@@ -98,9 +98,8 @@ const insertNewSeason = async (newSeasonIdentifier) => {
 
 const generateNewSeason = async (nextSeasonIdentifier) => {
     await insertNewSeason(nextSeasonIdentifier)
-    const newSeasonMatchups = regularSeasonScheduler.generateRegularSeason(
-        nextSeasonIdentifier
-    )
+    const newSeasonMatchups =
+        regularSeasonScheduler.generateRegularSeason(nextSeasonIdentifier)
     //need to call two times to get the right result
     await Team.find()
     await Team.find()
@@ -201,14 +200,10 @@ const generatePlayoffs = async (week, season) => {
             await Game.insertMany(divisionalGames)
             break
         case 18:
-            const afcChampionshipGame = championshipScheduler.generateChampionship(
-                afcWinners,
-                season
-            )
-            const nfcChampionshipGame = championshipScheduler.generateChampionship(
-                nfcWinners,
-                season
-            )
+            const afcChampionshipGame =
+                championshipScheduler.generateChampionship(afcWinners, season)
+            const nfcChampionshipGame =
+                championshipScheduler.generateChampionship(nfcWinners, season)
             await Game.insertMany([afcChampionshipGame, nfcChampionshipGame])
             break
         case 19:

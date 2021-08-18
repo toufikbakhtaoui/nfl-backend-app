@@ -6,8 +6,10 @@
 </template>
 
 <script>
+
 import game from '../components/game'
 import standing from '../components/standing'
+
 export default {
     name: 'home',
     components: {

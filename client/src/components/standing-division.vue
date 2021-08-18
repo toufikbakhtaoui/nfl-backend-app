@@ -6,7 +6,7 @@
       <thead>
         <tr>
           <th class="text-left">
-            
+
           </th>
           <th class="text-left">
             Name

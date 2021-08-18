@@ -8,7 +8,7 @@
             "url": "https://opensource.org/licenses/MIT"
         }
     },
-    "host": "localhost:8080",
+    "host": "localhost:3400",
     "basePath": "/api",
     "paths": {
         "/seasons": {
@@ -25,7 +25,7 @@
                        }
                     }
                  }
-            }    
+            }
         },
         "/seasons/{identifier}": {
             "get": {
@@ -67,7 +67,7 @@
                        }
                     }
                  }
-            }    
+            }
         },
         "/teams/{identifier}": {
             "get": {
