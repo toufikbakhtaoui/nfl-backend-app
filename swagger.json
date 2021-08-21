@@ -121,7 +121,7 @@
                  }
             }
         },
-        "/games/season/{season}/week/{week}": {
+        "/games/?season={season}&week={week}": {
             "get": {
                 "tags": [
                     "Games"

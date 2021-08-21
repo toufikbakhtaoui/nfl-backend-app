@@ -21,8 +21,8 @@ const stats = {
 }
 const findGames = async (req, res) => {
     try {
-        const season = Number(req.params.season)
-        const week = Number(req.params.week)
+        const season = Number(req.query.season)
+        const week = Number(req.query.week)
         logger.debug('findGames - season: ' + season + ' - ' + 'week ' + week)
         const games = await Game.find({ season: season, week: week })
         if (games !== null && games.length > 0) {

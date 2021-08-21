@@ -28,7 +28,7 @@ const findAllTeams = async (req, res) => {
         logger.debug('findAllTeams')
         const teams = await Team.find()
         if (teams) {
-            logger.debug('findAllTeams - success - teams: ' + teams)
+            logger.debug('findAllTeams - success')
         } else {
             logger.debug('findAllTeams - not found')
         }
@@ -44,7 +44,7 @@ const findTeamsByDivision = async (req, res) => {
         logger.debug('findTeamsByDivision - identifier: ' + identifier)
         const teams = await teamService.getStandingsByDivision(identifier)
         if (teams) {
-            logger.debug('findTeamsByDivision - success - teams: ' + teams)
+            logger.debug('findTeamsByDivision - success')
         } else {
             logger.debug('findTeamsByDivision - not found')
         }

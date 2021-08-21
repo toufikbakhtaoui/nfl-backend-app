@@ -30,7 +30,7 @@ beforeEach(async () => {
 
 describe('Game endpoint tests', () => {
     it('Should find game', async () => {
-        const response = await request(app).get('/api/games/season/1/week/16')
+        const response = await request(app).get('/api/games?season=1&week=16')
         const games = response.body
         const aGameWithADifferentWeek = games.filter((game) => game.week !== 16)
         const allGamesOfWantedWeek = games.filter((game) => game.week === 16)
@@ -48,7 +48,7 @@ describe('Game endpoint tests', () => {
     })
 
     it('Should not return a game not exists', async () => {
-        const response = await request(app).get('/api/games/season/1/week/34')
+        const response = await request(app).get('/api/games?season=1&week=34')
         expect(response.status).toBe(404)
         expect(response.body).toEqual('No game was found')
     })
@@ -86,14 +86,14 @@ describe('Game endpoint tests', () => {
 
     it('Should add wildCard games after playing the last game of regular season', async () => {
         const wildCardGames = await request(app).get(
-            '/api/games/season/1/week/17'
+            '/api/games?season=1&week=17'
         )
         expect(wildCardGames.body).toEqual('No game was found')
 
         await request(app).get('/api/games/scores/season/1/week/16')
 
         const updatedWildCardGames = await request(app).get(
-            '/api/games/season/1/week/17'
+            '/api/games?season=1&week=17'
         )
         const games = updatedWildCardGames.body
         expect(games.length).toEqual(4)
@@ -107,7 +107,7 @@ describe('Game endpoint tests', () => {
             '/api/games/scores/season/1/week/17'
         )
 
-        const divisional = await request(app).get('/api/games/season/1/week/18')
+        const divisional = await request(app).get('/api/games?season=1&week=18')
         expect(divisional.body.length).toEqual(4)
     })
 
@@ -123,7 +123,7 @@ describe('Game endpoint tests', () => {
         )
 
         const championship = await request(app).get(
-            '/api/games/season/1/week/19'
+            '/api/games?season=1&week=19'
         )
         expect(championship.body.length).toEqual(2)
     })
@@ -141,7 +141,7 @@ describe('Game endpoint tests', () => {
         const championship = await request(app).get(
             '/api/games/scores/season/1/week/19'
         )
-        const superBowl = await request(app).get('/api/games/season/1/week/20')
+        const superBowl = await request(app).get('/api/games?season=1&week=20')
         expect(superBowl.body.length).toEqual(1)
     })
 
