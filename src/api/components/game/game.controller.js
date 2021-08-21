@@ -66,6 +66,44 @@ const findGamesByWeek = async (req, res) => {
     }
 }
 
+const findGamesByTeam = async (req, res) => {
+    try {
+        const team = Number(req.params.team)
+        logger.debug('findGamesByTeam - team ' + team)
+        const currentSeason = await Season.findOne({ week: { $ne: 21 } })
+        const finishedSeasonsGames = await Game.find({
+            season: { $ne: currentSeason.identifier },
+            $or: [
+                { 'homeTeam.identifier': team },
+                { 'awayTeam.identifier': team },
+            ],
+        })
+        const currentSeasonPlayedGames = await Game.find({
+            $and: [
+                { season: currentSeason.identifier },
+                { week: { $lt: currentSeason.week } },
+            ],
+            $or: [
+                { 'homeTeam.identifier': team },
+                { 'awayTeam.identifier': team },
+            ],
+        })
+        const games = finishedSeasonsGames.concat(currentSeasonPlayedGames)
+        if (games !== null && games.length > 0) {
+            logger.debug('findGamesByTeam - success - games: ' + games)
+            res.status(httpSatus.success).json(games)
+        } else {
+            logger.debug('findGamesByTeam - not found - team: ' + team)
+            res.status(httpSatus.notfound).json('No game was found')
+        }
+    } catch (error) {
+        logger.error('findGamesByTeam - technical problem: ', error)
+        res.status(httpSatus.error).send(
+            'A problem has occured when trying to find a game'
+        )
+    }
+}
+
 const playGames = async (req, res) => {
     try {
         let season = Number(req.params.season)
@@ -127,5 +165,6 @@ const playGames = async (req, res) => {
 module.exports = {
     findGames,
     findGamesByWeek,
+    findGamesByTeam,
     playGames,
 }
