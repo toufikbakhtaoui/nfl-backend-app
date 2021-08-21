@@ -121,7 +121,7 @@
                  }
             }
         },
-        "/games/?season={season}&week={week}": {
+        "/games": {
             "get": {
                 "tags": [
                     "Games"
@@ -130,40 +130,15 @@
                 "parameters": [
                     {
                         "name": "season",
-                        "in": "path",
+                        "in": "query",
+                        "requred": false,
                         "schema": {
                             "$ref": "#/definitions/Games"
                         }
                     },
                     {
                         "name": "week",
-                        "in": "path",
-                        "schema": {
-                            "$ref": "#/definitions/Games"
-                        }
-                    }
-
-                ],
-                "responses":{
-                    "200":{
-                       "description":"OK",
-                       "schema":{
-                          "$ref":"#/definitions/Games"
-                       }
-                    }
-                 }
-            }
-        },
-        "/games/week/{week}": {
-            "get": {
-                "tags": [
-                    "Games"
-                ],
-                "summary": "Get all games for specific week",
-                "parameters": [
-                    {
-                        "name": "week",
-                        "in": "path",
+                        "in": "query",
                         "schema": {
                             "$ref": "#/definitions/Games"
                         }

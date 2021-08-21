@@ -21,12 +21,24 @@ const stats = {
 }
 const findGames = async (req, res) => {
     try {
-        const season = Number(req.query.season)
-        const week = Number(req.query.week)
-        logger.debug('findGames - season: ' + season + ' - ' + 'week ' + week)
+        logger.debug(
+            'findGames - season ' +
+                req.query.season +
+                ' - ' +
+                'week ' +
+                req.query.week
+        )
+        const season =
+            req.query.season != undefined && req.query.season != null
+                ? Number(req.query.season)
+                : req.query.season
+        const week =
+            req.query.week != undefined && req.query.week != null
+                ? Number(req.query.week)
+                : req.query.week
         const games = await Game.find({ season: season, week: week })
         if (games !== null && games.length > 0) {
-            logger.debug('findGames - success - games: ' + games)
+            logger.debug('findGames - success')
             res.status(httpSatus.success).json(games)
         } else {
             logger.debug(
@@ -40,26 +52,6 @@ const findGames = async (req, res) => {
         }
     } catch (error) {
         logger.error('findGames - technical problem: ', error)
-        res.status(httpSatus.error).send(
-            'A problem has occured when trying to find a game'
-        )
-    }
-}
-
-const findGamesByWeek = async (req, res) => {
-    try {
-        const week = Number(req.params.week)
-        logger.debug('findGamesByWeek - week ' + week)
-        const games = await Game.find({ week: week })
-        if (games !== null && games.length > 0) {
-            logger.debug('findGamesByWeek - success - games: ' + games)
-            res.status(httpSatus.success).json(games)
-        } else {
-            logger.debug('findGamesByWeek - not found - week: ' + week)
-            res.status(httpSatus.notfound).json('No game was found')
-        }
-    } catch (error) {
-        logger.error('findGamesByWeek - technical problem: ', error)
         res.status(httpSatus.error).send(
             'A problem has occured when trying to find a game'
         )
@@ -164,7 +156,6 @@ const playGames = async (req, res) => {
 
 module.exports = {
     findGames,
-    findGamesByWeek,
     findGamesByTeam,
     playGames,
 }

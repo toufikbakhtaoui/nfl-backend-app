@@ -1,14 +1,21 @@
 import axios from '../../config/axios.config'
 
-const findGames = async (seasonIdentifier, week) => {
-    const games = await axios.get(
-        '/games?season=' + seasonIdentifier + '&week=' + week
-    )
-    return games.data
-}
+const findGames = async (seasonIdentifier, weekToFind) => {
+    let query = ''
+    const season =
+        seasonIdentifier != null && seasonIdentifier != undefined
+            ? 'season=' + seasonIdentifier
+            : null
+    const week =
+        weekToFind != null && weekToFind != undefined
+            ? 'week=' + weekToFind
+            : null
 
-const findGamesByWeek = async (week) => {
-    const games = await axios.get('/games/week/' + week)
+    query = season != null ? query.concat('?').concat(season) : query
+    query = week != null && query != '' ? query.concat('&').concat(week) : query
+    query = week != null && query == '' ? query.concat('?').concat(week) : query
+
+    const games = await axios.get('/games' + query)
     return games.data
 }
 
@@ -27,6 +34,5 @@ const playGames = async (seasonIdentifier, week) => {
 module.exports = {
     findGames,
     playGames,
-    findGamesByWeek,
     findGamesByTeam,
 }

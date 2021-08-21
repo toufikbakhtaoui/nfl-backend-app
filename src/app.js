@@ -14,6 +14,7 @@ if (process.env.NODE_ENV !== 'test') {
         useUnifiedTopology: true,
         useFindAndModify: false,
         useCreateIndex: true,
+        ignoreUndefined: true,
     })
 }
 
