@@ -32,6 +32,7 @@ describe('Game endpoint tests', () => {
     it('Should find game', async () => {
         const response = await request(app).get('/api/games?season=1&week=16')
         const games = response.body
+        console.log('games ********************** ', response.body)
         const aGameWithADifferentWeek = games.filter((game) => game.week !== 16)
         const allGamesOfWantedWeek = games.filter((game) => game.week === 16)
 
@@ -128,7 +129,7 @@ describe('Game endpoint tests', () => {
         expect(championship.body.length).toEqual(2)
     })
 
-    it('Should add championship games after playing divisional games', async () => {
+    it('Should add superbowl games after playing championship games', async () => {
         const regularSeason = await request(app).get(
             '/api/games/scores/season/1/week/16'
         )

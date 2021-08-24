@@ -24,9 +24,10 @@ const findGames = async (req, res) => {
         logger.debug(
             'findGames - season ' +
                 req.query.season +
-                ' - ' +
-                'week ' +
-                req.query.week
+                ' - week ' +
+                req.query.week +
+                ' - team ' +
+                req.query.team
         )
         const season =
             req.query.season != undefined && req.query.season != null
@@ -36,7 +37,27 @@ const findGames = async (req, res) => {
             req.query.week != undefined && req.query.week != null
                 ? Number(req.query.week)
                 : req.query.week
-        const games = await Game.find({ season: season, week: week })
+        const team =
+            req.query.team != undefined && req.query.team != null
+                ? Number(req.query.team)
+                : req.query.team
+
+                let games = []
+        if (team != null && team != undefined) {
+            games = await Game.find({
+                season: season,
+                week: week,
+                $or: [
+                    { 'homeTeam.identifier': team },
+                    { 'awayTeam.identifier': team },
+                ],
+            })
+        } else {
+            games = await Game.find({
+                season: season,
+                week: week,
+            })
+        }
         if (games !== null && games.length > 0) {
             logger.debug('findGames - success')
             res.status(httpSatus.success).json(games)
@@ -52,44 +73,6 @@ const findGames = async (req, res) => {
         }
     } catch (error) {
         logger.error('findGames - technical problem: ', error)
-        res.status(httpSatus.error).send(
-            'A problem has occured when trying to find a game'
-        )
-    }
-}
-
-const findGamesByTeam = async (req, res) => {
-    try {
-        const team = Number(req.params.team)
-        logger.debug('findGamesByTeam - team ' + team)
-        const currentSeason = await Season.findOne({ week: { $ne: 21 } })
-        const finishedSeasonsGames = await Game.find({
-            season: { $ne: currentSeason.identifier },
-            $or: [
-                { 'homeTeam.identifier': team },
-                { 'awayTeam.identifier': team },
-            ],
-        })
-        const currentSeasonPlayedGames = await Game.find({
-            $and: [
-                { season: currentSeason.identifier },
-                { week: { $lt: currentSeason.week } },
-            ],
-            $or: [
-                { 'homeTeam.identifier': team },
-                { 'awayTeam.identifier': team },
-            ],
-        })
-        const games = finishedSeasonsGames.concat(currentSeasonPlayedGames)
-        if (games !== null && games.length > 0) {
-            logger.debug('findGamesByTeam - success - games: ' + games)
-            res.status(httpSatus.success).json(games)
-        } else {
-            logger.debug('findGamesByTeam - not found - team: ' + team)
-            res.status(httpSatus.notfound).json('No game was found')
-        }
-    } catch (error) {
-        logger.error('findGamesByTeam - technical problem: ', error)
         res.status(httpSatus.error).send(
             'A problem has occured when trying to find a game'
         )
@@ -156,6 +139,5 @@ const playGames = async (req, res) => {
 
 module.exports = {
     findGames,
-    findGamesByTeam,
     playGames,
 }
