@@ -6,7 +6,7 @@ const state = reactive({
     teamsByDivision: [],
 })
 
-const loadTeams = async () => {
+exports.loadTeams = async () => {
     const teams = await teamService.findAllTeams()
     setTeams(teams)
 }
@@ -15,9 +15,9 @@ const setTeams = (teams) => {
     state.teams = teams
 }
 
-const teams = computed(() => state.teams)
+exports.teams = computed(() => state.teams)
 
-const loadTeamsByDivision = async (seasonIdentifier) => {
+exports.loadTeamsByDivision = async (seasonIdentifier) => {
     const teams = await teamService.findTeamsByDivision(seasonIdentifier)
     setTeamsByDivision(teams)
 }
@@ -26,11 +26,4 @@ const setTeamsByDivision = (teams) => {
     state.teamsByDivision = teams
 }
 
-const teamsByDivision = computed(() => state.teamsByDivision)
-
-module.exports = {
-    loadTeams,
-    loadTeamsByDivision,
-    teams,
-    teamsByDivision,
-}
+exports.teamsByDivision = computed(() => state.teamsByDivision)

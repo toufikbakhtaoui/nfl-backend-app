@@ -1,3 +1,16 @@
+const getStats = (teams) => {
+    const statsArray = []
+    teams.forEach((team) => {
+        statsArray.push({
+            team: team.name,
+            win: team.stats.win,
+            lost: team.stats.lost,
+            draw: team.stats.draw,
+        })
+    })
+    statsArray.sort((team1, team2) => team2.win - team1.win)
+    return statsArray
+}
 const getSuperbowlStats = (superbowls) => {
     const winnerArray = []
     const superbowlWinners = []
@@ -46,4 +59,5 @@ const getSuperbowlStats = (superbowls) => {
 
 module.exports = {
     getSuperbowlStats,
+    getStats,
 }
