@@ -11,8 +11,8 @@ const findGames = async (seasonIdentifier, weekToFind, teamToFind) => {
             ? 'week=' + weekToFind
             : null
 
-            const team =
-            teamToFind != null && teamToFind != undefined
+    const team =
+        teamToFind != null && teamToFind != undefined
             ? 'team=' + teamToFind
             : null
 

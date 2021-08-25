@@ -5,7 +5,7 @@
 <script>
 import superbowl from '../components/superbowl'
 export default {
-    name: 'fame',
+    name: 'pantheon',
     components: {
         superbowl,
     },

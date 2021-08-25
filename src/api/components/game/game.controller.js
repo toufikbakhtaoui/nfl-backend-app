@@ -7,7 +7,7 @@ const scoringHelper = require('../../../helpers/scoring/scoring.helper')
 const schedulerHelper = require('../../../helpers/scheduling/commons/scheduler.helper')
 
 const regularSeasonWeeks = 16
-const stats = {
+const gameStats = {
     drives: 0,
     punts: 0,
     fieldGoals: 0,
@@ -42,7 +42,7 @@ const findGames = async (req, res) => {
                 ? Number(req.query.team)
                 : req.query.team
 
-                let games = []
+        let games = []
         if (team != null && team != undefined) {
             games = await Game.find({
                 season: season,
@@ -97,12 +97,14 @@ const playGames = async (req, res) => {
                     ) {
                         game.homeTeam.points = 0
                         game.awayTeam.points = 0
-                        game.homeTeam.stast = stats
-                        game.awayTeam.stats = stats
+                        game.homeTeam.stats = gameStats
+                        game.awayTeam.stats = gameStats
                         scoringHelper.getScore(game)
                     }
                     await game.save()
                 }
+
+                await teamService.updateStats(games)
 
                 if (week <= regularSeasonWeeks) {
                     logger.debug(

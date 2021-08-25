@@ -250,6 +250,13 @@ const createTeamList = async () => {
                     conceded: 0,
                 },
             ],
+            stats: {
+                win: 0,
+                lost: 0,
+                draw: 0,
+                scored: 0,
+                conceded: 0,
+            },
         })
         teams.push(team)
     })

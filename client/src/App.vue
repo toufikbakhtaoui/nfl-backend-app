@@ -24,7 +24,7 @@ export default {
     },
     data() {
         return {
-            items: ['Home', 'Schedule', 'Fame', 'Teams']
+            items: ['Home', 'Schedule', 'Pantheon', 'Teams']
         }
     }
 }
