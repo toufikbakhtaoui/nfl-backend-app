@@ -68,6 +68,8 @@ export default {
                 { text: 'win', value: 'win' },
                 { text: 'lost', value: 'lost' },
                 { text: 'draw', value: 'draw' },
+                { text: 'total', value: 'total' },
+                { text: 'win percentage', value: 'percentage' },
             ],
         }
     },

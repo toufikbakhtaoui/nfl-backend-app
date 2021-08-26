@@ -6,6 +6,13 @@ const getStats = (teams) => {
             win: team.stats.win,
             lost: team.stats.lost,
             draw: team.stats.draw,
+            total: team.stats.win + team.stats.lost + team.stats.draw,
+            percentage:
+                Math.round(
+                    (team.stats.win /
+                        (team.stats.win + team.stats.lost + team.stats.draw)) *
+                        10000
+                ) / 100,
         })
     })
     statsArray.sort((team1, team2) => team2.win - team1.win)
