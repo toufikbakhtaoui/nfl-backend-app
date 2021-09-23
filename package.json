@@ -23,7 +23,7 @@
         "cors": "^2.8.5",
         "cross-env": "^7.0.2",
         "express": "^4.17.1",
-        "mongoose": "^5.9.2",
+        "mongoose": "^5.13.8",
         "swagger-ui-express": "^4.1.4",
         "winston": "^3.3.2"
     },
