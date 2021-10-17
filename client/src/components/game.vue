@@ -1,8 +1,12 @@
 <template>
     <v-card>
-        <span class="display-week">{{ displayedWeek }}</span>
+        <span class="display-week">week {{ displayedWeek }}</span>
         <v-divider></v-divider>
         <v-list dense>
+            <div class="no-games" v-if="weekNotReadyToDisplay">
+                <p>No game to show</p>
+            </div>
+           <div v-else>
             <template v-for="(game, index) in gameStore.games.value">
                 <v-list-item :key="game._id" class="game-item">
                     <div class="away-team-reord">
@@ -46,14 +50,14 @@
                 </v-list-item>
                 <v-divider v-if="index < 16" :key="index"></v-divider>
             </template>
-            <v-list-item>
-                <div class="game-actions">
-                    <v-list-item-action style="margin: 0">
-                        <v-btn @click="getPreviousWeek" plain> Previous </v-btn>
-                    </v-list-item-action>
-
-                    <v-list-item-action>
-                        <v-btn
+           </div>
+                <v-pagination style="margin-top:10px"
+                    v-model="displayedWeek"
+                    :length="20"
+                    :total-visible="7"
+                ></v-pagination>
+                 <div style="display:flex; justify-content:center">
+<v-btn
                             class="ma-2"
                             fab
                             dark
@@ -64,15 +68,7 @@
                         >
                             Play
                         </v-btn>
-                    </v-list-item-action>
-
-                    <v-list-item-action style="margin: 0">
-                        <v-btn @click="getNextWeek" class="ma-1" plain>
-                            Next
-                        </v-btn>
-                    </v-list-item-action>
-                </div>
-            </v-list-item>
+                 </div>
         </v-list>
     </v-card>
 </template>
@@ -111,7 +107,6 @@ require('../../assets/logos/lions/lions.svg')
 require('../../assets/logos/vikings/vikings.svg')
 require('../../assets/logos/bears/bears.svg')
 
-import gameService from '../services/game/game.service'
 import gameStore from '../services/game/game.store'
 import teamStore from '../services/team/team.store'
 import seasonStore from '../services/season/season.store'
@@ -121,40 +116,42 @@ export default {
     data() {
         return {
             gameStore,
-            displayedWeek: 0,
+            displayedWeek: 1,
+            weekNotReadyToDisplay: false
         }
     },
     async created() {
         await teamStore.loadTeams()
         await seasonStore.loadSeasons()
-        await gameStore.loadGames(seasonStore.currentSeason.value.identifier, seasonStore.currentSeason.value.week)
+        await gameStore.loadGames(
+            seasonStore.currentSeason.value.identifier,
+            seasonStore.currentSeason.value.week
+        )
         this.displayedWeek = seasonStore.currentSeason.value.week
     },
-    methods: {
-        async getNextWeek() {
-            const isSeasonFinished = seasonStore.currentSeason.value.week === 21
-            const isDisplayedWeekInRegularSeason = this.displayedWeek < 16
-            const isDisplayedWeekAlreadyPlayed =
-                seasonStore.currentSeason.value.week > this.displayedWeek
-            if (isSeasonFinished) {
-                await seasonStore.loadSeasons()
-                await gameStore.loadGames(seasonStore.currentSeason.value.identifier, seasonStore.currentSeason.value.week)
-                await teamStore.loadTeamsByDivision(seasonStore.currentSeason.value.identifier)
-                this.displayedWeek = seasonStore.currentSeason.value.week
-                
-            } else if (
-                isDisplayedWeekInRegularSeason ||
-                isDisplayedWeekAlreadyPlayed
-            ) {
-                this.displayedWeek++
-                await gameStore.loadGames(seasonStore.currentSeason.value.identifier, this.displayedWeek)
-            }
+    watch: {
+        displayedWeek: function () {
+            this.displayWeek()
         },
-        async getPreviousWeek() {
-            if (this.displayedWeek > 1) {
-                this.displayedWeek--
-                await gameStore.loadGames(seasonStore.currentSeason.value.identifier, this.displayedWeek)
+    },
+    methods: {
+        async displayWeek() {
+            this.weekNotReadyToDisplay = 
+                this.displayedWeek > 16 &&
+                this.displayedWeek > seasonStore.currentSeason.value.week
+            // if (isSeasonFinished) {
+            //     await seasonStore.loadSeasons()
+            //     await gameStore.loadGames(seasonStore.currentSeason.value.identifier, seasonStore.currentSeason.value.week)
+            //     await teamStore.loadTeamsByDivision(seasonStore.currentSeason.value.identifier)
+            //     this.displayedWeek = seasonStore.currentSeason.value.week
+            // } else
+            if (this.weekNotReadyToDisplay) {
+                return
             }
+            await gameStore.loadGames(
+                seasonStore.currentSeason.value.identifier,
+                this.displayedWeek
+            )
         },
         async playGames() {
             const isDisplayedGameTheGameToPlay =
@@ -165,21 +162,37 @@ export default {
                     this.displayedWeek
                 )
                 await teamStore.loadTeams()
-                await teamStore.loadTeamsByDivision(seasonStore.currentSeason.value.identifier)
-                const isSeasonStillOnPlay = seasonStore.currentSeason.value.week <= 20
+                await teamStore.loadTeamsByDivision(
+                    seasonStore.currentSeason.value.identifier
+                )
+                const isSeasonStillOnPlay =
+                    seasonStore.currentSeason.value.week <= 20
                 if (isSeasonStillOnPlay) {
                     seasonStore.currentSeason.value.week++
                 }
             }
         },
         getRecord(teamIdentifier) {
-            const standings = teamStore.teams.value.find(team => team.identifier === teamIdentifier).standings
-            const win = standings.find(standing => standing.season === seasonStore.currentSeason.value.identifier).win
-            const lost = standings.find(standing => standing.season === seasonStore.currentSeason.value.identifier).lost
-            const draw = standings.find(standing => standing.season === seasonStore.currentSeason.value.identifier).draw
-            const name = teamStore.teams.value.find(team => team.identifier === teamIdentifier).name
-            return '('+win + '-' + lost + '-' + draw + ')'
-        }
+            const standings = teamStore.teams.value.find(
+                (team) => team.identifier === teamIdentifier
+            ).standings
+            const win = standings.find(
+                (standing) =>
+                    standing.season ===
+                    seasonStore.currentSeason.value.identifier
+            ).win
+            const lost = standings.find(
+                (standing) =>
+                    standing.season ===
+                    seasonStore.currentSeason.value.identifier
+            ).lost
+            const draw = standings.find(
+                (standing) =>
+                    standing.season ===
+                    seasonStore.currentSeason.value.identifier
+            ).draw
+            return '(' + win + '-' + lost + '-' + draw + ')'
+        },
     },
 }
 </script>
@@ -238,5 +251,12 @@ export default {
     text-align: left;
     height: 24px;
     width: 56px;
+}
+
+.no-games {
+min-height:650px;
+display: flex;
+justify-content: center;
+align-items: center;
 }
 </style>

@@ -29,7 +29,7 @@ const findAllSeasons = async (req, res) => {
         logger.debug('findAllSeasons')
         const seasons = await Season.find()
         if (seasons) {
-            logger.debug('findAllSeasons - success - seasons: ' + seasons)
+            logger.debug('findAllSeasons - success')
         } else {
             logger.debug('findAllSeasons - not found')
         }

@@ -1,3 +1,53 @@
+const getRankingByTeam = (teams) => {
+    let bestRanking = 32
+
+    teams.forEach((team) => {
+        bestRanking =
+            team.standings[0].rank < bestRanking
+                ? team.standings[0].rank
+                : bestRanking
+    })
+
+    let firstTeamDivisionTitles = 0
+    teams[0].standings.shift()
+    teams[0].standings.forEach((standing) => {
+        if (standing.rank === bestRanking) {
+            firstTeamDivisionTitles++
+        }
+    })
+
+    let secondTeamDivisionTitles = 0
+    teams[1].standings.shift()
+    teams[1].standings.forEach((standing) => {
+        if (standing.rank === bestRanking) {
+            secondTeamDivisionTitles++
+        }
+    })
+
+    let thirdTeamDivisionTitles = 0
+    teams[2].standings.shift()
+    teams[2].standings.forEach((standing) => {
+        if (standing.rank === bestRanking) {
+            thirdTeamDivisionTitles++
+        }
+    })
+
+    let fourthTeamDivisionTitles = 0
+    teams[3].standings.shift()
+    teams[3].standings.forEach((standing) => {
+        if (standing.rank === bestRanking) {
+            fourthTeamDivisionTitles++
+        }
+    })
+
+    return [
+        { value: firstTeamDivisionTitles, name: teams[0].name },
+        { value: secondTeamDivisionTitles, name: teams[1].name },
+        { value: thirdTeamDivisionTitles, name: teams[2].name },
+        { value: fourthTeamDivisionTitles, name: teams[3].name },
+    ]
+}
+
 const getStats = (teams) => {
     const statsArray = []
     teams.forEach((team) => {
@@ -67,4 +117,5 @@ const getSuperbowlStats = (superbowls) => {
 module.exports = {
     getSuperbowlStats,
     getStats,
+    getRankingByTeam,
 }

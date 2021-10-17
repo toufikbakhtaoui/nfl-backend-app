@@ -57,7 +57,7 @@ import teamStore from '../services/team/team.store'
 import utils from '../commons/arrays-utils'
 
 export default {
-    name: 'stats',
+    name: 'gamesStats',
     data() {
         return {
             teamStore,

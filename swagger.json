@@ -27,7 +27,7 @@
                  }
             }
         },
-        "/seasons/{identifier}": {
+        "/seasons/{season}": {
             "get": {
                 "tags": [
                     "Seasons"
@@ -69,7 +69,7 @@
                  }
             }
         },
-        "/teams/{identifier}": {
+        "/teams/{team}": {
             "get": {
                 "tags": [
                     "Teams"
@@ -95,7 +95,7 @@
                  }
             }
         },
-        "/teams/seasons/{identifier}/divisions": {
+        "/teams/seasons/{season}/divisions": {
             "get": {
                 "tags": [
                     "Teams"

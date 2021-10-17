@@ -1,5 +1,5 @@
 <template>
-<v-card style="display:flex">
+<v-card class="standing">
  <v-card>
            <division :teams="teamStore.teamsByDivision.value.find(division => division._id.conference === 'afc' && division._id.division === 'north').teams"></division>
            <division :teams="teamStore.teamsByDivision.value.find(division => division._id.conference === 'afc' && division._id.division === 'south').teams"></division>
@@ -43,5 +43,11 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+
+.standing {
+display:flex;
+width:100%;
+justify-content:space-between;
+}
 </style>

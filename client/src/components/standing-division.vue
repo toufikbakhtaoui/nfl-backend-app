@@ -6,25 +6,24 @@
       <thead>
         <tr>
           <th class="text-left">
-
           </th>
           <th class="text-left">
             Name
           </th>
           <th class="text-left">
-            Win
+            W
           </th>
            <th class="text-left">
-            Lost
+            L
           </th>
            <th class="text-left">
-            Draw
+            D
           </th>
            <th class="text-left">
-            Scored
+            S
           </th>
             <th class="text-left">
-            Conceded
+            C
           </th>
         </tr>
       </thead>

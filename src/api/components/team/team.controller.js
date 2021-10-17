@@ -5,7 +5,7 @@ const logger = require('../../../../config/winston.config')
 
 const findOneTeam = async (req, res) => {
     try {
-        const identifier = req.params.identifier
+        const identifier = Number(req.params.identifier)
         logger.debug('findOneTeam - identifier: ' + identifier)
         const team = await Team.findOne({ identifier: identifier })
         if (team) {
@@ -40,8 +40,10 @@ const findAllTeams = async (req, res) => {
 
 const findTeamsByDivision = async (req, res) => {
     try {
+        logger.debug(
+            'findTeamsByDivision - identifier: ' + req.params.identifier
+        )
         const identifier = Number(req.params.identifier)
-        logger.debug('findTeamsByDivision - identifier: ' + identifier)
         const teams = await teamService.getStandingsByDivision(identifier)
         if (teams) {
             logger.debug('findTeamsByDivision - success')

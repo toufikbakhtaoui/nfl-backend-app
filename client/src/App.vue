@@ -2,7 +2,7 @@
     <v-app>
         <v-app-bar app style="background-color: black">
             <v-tabs grow>
-                <v-tab v-for="item in items" :key="item">
+                <v-tab style="color:#8E2528" v-for="item in items" :key="item">
                     <router-link :to="{ name: `${item}` }">{{ item }}</router-link>
                 </v-tab>
             </v-tabs>
@@ -24,7 +24,7 @@ export default {
     },
     data() {
         return {
-            items: ['Home', 'Schedule', 'Pantheon', 'Teams']
+            items: ['Home', 'Stats', 'Pantheon', 'Teams']
         }
     }
 }
@@ -32,6 +32,7 @@ export default {
 
 <style lang="scss">
 .main {
-    background-color: #03dac6;
+    //background-color: #03dac6;
+    background-color: #FDFCF5;
 }
 </style>
