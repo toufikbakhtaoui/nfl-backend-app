@@ -38,26 +38,7 @@ const findAllTeams = async (req, res) => {
     }
 }
 
-const findTeamsByDivision = async (req, res) => {
-    try {
-        logger.debug(
-            'findTeamsByDivision - identifier: ' + req.params.identifier
-        )
-        const identifier = Number(req.params.identifier)
-        const teams = await teamService.getStandingsByDivision(identifier)
-        if (teams) {
-            logger.debug('findTeamsByDivision - success')
-        } else {
-            logger.debug('findTeamsByDivision - not found')
-        }
-        res.status(httpSatus.success).json(teams)
-    } catch (error) {
-        logger.error('findTeamsByDivision - technical problem: ' + error)
-    }
-}
-
 module.exports = {
     findOneTeam,
     findAllTeams,
-    findTeamsByDivision,
 }
