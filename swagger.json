@@ -17,37 +17,20 @@
                     "Seasons"
                 ],
                 "summary":"Get all seasons",
+                "parameters": [
+                    {
+                        "name": "identifier",
+                        "in": "query",
+                        "schema": {
+                            "$ref": "#/definitions/Seasons"
+                        }
+                    }
+                ],
                 "responses":{
                     "200":{
                        "description":"OK",
                        "schema":{
                           "$ref":"#/definitions/Seasons"
-                       }
-                    }
-                 }
-            }
-        },
-        "/seasons/{season}": {
-            "get": {
-                "tags": [
-                    "Seasons"
-                ],
-                "summary": "Get one season",
-                "parameters": [
-                    {
-                        "name": "season",
-                        "in": "path",
-                        "schema": {
-                            "$ref": "#/definitions/Season"
-                        }
-                    }
-
-                ],
-                "responses":{
-                    "200":{
-                       "description":"OK",
-                       "schema":{
-                          "$ref":"#/definitions/Season"
                        }
                     }
                  }

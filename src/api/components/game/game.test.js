@@ -56,7 +56,9 @@ describe('Game endpoint tests', () => {
     it('Should update season after playing a game', async () => {
         await request(app).get('/api/games/scores?season=1&week=16')
 
-        const updatedSeason = await request(app).get('/api/seasons/1')
+        const updatedSeason = await request(app).get(
+            '/api/seasons?identifier=1'
+        )
         expect(updatedSeason.body.identifier).toBe(1)
         expect(updatedSeason.body.week).toBe(17)
     })
@@ -153,7 +155,9 @@ describe('Game endpoint tests', () => {
 
         await request(app).get('/api/games/scores?season=1&week=20')
 
-        const newRegularSeason = await request(app).get('/api/seasons/2')
+        const newRegularSeason = await request(app).get(
+            '/api/seasons?identifier=2'
+        )
         expect(newRegularSeason.body.week).toEqual(1)
 
         const teams = await request(app).get('/api/teams')
