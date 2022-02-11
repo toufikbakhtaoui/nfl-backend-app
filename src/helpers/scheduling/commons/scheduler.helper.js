@@ -8,7 +8,7 @@ const regularSeasonScheduler = require('../regular-season/regular-season.schedul
 const Game = require('../../../api/components/game/game.model')
 const Season = require('../../../api/components/season/season.model')
 const Team = require('../../../api/components/team/team.model')
-const logger = require('../../../../config/winston.config')
+const logger = require('../../../config/winston.config')
 const stats = {
     drives: 0,
     punts: 0,

@@ -1,6 +1,6 @@
 const Season = require('./season.model')
 const httpSatus = require('../../../helpers/http-status.helper')
-const logger = require('../../../../config/winston.config')
+const logger = require('../../../config/winston.config')
 
 const findAllSeasons = async (req, res) => {
     try {

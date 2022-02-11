@@ -2,7 +2,7 @@ const Game = require('./game.model')
 const Season = require('../season/season.model')
 const teamService = require('../team/team.service')
 const httpSatus = require('../../../helpers/http-status.helper')
-const logger = require('../../../../config/winston.config')
+const logger = require('../../../config/winston.config')
 const scoringHelper = require('../../../helpers/scoring/scoring.helper')
 const schedulerHelper = require('../../../helpers/scheduling/commons/scheduler.helper')
 

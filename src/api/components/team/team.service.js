@@ -1,5 +1,5 @@
 const Team = require('./team.model')
-const logger = require('../../../../config/winston.config')
+const logger = require('../../../config/winston.config')
 
 const isDraw = (firstScore, secondScore) => {
     return firstScore === secondScore ? 1 : 0

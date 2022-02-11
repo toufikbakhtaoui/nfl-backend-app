@@ -1,7 +1,7 @@
 const Team = require('./team.model')
 const teamService = require('./team.service')
 const httpSatus = require('../../../helpers/http-status.helper')
-const logger = require('../../../../config/winston.config')
+const logger = require('../../../config/winston.config')
 
 const findOneTeam = async (req, res) => {
     try {

@@ -1,6 +1,6 @@
 const Game = require('../../api/components/game/game.model')
 const scoringHelper = require('../scoring/scoring.helper')
-const logger = require('../../../config/winston.config')
+const logger = require('../../config/winston.config')
 
 const { start, stop, cleanup, gameSetup } = require('../test/api-test.helper')
 const gameStats = {
@@ -71,7 +71,6 @@ describe('Score calculation tests', () => {
 
         for (let i = 0; i < 100; i++) {
             scoringHelper.getScore(game)
-            logger.info(game.homeTeam.points + ' - ' + game.awayTeam.points)
             game.homeTeam.stats = gameStats
             game.awayTeam.stats = gameStats
         }
