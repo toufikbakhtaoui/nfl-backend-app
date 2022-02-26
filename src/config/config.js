@@ -4,7 +4,8 @@ const config = {
         port: process.env.PORT || 3400,
     },
     mongo: {
-        url: process.env.DATABASE_URL || 'mongodb://localhost/nfldb',
+        url: 'mongodb+srv://toufik:lM1rTOxGPxlxompk@cluster0.jsmca.mongodb.net/nfldb?retryWrites=true&w=majority',
+        //|| 'mongodb://localhost/nfldb',
     },
 }
 

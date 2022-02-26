@@ -1,6 +1,6 @@
 const app = require('./src/app')
-const config = require('./config/config')
-const logger = require('./config/winston.config')
+const config = require('./src/config/config')
+const logger = require('./src/config/winston.config')
 const schedulerHelper = require('./src/helpers/scheduling/commons/scheduler.helper')
 
 app.listen(config.server.port, async () => {
