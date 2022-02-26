@@ -42,7 +42,7 @@ const fourthDownPlay = (team) => {
 const play = () => {
     let play = chance.weighted(
         ['incompletion', 'completion', 'loss', 'fumble', 'interception'],
-        [25, 65, 9, 0.5, 0.5]
+        [30, 60, 9.4, 0.3, 0.3]
     )
     switch (play) {
         case 'completion':

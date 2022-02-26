@@ -1,57 +1,22 @@
 <template>
-<div>
-    <v-card style="margin:10px">
-  <v-simple-table dense>
-    <template v-slot:default>
-      <thead>
-        <tr>
-          <th class="text-left">
-          </th>
-          <th class="text-left">
-            Name
-          </th>
-          <th class="text-left">
-            W
-          </th>
-           <th class="text-left">
-            L
-          </th>
-           <th class="text-left">
-            D
-          </th>
-           <th class="text-left">
-            S
-          </th>
-            <th class="text-left">
-            C
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          v-for="team in teams"
-          :key="team.identifier"
+    <div style="display: flex">
+        <v-data-table
+            dense
+            :headers="statsHeaders"
+            :items="statsWinners"
+            item-key="name"
+            class="elevation-1"
         >
-          <td>
-            <img
-                            class="logo"
-                            :src="
-                                require(`../../assets/logos/${team.name}/${team.name}.svg`)
-                            "
-                        />
-          </td>
-          <td class="team-name">{{ team.name }}</td>
-          <td>{{ team.win }}</td>
-          <td>{{ team.lost }}</td>
-          <td>{{ team.draw }}</td>
-          <td>{{ team.scored }}</td>
-          <td>{{ team.conceded }}</td>
-        </tr>
-      </tbody>
-    </template>
-  </v-simple-table>
-    </v-card>
-</div>
+            <template v-slot:item.logo="{ item }">
+                <img
+                    class="logo"
+                    :src="
+                        require(`../../assets/logos/${item.team}/${item.team}.svg`)
+                    "
+                />
+            </template>
+        </v-data-table>
+    </div>
 </template>
 
 <script>
@@ -88,19 +53,68 @@ require('../../assets/logos/lions/lions.svg')
 require('../../assets/logos/vikings/vikings.svg')
 require('../../assets/logos/bears/bears.svg')
 
+import teamStore from '../services/team/team.store'
+import utils from '../commons/arrays-utils'
+
 export default {
-    name: 'standing-division',
-    props: ['teams'],
+    name: 'gamesStats',
+    data() {
+        return {
+            teamStore,
+            statsWinners: [],
+            statsHeaders: [
+                { text: '', value: 'logo' },
+                { text: 'Teams', value: 'team' },
+                { text: 'win', value: 'win' },
+                { text: 'lost', value: 'lost' },
+                { text: 'draw', value: 'draw' },
+                { text: 'total', value: 'total' },
+                { text: 'win percentage', value: 'percentage' },
+            ],
+        }
+    },
+    async created() {
+    await teamStore.loadTeams()
+    this.statsWinners = utils.getStats(teamStore.teams.value)
+    },
 }
 </script>
 
 <style lang="scss" scoped>
+.stats-card {
+    width: 450px;
+}
+.game-item {
+    justify-content: space-between;
+}
 
+.team-name {
+    width: 85px;
+    text-transform: capitalize;
+}
+
+.home-team-name {
+    text-align: initial;
+    margin-left: 10px;
+}
+
+.away-team-name {
+    text-align: initial;
+    margin-left: 10px;
+}
+
+.logo-container {
+    display: flex;
+}
 .logo {
     height: 30px;
     width: 30px;
 }
-.team-name {
-    text-transform: capitalize;
+
+.team-score {
+    height: 24px;
+    width: 18px;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 </style>

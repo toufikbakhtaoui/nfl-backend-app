@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '../views/home'
-import Fame from '../views/fame'
+import Pantheon from '../views/pantheon'
+import Stats from '../views/stats'
 
 Vue.use(Router)
 
@@ -13,9 +14,14 @@ export default new Router({
             component: Home,
         },
         {
-            path: '/fame',
-            name: 'Fame',
-            component: Fame,
+            path: '/pantheon',
+            name: 'Pantheon',
+            component: Pantheon,
+        },
+        {
+            path: '/stats',
+            name: 'Stats',
+            component: Stats,
         },
     ],
 })

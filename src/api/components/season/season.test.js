@@ -25,7 +25,7 @@ beforeEach(async () => {
 
 describe('Season endpoint tests', () => {
     it('Should return a season', async () => {
-        const response = await request(app).get('/api/seasons/1')
+        const response = await request(app).get('/api/seasons?identifier=1')
 
         expect(response.body.identifier).toBe(1)
         expect(response.body.week).toBe(16)
@@ -33,7 +33,7 @@ describe('Season endpoint tests', () => {
     })
 
     it('Should not return a season not exists', async () => {
-        const response = await request(app).get('/api/seasons/198')
+        const response = await request(app).get('/api/seasons?identifier=198')
 
         expect(response.status).toBe(404)
         expect(response.body).toBe('No season was found')

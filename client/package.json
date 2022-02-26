@@ -4,22 +4,26 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "node_modules/.bin/parcel index.html",
-    "serve": "node_modules/.bin/parcel serve index.html",
+    "start": "parcel index.html",
+    "serve": "parcel serve index.html",
     "build": "parcel build index.html"
   },
   "dependencies": {
     "@mdi/font": "^5.6.55",
     "@vue/composition-api": "^1.0.0-rc.1",
     "axios": "^0.20.0",
+    "echarts": "^5.1.2",
     "parcel-bundler": "^1.12.4",
     "vue": "^2.6.12",
+    "vue-echarts": "^6.0.0",
     "vue-router": "^3.4.3",
     "vuetify": "^2.3.10"
   },
   "devDependencies": {
     "@vue/component-compiler-utils": "^3.2.0",
+    "postcss": "^8.3.3",
     "sass": "^1.26.11",
+    "sugarss": "^4.0.1",
     "vue-hot-reload-api": "^2.3.4",
     "vue-template-compiler": "^2.6.12"
   },

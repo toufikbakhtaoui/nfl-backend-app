@@ -12,7 +12,7 @@ const loadGames = async (identifier, week) => {
 }
 
 const loadSuperbowls = async () => {
-    const superbowls = await gameService.findGamesByWeek(20)
+    const superbowls = await gameService.findGames(undefined, 20)
     setSuperbowls(superbowls)
 }
 

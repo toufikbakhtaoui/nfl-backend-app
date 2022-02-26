@@ -17,37 +17,20 @@
                     "Seasons"
                 ],
                 "summary":"Get all seasons",
+                "parameters": [
+                    {
+                        "name": "identifier",
+                        "in": "query",
+                        "schema": {
+                            "$ref": "#/definitions/Seasons"
+                        }
+                    }
+                ],
                 "responses":{
                     "200":{
                        "description":"OK",
                        "schema":{
                           "$ref":"#/definitions/Seasons"
-                       }
-                    }
-                 }
-            }
-        },
-        "/seasons/{identifier}": {
-            "get": {
-                "tags": [
-                    "Seasons"
-                ],
-                "summary": "Get one season",
-                "parameters": [
-                    {
-                        "name": "season",
-                        "in": "path",
-                        "schema": {
-                            "$ref": "#/definitions/Season"
-                        }
-                    }
-
-                ],
-                "responses":{
-                    "200":{
-                       "description":"OK",
-                       "schema":{
-                          "$ref":"#/definitions/Season"
                        }
                     }
                  }
@@ -69,7 +52,7 @@
                  }
             }
         },
-        "/teams/{identifier}": {
+        "/teams/{team}": {
             "get": {
                 "tags": [
                     "Teams"
@@ -95,33 +78,7 @@
                  }
             }
         },
-        "/teams/seasons/{identifier}/divisions": {
-            "get": {
-                "tags": [
-                    "Teams"
-                ],
-                "summary": "Get teams by division",
-                "parameters": [
-                    {
-                        "name": "season",
-                        "in": "path",
-                        "schema": {
-                            "$ref": "#/definitions/Team"
-                        }
-                    }
-
-                ],
-                "responses":{
-                    "200":{
-                       "description":"OK",
-                       "schema":{
-                          "$ref":"#/definitions/Team"
-                       }
-                    }
-                 }
-            }
-        },
-        "/games/season/{season}/week/{week}": {
+        "/games": {
             "get": {
                 "tags": [
                     "Games"
@@ -130,40 +87,24 @@
                 "parameters": [
                     {
                         "name": "season",
-                        "in": "path",
+                        "in": "query",
+                        "required": false,
                         "schema": {
                             "$ref": "#/definitions/Games"
                         }
                     },
                     {
                         "name": "week",
-                        "in": "path",
+                        "in": "query",
+                        "required": false,
                         "schema": {
                             "$ref": "#/definitions/Games"
                         }
-                    }
-
-                ],
-                "responses":{
-                    "200":{
-                       "description":"OK",
-                       "schema":{
-                          "$ref":"#/definitions/Games"
-                       }
-                    }
-                 }
-            }
-        },
-        "/games/week/{week}": {
-            "get": {
-                "tags": [
-                    "Games"
-                ],
-                "summary": "Get all games for specific week",
-                "parameters": [
+                    },
                     {
-                        "name": "week",
-                        "in": "path",
+                        "name": "team",
+                        "in": "query",
+                        "required": false,
                         "schema": {
                             "$ref": "#/definitions/Games"
                         }
@@ -180,7 +121,7 @@
                  }
             }
         },
-        "/games/scores/season/{season}/week/{week}": {
+        "/games/scores": {
             "get": {
                 "tags": [
                     "Games"
@@ -189,14 +130,14 @@
                 "parameters": [
                     {
                         "name": "season",
-                        "in": "path",
+                        "in": "query",
                         "schema": {
                             "$ref": "#/definitions/Games"
                         }
                     },
                     {
                         "name": "week",
-                        "in": "path",
+                        "in": "query",
                         "schema": {
                             "$ref": "#/definitions/Games"
                         }

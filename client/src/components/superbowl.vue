@@ -134,8 +134,6 @@ export default {
         }
     },
     async created() {
-        const winnerArray = []
-        const appearancesArray = []
         await gameStore.loadSuperbowls()
         const {
             superbowlWinners,

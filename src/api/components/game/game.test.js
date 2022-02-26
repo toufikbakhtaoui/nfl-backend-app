@@ -30,7 +30,7 @@ beforeEach(async () => {
 
 describe('Game endpoint tests', () => {
     it('Should find game', async () => {
-        const response = await request(app).get('/api/games/season/1/week/16')
+        const response = await request(app).get('/api/games?season=1&week=16')
         const games = response.body
         const aGameWithADifferentWeek = games.filter((game) => game.week !== 16)
         const allGamesOfWantedWeek = games.filter((game) => game.week === 16)
@@ -48,15 +48,17 @@ describe('Game endpoint tests', () => {
     })
 
     it('Should not return a game not exists', async () => {
-        const response = await request(app).get('/api/games/season/1/week/34')
+        const response = await request(app).get('/api/games?season=1&week=34')
         expect(response.status).toBe(404)
         expect(response.body).toEqual('No game was found')
     })
 
     it('Should update season after playing a game', async () => {
-        await request(app).get('/api/games/scores/season/1/week/16')
+        await request(app).get('/api/games/scores?season=1&week=16')
 
-        const updatedSeason = await request(app).get('/api/seasons/1')
+        const updatedSeason = await request(app).get(
+            '/api/seasons?identifier=1'
+        )
         expect(updatedSeason.body.identifier).toBe(1)
         expect(updatedSeason.body.week).toBe(17)
     })
@@ -71,7 +73,7 @@ describe('Game endpoint tests', () => {
             patriots.body.standings[0].draw
         expect(playedGames).toEqual(15)
 
-        await request(app).get('/api/games/scores/season/1/week/16')
+        await request(app).get('/api/games/scores?season=1&week=16')
 
         const updatedPatriots = await request(app).get('/api/teams/1')
         expect(updatedPatriots.body.name).toEqual('patriots')
@@ -86,14 +88,14 @@ describe('Game endpoint tests', () => {
 
     it('Should add wildCard games after playing the last game of regular season', async () => {
         const wildCardGames = await request(app).get(
-            '/api/games/season/1/week/17'
+            '/api/games?season=1&week=17'
         )
         expect(wildCardGames.body).toEqual('No game was found')
 
-        await request(app).get('/api/games/scores/season/1/week/16')
+        await request(app).get('/api/games/scores?season=1&week=16')
 
         const updatedWildCardGames = await request(app).get(
-            '/api/games/season/1/week/17'
+            '/api/games?season=1&week=17'
         )
         const games = updatedWildCardGames.body
         expect(games.length).toEqual(4)
@@ -101,59 +103,61 @@ describe('Game endpoint tests', () => {
 
     it('Should add divisional games', async () => {
         const regularSeason = await request(app).get(
-            '/api/games/scores/season/1/week/16'
+            '/api/games/scores?season=1&week=16'
         )
         const wildCard = await request(app).get(
-            '/api/games/scores/season/1/week/17'
+            '/api/games/scores?season=1&week=17'
         )
 
-        const divisional = await request(app).get('/api/games/season/1/week/18')
+        const divisional = await request(app).get('/api/games?season=1&week=18')
         expect(divisional.body.length).toEqual(4)
     })
 
     it('Should add championship games after playing divisional games', async () => {
         const regularSeason = await request(app).get(
-            '/api/games/scores/season/1/week/16'
+            '/api/games/scores?season=1&week=16'
         )
         const wildCard = await request(app).get(
-            '/api/games/scores/season/1/week/17'
+            '/api/games/scores?season=1&week=17'
         )
         const divisional = await request(app).get(
-            '/api/games/scores/season/1/week/18'
+            '/api/games/scores?season=1&week=18'
         )
 
         const championship = await request(app).get(
-            '/api/games/season/1/week/19'
+            '/api/games?season=1&week=19'
         )
         expect(championship.body.length).toEqual(2)
     })
 
-    it('Should add championship games after playing divisional games', async () => {
+    it('Should add superbowl games after playing championship games', async () => {
         const regularSeason = await request(app).get(
-            '/api/games/scores/season/1/week/16'
+            '/api/games/scores?season=1&week=16'
         )
         const wildCard = await request(app).get(
-            '/api/games/scores/season/1/week/17'
+            '/api/games/scores?season=1&week=17'
         )
         const divisional = await request(app).get(
-            '/api/games/scores/season/1/week/18'
+            '/api/games/scores?season=1&week=18'
         )
         const championship = await request(app).get(
-            '/api/games/scores/season/1/week/19'
+            '/api/games/scores?season=1&week=19'
         )
-        const superBowl = await request(app).get('/api/games/season/1/week/20')
+        const superBowl = await request(app).get('/api/games?season=1&week=20')
         expect(superBowl.body.length).toEqual(1)
     })
 
     it('Should add new season games after playing superBowl', async () => {
-        await request(app).get('/api/games/scores/season/1/week/16')
-        await request(app).get('/api/games/scores/season/1/week/17')
-        await request(app).get('/api/games/scores/season/1/week/18')
-        await request(app).get('/api/games/scores/season/1/week/19')
+        await request(app).get('/api/games/scores?season=1&week=16')
+        await request(app).get('/api/games/scores?season=1&week=17')
+        await request(app).get('/api/games/scores?season=1&week=18')
+        await request(app).get('/api/games/scores?season=1&week=19')
 
-        await request(app).get('/api/games/scores/season/1/week/20')
+        await request(app).get('/api/games/scores?season=1&week=20')
 
-        const newRegularSeason = await request(app).get('/api/seasons/2')
+        const newRegularSeason = await request(app).get(
+            '/api/seasons?identifier=2'
+        )
         expect(newRegularSeason.body.week).toEqual(1)
 
         const teams = await request(app).get('/api/teams')

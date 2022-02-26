@@ -3,7 +3,7 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 const swaggerUi = require('swagger-ui-express')
 const swaggerDocument = require('../swagger.json')
-const config = require('../config/config')
+const config = require('./config/config')
 const routes = require('./routes')
 
 const app = express()
@@ -14,6 +14,7 @@ if (process.env.NODE_ENV !== 'test') {
         useUnifiedTopology: true,
         useFindAndModify: false,
         useCreateIndex: true,
+        ignoreUndefined: true,
     })
 }
 
