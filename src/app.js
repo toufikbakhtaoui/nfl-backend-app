@@ -15,6 +15,7 @@ if (process.env.NODE_ENV !== 'test') {
         useFindAndModify: false,
         useCreateIndex: true,
         ignoreUndefined: true,
+        urlEncode: true,
     })
 }
 
@@ -26,5 +27,4 @@ app.route('/').get((req, res) => {
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 app.use('/api', routes)
-app.use(express.static('client/dist'))
 module.exports = app

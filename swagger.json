@@ -8,7 +8,7 @@
             "url": "https://opensource.org/licenses/MIT"
         }
     },
-    "host": "localhost:3400",
+    "host": "nfl-backend-app.herokuapp.com",
     "basePath": "/api",
     "paths": {
         "/seasons": {
