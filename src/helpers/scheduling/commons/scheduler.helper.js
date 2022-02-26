@@ -224,6 +224,7 @@ const generatePlayoffs = async (week, season) => {
                 nextSeasonIdentifier
             )
             await generateNewSeason(nextSeasonIdentifier)
+            break
         default:
             break
     }

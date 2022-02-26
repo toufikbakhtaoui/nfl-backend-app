@@ -5,12 +5,12 @@ const logger = require('../../../config/winston.config')
 const findAllSeasons = async (req, res) => {
     try {
         const identifier =
-            req.query.identifier != undefined && req.query.identifier != null
+            req.query.identifier != null
                 ? Number(req.query.identifier)
                 : req.query.identifier
         logger.debug('findAllSeasons - identifier: ' + identifier)
         let seasons =
-            identifier != null && identifier != undefined
+            identifier != null
                 ? await Season.findOne({ identifier: identifier })
                 : await Season.find()
         if (seasons) {
