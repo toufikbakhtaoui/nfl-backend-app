@@ -1,6 +1,5 @@
 const Game = require('../../api/components/game/game.model')
 const scoringHelper = require('../scoring/scoring.helper')
-const logger = require('../../config/winston.config')
 
 const { start, stop, cleanup, gameSetup } = require('../test/api-test.helper')
 const gameStats = {

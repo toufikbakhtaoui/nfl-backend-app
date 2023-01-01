@@ -116,6 +116,9 @@ const playGames = async (req, res) => {
                 currentSeason.week = currentSeason.week + 1
                 await currentSeason.save()
 
+                if (week > regularSeasonWeeks) {
+                    await teamService.updateRecords(games)
+                }
                 if (week >= regularSeasonWeeks) {
                     await schedulerHelper.generatePlayoffs(week, season)
                 }

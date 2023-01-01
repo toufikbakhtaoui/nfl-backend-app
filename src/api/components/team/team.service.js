@@ -72,6 +72,50 @@ exports.updateOneStats = async (identifier, w, l, d, s, c) => {
     )
 }
 
+exports.updateRecords = async (games) => {
+    for (let game of games) {
+        logger.debug(
+            'update record homeTeam ' +
+                game.homeTeam.name +
+                ' awayTeam ' +
+                game.awayTeam.name
+        )
+        await this.updateOneRecord(
+            game.homeTeam.identifier,
+            isWin(game.homeTeam.points, game.awayTeam.points),
+            isWin(game.awayTeam.points, game.homeTeam.points),
+            isDraw(game.homeTeam.points, game.awayTeam.points),
+            game.homeTeam.points,
+            game.awayTeam.points
+        )
+        await this.updateOneRecord(
+            game.awayTeam.identifier,
+            isWin(game.awayTeam.points, game.homeTeam.points),
+            isWin(game.homeTeam.points, game.awayTeam.points),
+            isDraw(game.homeTeam.points, game.awayTeam.points),
+            game.awayTeam.points,
+            game.homeTeam.points
+        )
+    }
+}
+
+exports.updateOneRecord = async (identifier, w, l, d, s, c) => {
+    await Team.findOneAndUpdate(
+        {
+            identifier: identifier,
+        },
+        {
+            $inc: {
+                'record.win': w,
+                'record.lost': l,
+                'record.draw': d,
+                'record.scored': s,
+                'record.conceded': c,
+            },
+        }
+    )
+}
+
 exports.updateStandings = async (games, season) => {
     for (let game of games) {
         logger.debug(

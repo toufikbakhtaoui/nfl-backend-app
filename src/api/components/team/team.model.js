@@ -44,6 +44,21 @@ const statsSchema = new mongoose.Schema({
     },
 })
 
+const recordSchema = new mongoose.Schema({
+    win: {
+        type: Number,
+    },
+    lost: {
+        type: Number,
+    },
+    scored: {
+        type: Number,
+    },
+    conceded: {
+        type: Number,
+    },
+})
+
 const teamSchema = new mongoose.Schema(
     {
         identifier: {
@@ -68,6 +83,7 @@ const teamSchema = new mongoose.Schema(
         },
         standings: [standingSchema],
         stats: statsSchema,
+        record: recordSchema,
     },
     { timestamps: true }
 )
