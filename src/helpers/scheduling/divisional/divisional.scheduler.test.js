@@ -31,9 +31,8 @@ describe('Divisional generation', () => {
     it('Should generate divisional', async () => {
         const season = 3
         const week = 17
-        const standingsByDivision = await teamService.getStandingsByDivision(
-            season
-        )
+        const standingsByDivision =
+            await teamService.getStandingsByDivision(season)
         const afcStandings = standingsByDivision.filter(
             (conference) => conference._id.conference === 'afc'
         )

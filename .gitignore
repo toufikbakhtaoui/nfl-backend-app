@@ -3,6 +3,9 @@
 #MacOS
 .DS_Store
 
+#intellij
+.idea
+
 # Logs
 logs
 *.log
