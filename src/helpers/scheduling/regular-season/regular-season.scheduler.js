@@ -33,7 +33,7 @@ const generateDifferentDivisionMatchups = (
 
     let matchups = []
 
-    game = {
+    let game = {
         week: week,
         homeTeamRank: teamsInFirstDivision[0],
         awayTeamRank: teamsInSecondDivision[0],

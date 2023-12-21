@@ -12,11 +12,8 @@ if (process.env.NODE_ENV !== 'test') {
     mongoose.connect(config.mongo.url, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
-        useFindAndModify: false,
-        useCreateIndex: true,
-        ignoreUndefined: true,
-        urlEncode: true,
-    })
+        useFindAndModify: false
+    }).then(r => console.log('Connected to MongoDB successfully!'))
 }
 
 app.use(cors())

@@ -30,12 +30,6 @@ const updateOneStanding = async (season, rank, identifier, w, l, d, s, c) => {
 
 exports.updateStats = async (games) => {
     for (let game of games) {
-        logger.debug(
-            'update stats homeTeam ' +
-                game.homeTeam.name +
-                ' awayTeam ' +
-                game.awayTeam.name
-        )
         await this.updateOneStats(
             game.homeTeam.identifier,
             isWin(game.homeTeam.points, game.awayTeam.points),
@@ -118,12 +112,6 @@ exports.updateOneRecord = async (identifier, w, l, d, s, c) => {
 
 exports.updateStandings = async (games, season) => {
     for (let game of games) {
-        logger.debug(
-            'update standings teams homeTeam ' +
-                game.homeTeam.name +
-                ' awayTeam ' +
-                game.awayTeam.name
-        )
         await updateOneStanding(
             season,
             game.homeTeam.rank,

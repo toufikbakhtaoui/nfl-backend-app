@@ -1,7 +1,7 @@
 const Game = require('./game.model')
 const Season = require('../season/season.model')
 const teamService = require('../team/team.service')
-const httpSatus = require('../../../helpers/http-status.helper')
+const httpStatus = require('../../../helpers/http-status.helper')
 const logger = require('../../../config/winston.config')
 const scoringHelper = require('../../../helpers/scoring/scoring.helper')
 const schedulerHelper = require('../../../helpers/scheduling/commons/scheduler.helper')
@@ -56,7 +56,7 @@ const findGames = async (req, res) => {
         }
         if (games !== null && games.length > 0) {
             logger.debug('findGames - success')
-            res.status(httpSatus.success).json(games)
+            res.status(httpStatus.success).json(games)
         } else {
             logger.debug(
                 'findGames - not found - season: ' +
@@ -65,17 +65,18 @@ const findGames = async (req, res) => {
                     'week ' +
                     week
             )
-            res.status(httpSatus.notfound).json('No game was found')
+            res.status(httpStatus.notfound).json('No game was found')
         }
     } catch (error) {
         logger.error('findGames - technical problem: ', error)
-        res.status(httpSatus.error).send(
-            'A problem has occured when trying to find a game'
+        res.status(httpStatus.error).send(
+            'A problem has occurred when trying to find a game'
         )
     }
 }
 
 const playGames = async (req, res) => {
+    const startTime = performance.now();
     try {
         const season =
             req.query.season != null
@@ -123,7 +124,10 @@ const playGames = async (req, res) => {
                     await schedulerHelper.generatePlayoffs(week, season)
                 }
             }
-            res.status(httpSatus.success).json(games)
+            const endTime = performance.now(); // Get end time
+            const duration = endTime - startTime;
+            logger.debug('duration *********** ' + duration)
+            res.status(httpStatus.success).json(games)
         } else {
             logger.debug(
                 'playGames - not found - season: ' +
@@ -132,11 +136,11 @@ const playGames = async (req, res) => {
                     'week ' +
                     week
             )
-            res.status(httpSatus.notfound).json('No game was found')
+            res.status(httpStatus.notfound).json('No game was found')
         }
     } catch (error) {
         logger.error('playGames - technical problem: ', error)
-        res.status(httpSatus.error).send(
+        res.status(httpStatus.error).send(
             'A problem has occured when trying to play a game'
         )
     }

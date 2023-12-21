@@ -5,7 +5,7 @@
     "main": "server.js",
     "scripts": {
         "dev": "cross-env NODE_ENV=dev nodemon server.js",
-        "start": "cross-env PORT=8080 NODE_ENV=prod DATABASE_URL=mongodb+srv://toufik:Xa53kYm6ti3H3M@cluster0.jsmca.mongodb.net/nfldb?retryWrites=true&w=majority node server.js",
+        "start": "cross-env PORT=8080 NODE_ENV=prod DATABASE_URL=mongodb+srv://toufik:Xa53kYm6ti3H3M@cluster0.q0jcit0.mongodb.net/?retryWrites=true&w=majority node server.js",
         "test": "cross-env NODE_ENV=test jest",
         "test:watch": "cross-env NODE_ENV=test jest --watchAll --coverage",
         "format": "npx prettier --config .prettierrc.json --write \"**/*.js\""
@@ -19,8 +19,10 @@
         "chance": "^1.1.6",
         "cors": "^2.8.5",
         "cross-env": "^7.0.2",
+        "dotenv": "^16.3.1",
         "express": "^4.17.1",
-        "mongoose": "^5.9.2",
+        "mongodb": "^6.3.0",
+        "mongoose": "^5.13.16",
         "swagger-ui-express": "^4.1.4",
         "winston": "^3.3.2"
     },
@@ -29,7 +31,7 @@
         "husky": "^4.2.3",
         "jest": "^27.3.1",
         "mongodb-memory-server": "^6.2.4",
-        "nodemon": "^2.0.4",
+        "nodemon": "^2.0.22",
         "supertest": "^4.0.2"
     },
     "husky": {
