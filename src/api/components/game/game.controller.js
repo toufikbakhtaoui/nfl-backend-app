@@ -29,41 +29,36 @@ const findGames = async (req, res) => {
                 ' - team ' +
                 req.query.team
         )
-        const season =
-            req.query.season != null
-                ? Number(req.query.season)
-                : req.query.season
-        const week =
-            req.query.week != null ? Number(req.query.week) : req.query.week
-        const team =
-            req.query.team != null ? Number(req.query.team) : req.query.team
 
-        let games = []
-        if (team != null) {
-            games = await Game.find({
-                season: season,
-                week: week,
-                $or: [
-                    { 'homeTeam.identifier': team },
-                    { 'awayTeam.identifier': team },
-                ],
-            })
-        } else {
-            games = await Game.find({
-                season: season,
-                week: week,
-            })
+        const query = {}
+        if (req.query.season != null) {
+            query.season = Number(req.query.season)
         }
+
+        if (req.query.week != null) {
+            query.week = Number(req.query.week)
+        }
+
+        if (req.query.team != null) {
+            const team = Number(req.query.team)
+            query.$or = [
+                { 'homeTeam.identifier': team },
+                { 'awayTeam.identifier': team },
+            ]
+        }
+
+        let games = await Game.find(query)
+
         if (games !== null && games.length > 0) {
             logger.debug('findGames - success')
             res.status(httpStatus.success).json(games)
         } else {
             logger.debug(
                 'findGames - not found - season: ' +
-                    season +
+                    query.season +
                     ' - ' +
                     'week ' +
-                    week
+                    query.week
             )
             res.status(httpStatus.notfound).json('No game was found')
         }
@@ -76,7 +71,7 @@ const findGames = async (req, res) => {
 }
 
 const playGames = async (req, res) => {
-    const startTime = performance.now();
+    const startTime = performance.now()
     try {
         const season =
             req.query.season != null
@@ -124,8 +119,8 @@ const playGames = async (req, res) => {
                     await schedulerHelper.generatePlayoffs(week, season)
                 }
             }
-            const endTime = performance.now(); // Get end time
-            const duration = endTime - startTime;
+            const endTime = performance.now() // Get end time
+            const duration = endTime - startTime
             logger.debug('duration *********** ' + duration)
             res.status(httpStatus.success).json(games)
         } else {
