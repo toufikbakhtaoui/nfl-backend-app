@@ -5,6 +5,7 @@ const httpStatus = require('../../../helpers/http-status.helper')
 const logger = require('../../../config/winston.config')
 const scoringHelper = require('../../../helpers/scoring/scoring.helper')
 const schedulerHelper = require('../../../helpers/scheduling/commons/scheduler.helper')
+const gameService = require('./game.service')
 
 const regularSeasonWeeks = 16
 const gameStats = {
@@ -30,24 +31,11 @@ const findGames = async (req, res) => {
                 req.query.team
         )
 
-        const query = {}
-        if (req.query.season != null) {
-            query.season = Number(req.query.season)
-        }
-
-        if (req.query.week != null) {
-            query.week = Number(req.query.week)
-        }
-
-        if (req.query.team != null) {
-            const team = Number(req.query.team)
-            query.$or = [
-                { 'homeTeam.identifier': team },
-                { 'awayTeam.identifier': team },
-            ]
-        }
-
-        let games = await Game.find(query)
+        let games = await gameService.getGames(
+            req.query.season,
+            req.query.week,
+            req.query.team
+        )
 
         if (games !== null && games.length > 0) {
             logger.debug('findGames - success')
@@ -55,10 +43,10 @@ const findGames = async (req, res) => {
         } else {
             logger.debug(
                 'findGames - not found - season: ' +
-                    query.season +
+                    req.query.season +
                     ' - ' +
                     'week ' +
-                    query.week
+                    req.query.week
             )
             res.status(httpStatus.notfound).json('No game was found')
         }
@@ -136,7 +124,7 @@ const playGames = async (req, res) => {
     } catch (error) {
         logger.error('playGames - technical problem: ', error)
         res.status(httpStatus.error).send(
-            'A problem has occured when trying to play a game'
+            'A problem has occurred when trying to play a game'
         )
     }
 }
