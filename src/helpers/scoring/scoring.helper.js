@@ -30,13 +30,11 @@ const turnOver = (team, losingBallTeam) => {
 
 const fourthDownPlay = (team) => {
     fourthDown = true
-    const element =
-        position < 60
-            ? (team.stats.punts += 1)
-            : fieldGoal(position) === 3
-              ? (team.stats.fieldGoals += 1)
-              : (team.stats.missedFieldGoals += 1)
-    return element
+    return position < 60
+        ? (team.stats.punts += 1)
+        : fieldGoal(position) === 3
+          ? (team.stats.fieldGoals += 1)
+          : (team.stats.missedFieldGoals += 1)
 }
 
 const play = () => {

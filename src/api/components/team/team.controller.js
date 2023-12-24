@@ -1,5 +1,5 @@
 const Team = require('./team.model')
-const httpSatus = require('../../../helpers/http-status.helper')
+const httpStatus = require('../../../helpers/http-status.helper')
 const logger = require('../../../config/winston.config')
 
 const findOneTeam = async (req, res) => {
@@ -9,15 +9,15 @@ const findOneTeam = async (req, res) => {
         const team = await Team.findOne({ identifier: identifier })
         if (team) {
             logger.debug('findOneTeam - success - identifier: ' + team)
-            res.status(httpSatus.success).json(team)
+            res.status(httpStatus.success).json(team)
         } else {
             logger.debug('findOneTeam - not found - identifier: ' + identifier)
-            res.status(httpSatus.notfound).json('No team was found')
+            res.status(httpStatus.notfound).json('No team was found')
         }
     } catch (error) {
         logger.error('findOneTeam - technical problem: ', error)
-        res.status(httpSatus.error).send(
-            'A problem has occured when trying to find a team'
+        res.status(httpStatus.error).send(
+            'A problem has occurred when trying to find a team'
         )
     }
 }
@@ -31,7 +31,7 @@ const findAllTeams = async (req, res) => {
         } else {
             logger.debug('findAllTeams - not found')
         }
-        res.status(httpSatus.success).json(teams)
+        res.status(httpStatus.success).json(teams)
     } catch (error) {
         logger.error('findAllTeams - technical problem: ' + error)
     }

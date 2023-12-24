@@ -44,7 +44,7 @@ const statsSchema = new mongoose.Schema({
     },
 })
 
-const recordSchema = new mongoose.Schema({
+const currentSeasonRecordSchema = new mongoose.Schema({
     win: {
         type: Number,
     },
@@ -57,6 +57,36 @@ const recordSchema = new mongoose.Schema({
     conceded: {
         type: Number,
     },
+})
+
+const finalsSchema = new mongoose.Schema({
+    winner: {
+        type: Number,
+    },
+    finalist: {
+        type: Number,
+    },
+})
+
+const divisionRecordSchema = new mongoose.Schema({
+    champion: {
+        type: Number,
+    },
+    second: {
+        type: Number,
+    },
+    third: {
+        type: Number,
+    },
+    last: {
+        type: Number,
+    },
+})
+
+const trophiesRecordSchema = new mongoose.Schema({
+    superBowl: finalsSchema,
+    conference: finalsSchema,
+    divisionalRecord: divisionRecordSchema,
 })
 
 const teamSchema = new mongoose.Schema(
@@ -83,7 +113,8 @@ const teamSchema = new mongoose.Schema(
         },
         standings: [standingSchema],
         stats: statsSchema,
-        record: recordSchema,
+        record: currentSeasonRecordSchema,
+        trophiesRecord: trophiesRecordSchema,
     },
     { timestamps: true }
 )

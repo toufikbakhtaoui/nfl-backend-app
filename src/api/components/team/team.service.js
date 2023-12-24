@@ -136,7 +136,7 @@ exports.updateStandings = async (games, season) => {
 }
 
 exports.getStandingsByDivision = async (season) => {
-    return await Team.aggregate([
+    return Team.aggregate([
         { $unwind: '$standings' },
         {
             $match: {
@@ -177,7 +177,7 @@ exports.getStandingsByDivision = async (season) => {
 }
 
 exports.getStandings = async (season) => {
-    return await Team.aggregate([
+    return Team.aggregate([
         { $unwind: '$standings' },
         {
             $match: {

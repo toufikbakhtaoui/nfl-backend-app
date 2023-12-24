@@ -143,6 +143,89 @@ const generateNewSeason = async (nextSeasonIdentifier) => {
     await Game.insertMany(newSeasonGames)
 }
 
+const updateDivisionRecord = async (standingsByDivision) => {
+    for (const standings of standingsByDivision) {
+        const champion = standings.teams[0]
+        await Team.findOneAndUpdate(
+            { identifier: champion.identifier },
+            { $inc: { 'trophiesRecord.divisionalRecord.champion': 1 } }
+        )
+
+        const second = standings.teams[1]
+        await Team.findOneAndUpdate(
+            { identifier: second.identifier },
+            { $inc: { 'trophiesRecord.divisionalRecord.second': 1 } }
+        )
+
+        const third = standings.teams[2]
+        await Team.findOneAndUpdate(
+            { identifier: third.identifier },
+            { $inc: { 'trophiesRecord.divisionalRecord.third': 1 } }
+        )
+
+        const last = standings.teams[3]
+        await Team.findOneAndUpdate(
+            { identifier: last.identifier },
+            { $inc: { 'trophiesRecord.divisionalRecord.last': 1 } }
+        )
+    }
+}
+
+const updateConferenceRecord = async (season) => {
+    const championshipGames = await Game.find({
+        season: season,
+        week: 19,
+    })
+    for (const championshipGame of championshipGames) {
+        let winner
+        let finalist
+        if (
+            championshipGame.homeTeam.points > championshipGame.awayTeam.points
+        ) {
+            winner = championshipGame.homeTeam
+            finalist = championshipGame.awayTeam
+        } else {
+            winner = championshipGame.awayTeam
+            finalist = championshipGame.homeTeam
+        }
+        await Team.findOneAndUpdate(
+            { identifier: winner.identifier },
+            { $inc: { 'trophiesRecord.conference.winner': 1 } }
+        )
+        await Team.findOneAndUpdate(
+            { identifier: finalist.identifier },
+            { $inc: { 'trophiesRecord.conference.finalist': 1 } }
+        )
+    }
+}
+
+const updateSuperBowlRecord = async (season) => {
+    const superBowl = await Game.findOne({
+        season: season,
+        week: 20,
+    })
+
+    let superBowlChampion
+    let superBowlFinalist
+
+    if (superBowl._doc.homeTeam.points > superBowl._doc.awayTeam.points) {
+        superBowlChampion = superBowl._doc.homeTeam
+        superBowlFinalist = superBowl._doc.awayTeam
+    } else {
+        superBowlChampion = superBowl._doc.awayTeam
+        superBowlFinalist = superBowl._doc.homeTeam
+    }
+
+    await Team.findOneAndUpdate(
+        { identifier: superBowlChampion.identifier },
+        { $inc: { 'trophiesRecord.superBowl.winner': 1 } }
+    )
+    await Team.findOneAndUpdate(
+        { identifier: superBowlFinalist.identifier },
+        { $inc: { 'trophiesRecord.superBowl.finalist': 1 } }
+    )
+}
+
 const generatePlayoffs = async (week, season) => {
     const standingsByDivision = await teamService.getStandingsByDivision(season)
 
@@ -168,8 +251,10 @@ const generatePlayoffs = async (week, season) => {
         afcWinners = winners.filter((team) => team.conference === 'afc')
         nfcWinners = winners.filter((team) => team.conference === 'nfc')
     }
+
     switch (week) {
         case 16:
+            await updateDivisionRecord(standingsByDivision)
             const afcWildCardGames = wildCardScheduler.generateWildCard(
                 afcChampions,
                 afcContenders,
@@ -207,6 +292,7 @@ const generatePlayoffs = async (week, season) => {
             await Game.insertMany([afcChampionshipGame, nfcChampionshipGame])
             break
         case 19:
+            await updateConferenceRecord(season)
             const superBowlGame = superBowlScheduler.generateSuperBowl(
                 [afcWinners[0], nfcWinners[0]],
                 season
@@ -214,6 +300,7 @@ const generatePlayoffs = async (week, season) => {
             await Game.insertMany([superBowlGame])
             break
         case 20:
+            await updateSuperBowlRecord(season)
             const nextSeasonIdentifier = season + 1
             await teamService.insertStandings(
                 afcStandings,
@@ -257,6 +344,22 @@ const createTeamList = async () => {
                 draw: 0,
                 scored: 0,
                 conceded: 0,
+            },
+            trophiesRecord: {
+                superBowl: {
+                    winner: 0,
+                    finalist: 0,
+                },
+                conference: {
+                    winner: 0,
+                    finalist: 0,
+                },
+                divisionalRecord: {
+                    champion: 0,
+                    second: 0,
+                    third: 0,
+                    last: 0,
+                },
             },
         })
         teams.push(team)

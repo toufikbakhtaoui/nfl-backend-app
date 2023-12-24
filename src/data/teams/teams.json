@@ -106,7 +106,7 @@
     {
         "identifier": 14,
         "name": "raiders",
-        "city": "oakland",
+        "city": "las vegas",
         "stadium": "oakland–alameda county coliseum",
         "conference": "afc",
         "division": "west"
@@ -145,7 +145,7 @@
     },
     {
         "identifier": 19,
-        "name": "redskins",
+        "name": "commanders",
         "city": "washington",
         "stadium": "fedexfield",
         "conference": "nfc",

@@ -20,6 +20,7 @@ const gameStats = {
     fumble: 0,
     interception: 0,
 }
+
 const findGames = async (req, res) => {
     try {
         logger.debug(
