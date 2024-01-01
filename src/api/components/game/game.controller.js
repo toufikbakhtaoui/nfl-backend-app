@@ -32,7 +32,8 @@ const findGames = async (req, res) => {
                 req.query.team
         )
 
-        let games = await gameService.getGames(
+        let games = []
+        games = await gameService.getGames(
             req.query.season,
             req.query.week,
             req.query.team

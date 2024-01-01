@@ -131,18 +131,10 @@ describe('Game endpoint tests', () => {
     })
 
     it('Should add superbowl games after playing championship games', async () => {
-        const regularSeason = await request(app).get(
-            '/api/games/scores?season=1&week=16'
-        )
-        const wildCard = await request(app).get(
-            '/api/games/scores?season=1&week=17'
-        )
-        const divisional = await request(app).get(
-            '/api/games/scores?season=1&week=18'
-        )
-        const championship = await request(app).get(
-            '/api/games/scores?season=1&week=19'
-        )
+        await request(app).get('/api/games/scores?season=1&week=16')
+        await request(app).get('/api/games/scores?season=1&week=17')
+        await request(app).get('/api/games/scores?season=1&week=18')
+        await request(app).get('/api/games/scores?season=1&week=19')
         const superBowl = await request(app).get('/api/games?season=1&week=20')
         expect(superBowl.body.length).toEqual(1)
     })

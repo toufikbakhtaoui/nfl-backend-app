@@ -109,7 +109,6 @@
                             "$ref": "#/definitions/Games"
                         }
                     }
-
                 ],
                 "responses":{
                     "200":{
