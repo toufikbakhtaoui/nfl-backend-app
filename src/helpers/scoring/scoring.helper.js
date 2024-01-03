@@ -4,21 +4,24 @@ const chance = new Chance()
 let position = 0
 let endZone = 100
 let target = 0
-let fourthDown = false
-let touchDown = false
-let fumble = false
-let interception = false
+let isFourthDown = false
+let isTouchDown = false
+let isFumble = false
+let isInterception = false
+const thirdDown = 3
+const touchdown = 7
+const fieldGoal = 3
 
 const initDrive = () => {
     position = 25
     target = position + 10
-    fourthDown = false
-    touchDown = false
-    fumble = false
-    interception = false
+    isFourthDown = false
+    isTouchDown = false
+    isFumble = false
+    isInterception = false
 }
 
-const fieldGoal = (position) => {
+const isFieldGoal = (position) => {
     return chance.weighted([0, 3], [100 - position, position])
 }
 
@@ -29,10 +32,10 @@ const turnOver = (team, losingBallTeam) => {
 }
 
 const fourthDownPlay = (team) => {
-    fourthDown = true
+    isFourthDown = true
     return position < 60
         ? (team.stats.punts += 1)
-        : fieldGoal(position) === 3
+        : isFieldGoal(position) === 3
           ? (team.stats.fieldGoals += 1)
           : (team.stats.missedFieldGoals += 1)
 }
@@ -59,17 +62,17 @@ const play = () => {
 
 const executeDrive = (teamToPlay, turnOverTeam) => {
     initDrive()
-    while (!fourthDown && !touchDown && !fumble && !interception) {
+    while (!isFourthDown && !isTouchDown && !isFumble && !isInterception) {
         for (let down = 1; down < 4; down++) {
             teamToPlay.stats.attempts += 1
             let gainedYards = play()
             if (gainedYards === -1) {
-                fumble = true
+                isFumble = true
                 break
             }
 
             if (gainedYards === -2) {
-                interception = true
+                isInterception = true
                 break
             }
 
@@ -81,24 +84,24 @@ const executeDrive = (teamToPlay, turnOverTeam) => {
 
             if (position >= endZone) {
                 teamToPlay.stats.touchDowns += 1
-                touchDown = true
+                isTouchDown = true
                 break
             }
 
             if (position >= target) {
                 target = position + 10
                 break
-            } else if (down === 3) {
+            } else if (down === thirdDown) {
                 fourthDownPlay(teamToPlay)
             }
         }
     }
-    if (fumble === true) {
+    if (isFumble === true) {
         teamToPlay.stats.fumble += 1
         turnOver(turnOverTeam, teamToPlay)
     }
 
-    if (interception === true) {
+    if (isInterception === true) {
         teamToPlay.stats.interception += 1
         turnOver(turnOverTeam, teamToPlay)
     }
@@ -126,7 +129,9 @@ exports.getScore = (game) => {
         }
     }
     game.homeTeam.points =
-        game.homeTeam.stats.touchDowns * 7 + game.homeTeam.stats.fieldGoals * 3
+        game.homeTeam.stats.touchDowns * touchdown +
+        game.homeTeam.stats.fieldGoals * fieldGoal
     game.awayTeam.points =
-        game.awayTeam.stats.touchDowns * 7 + game.awayTeam.stats.fieldGoals * 3
+        game.awayTeam.stats.touchDowns * touchdown +
+        game.awayTeam.stats.fieldGoals * fieldGoal
 }
