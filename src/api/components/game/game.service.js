@@ -1,6 +1,6 @@
 const Game = require('./game.model')
 
-exports.getGames = async (season, week, team) => {
+exports.findGames = async (season, week, team) => {
     const query = {}
     if (season != null) {
         query.season = Number(season)

@@ -195,6 +195,16 @@ exports.getStandings = async (season) => {
     ])
 }
 
+function computeNewRank(currentTeam, newSeasonIdentifier, teamsPerDivision, i) {
+    const currentSeasonStandings = currentTeam.standings.find(
+        (standing) => standing.season === newSeasonIdentifier - 1
+    )
+    const modulus = currentSeasonStandings.rank % teamsPerDivision
+    const dividing = Math.floor(currentSeasonStandings.rank / teamsPerDivision)
+    const division = modulus === 0 ? dividing : dividing + 1
+    return (division - 1) * teamsPerDivision + i + 1
+}
+
 exports.insertStandings = async (standings, newSeasonIdentifier) => {
     const teamsPerDivision = 4
     standings.forEach(async (div) => {
@@ -202,15 +212,14 @@ exports.insertStandings = async (standings, newSeasonIdentifier) => {
             const currentTeam = await Team.findOne({
                 identifier: team.identifier,
             })
-            const currentSeasonStandings = currentTeam.standings.find(
-                (standing) => standing.season === newSeasonIdentifier - 1
+
+            const newRank = computeNewRank(
+                currentTeam,
+                newSeasonIdentifier,
+                teamsPerDivision,
+                i
             )
-            const modulus = currentSeasonStandings.rank % teamsPerDivision
-            const dividing = Math.floor(
-                currentSeasonStandings.rank / teamsPerDivision
-            )
-            const division = modulus === 0 ? dividing : dividing + 1
-            const newRank = (division - 1) * teamsPerDivision + i + 1
+
             let newStanding = {
                 season: newSeasonIdentifier,
                 rank: newRank,
@@ -220,6 +229,7 @@ exports.insertStandings = async (standings, newSeasonIdentifier) => {
                 scored: 0,
                 conceded: 0,
             }
+
             currentTeam.standings.push(newStanding)
             await currentTeam.save()
         })
