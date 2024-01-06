@@ -25,18 +25,18 @@ const findGames = async (req, res) => {
     try {
         logger.debug(
             'findGames - season ' +
-            req.query.season +
-            ' - week ' +
-            req.query.week +
-            ' - team ' +
-            req.query.team,
+                req.query.season +
+                ' - week ' +
+                req.query.week +
+                ' - team ' +
+                req.query.team
         )
 
         let games = []
         games = await gameService.findGames(
             req.query.season,
             req.query.week,
-            req.query.team,
+            req.query.team
         )
 
         if (games !== null && games.length > 0) {
@@ -45,27 +45,24 @@ const findGames = async (req, res) => {
         } else {
             logger.debug(
                 'findGames - not found - season: ' +
-                req.query.season +
-                ' - ' +
-                'week ' +
-                req.query.week,
+                    req.query.season +
+                    ' - ' +
+                    'week ' +
+                    req.query.week
             )
             res.status(httpStatus.notfound).json('No game was found')
         }
     } catch (error) {
         logger.error('findGames - technical problem: ', error)
         res.status(httpStatus.error).send(
-            'A problem has occurred when trying to find a game',
+            'A problem has occurred when trying to find a game'
         )
     }
 }
 
 async function simulateGame(game) {
     scoringHelper.getScore(game)
-    while (
-        game.homeTeam.points === game.awayTeam.points &&
-        game.week > 16
-        ) {
+    while (game.homeTeam.points === game.awayTeam.points && game.week > 16) {
         game.homeTeam.points = 0
         game.awayTeam.points = 0
         game.homeTeam.stats = gameStats
@@ -89,10 +86,10 @@ const playGames = async (req, res) => {
         if (week !== currentSeason.week) {
             logger.debug(
                 'playGames - can not play this game - season: ' +
-                season +
-                ' - ' +
-                'week ' +
-                week,
+                    season +
+                    ' - ' +
+                    'week ' +
+                    week
             )
             return
         }
@@ -106,9 +103,7 @@ const playGames = async (req, res) => {
             await teamService.updateStats(games)
 
             if (week <= regularSeasonWeeks) {
-                logger.debug(
-                    'update standings - success - season: ' + season,
-                )
+                logger.debug('update standings - success - season: ' + season)
                 await teamService.updateStandings(games, season)
             }
 
@@ -126,17 +121,17 @@ const playGames = async (req, res) => {
         } else {
             logger.debug(
                 'playGames - not found - season: ' +
-                season +
-                ' - ' +
-                'week ' +
-                week,
+                    season +
+                    ' - ' +
+                    'week ' +
+                    week
             )
             res.status(httpStatus.notfound).json('No game was found')
         }
     } catch (error) {
         logger.error('playGames - technical problem: ', error)
         res.status(httpStatus.error).send(
-            'A problem has occurred when trying to play a game',
+            'A problem has occurred when trying to play a game'
         )
     }
 }

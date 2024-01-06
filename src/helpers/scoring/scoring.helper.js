@@ -33,11 +33,15 @@ const turnOver = (team, losingBallTeam) => {
 
 const fourthDownPlay = (team) => {
     isFourthDown = true
-    return position < 60
-        ? (team.stats.punts += 1)
-        : isFieldGoal(position) === 3
-          ? (team.stats.fieldGoals += 1)
-          : (team.stats.missedFieldGoals += 1)
+    if (position < 60) {
+        team.stats.punts = team.stats.punts + 1
+    } else {
+        if (isFieldGoal(position) === 3) {
+            team.stats.fieldGoals += 1
+        } else {
+            team.stats.missedFieldGoals += 1
+        }
+    }
 }
 
 const play = () => {
@@ -60,26 +64,48 @@ const play = () => {
     }
 }
 
+const checkInterception = (teamToPlay, turnOverTeam) => {
+    if (isInterception === true) {
+        teamToPlay.stats.interception += 1
+        turnOver(turnOverTeam, teamToPlay)
+    }
+}
+
+const checkFumble = (teamToPlay, turnOverTeam) => {
+    if (isFumble === true) {
+        teamToPlay.stats.fumble += 1
+        turnOver(turnOverTeam, teamToPlay)
+    }
+}
+
+const checkCompletion = (gainedYards, teamToPlay) => {
+    if (gainedYards > 0) {
+        teamToPlay.stats.completions = teamToPlay.stats.completions + 1
+        teamToPlay.stats.yards += gainedYards
+        position += gainedYards
+    }
+}
+
 const executeDrive = (teamToPlay, turnOverTeam) => {
     initDrive()
     while (!isFourthDown && !isTouchDown && !isFumble && !isInterception) {
         for (let down = 1; down < 4; down++) {
-            teamToPlay.stats.attempts += 1
+            teamToPlay.stats.attempts = teamToPlay.stats.attempts + 1
             let gainedYards = play()
-            if (gainedYards === -1) {
-                isFumble = true
-                break
+
+            switch (gainedYards) {
+                case -1:
+                    isFumble = true
+                    break
+                case -2:
+                    isInterception = true
+                    break
+                default:
+                    checkCompletion(gainedYards, teamToPlay)
             }
 
-            if (gainedYards === -2) {
-                isInterception = true
+            if (isFumble || isInterception) {
                 break
-            }
-
-            if (gainedYards > 0) {
-                teamToPlay.stats.completions += 1
-                teamToPlay.stats.yards += gainedYards
-                position += gainedYards
             }
 
             if (position >= endZone) {
@@ -96,15 +122,8 @@ const executeDrive = (teamToPlay, turnOverTeam) => {
             }
         }
     }
-    if (isFumble === true) {
-        teamToPlay.stats.fumble += 1
-        turnOver(turnOverTeam, teamToPlay)
-    }
-
-    if (isInterception === true) {
-        teamToPlay.stats.interception += 1
-        turnOver(turnOverTeam, teamToPlay)
-    }
+    checkFumble(teamToPlay, turnOverTeam)
+    checkInterception(teamToPlay, turnOverTeam)
 }
 
 exports.getScore = (game) => {
